@@ -102,11 +102,35 @@ namespace CP_Cards.Controllers
 
         }
 
-        public ActionResult OrderEntryStep1()
+        public ActionResult OrderEntryStep1(string Territory, string Val)
         {
-            return View();
+            TSView ret = new TSView();
+            ret.Account = ds.GetAllAccountInfo(Territory);
+            ViewBag.Terr = Territory;
+            if (Val == "All")
+            {
+                ret.Order = ds.GetAllInvoiceInfo(Territory);
+            }
+            ViewBag.val = Val;
+            return View(ret);
         }
 
+        [HttpPost]
+        public ActionResult OrderEntryStep1(string tempAccount, string ss, string Territory)
+        {
+            TSView ret = new TSView();
+            ret.Account = ds.GetSingleAccountInfo(tempAccount);
+            if (tempAccount == "")
+            {
+                ret.Order = ds.GetAllInvoiceInfo(Territory);
+            }
+            else
+            {
+                ret.Order = ds.GetInvoiceInfo(tempAccount);
+            }
+            ViewBag.Terr = Territory;
+            return View(ret);
+        }
 
         public ActionResult OrderEntryStep2()
         {

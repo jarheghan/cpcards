@@ -51,7 +51,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
   </tr>
   <tr>
     <td><div align="center"><a href="@Url.Action("RecentOrders", "Home", new {Territory = ViewBag.Terr })"><img src="@Href("~/images/TextButtons/ViewRecentOrders.gif")" width="159" height="56" border="0"></a></div></td>
-    <td><div align="center"><a href="@Url.Action("OrderEntryStep1", "Home")"><img src="@Href("~/images/TextButtons/PlaceAnOrder.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="@Url.Action("OrderEntryStep1", "Home",new {Territory = ViewBag.Terr })"><img src="@Href("~/images/TextButtons/PlaceAnOrder.gif")" width="159" height="56" border="0"></a></div></td>
     <td><div align="center"><a href="OrderSupplies.asp"><img src="@Href("~/images/TextButtons/OrderSupplies.gif")" width="159" height="56" border="0"></a></div></td>
   </tr>
   <tr>

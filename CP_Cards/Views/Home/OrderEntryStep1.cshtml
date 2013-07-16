@@ -1,3 +1,5 @@
+@model CP_Cards.Models.TSView
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,13 +32,18 @@
       </table>
 <hr>
 
-<form action="OrderEntryStep1.asp" method="post" name="Accounts" id="Accounts">
+@using(Html.BeginForm())
+{
   <table width="100%"  border="0" cellpadding="0">
     <tr>
       <td><div align="left">
         <select name="Account" id="select">
           
-            <option value=""></option>
+        @{foreach (var mm in Model.Account)
+                {
+                <option value="@mm.StoreNumber" selected="@mm.StoreNumber" >@mm.StoreNumber -  @mm.CustName - @mm.City</option>
+                }
+         }
            
         </select>
       OR 
@@ -47,7 +54,7 @@
       </div></td>
     </tr>
   </table>
-</form>
+}
 <p>
   
   <strong><%=(Account.Fields.Item("storenumber").Value)%></strong>
@@ -57,7 +64,7 @@
 </MM:DECORATION></MM_HIDDENREGION></p>
 <table width="100%"  border="0" cellpadding="0">
   <tr>
-    <td><div align="center"><a href="OrderEntryStep2.asp?Display=E"><img src="@Href("~/images/TextButtons/EveryDayCards.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="@Url.Action("OrderEntryStep2","Home")"><img src="@Href("~/images/TextButtons/EveryDayCards.gif")" width="159" height="56" border="0"></a></div></td>
     <td><div align="center"><a href="OrderEntryStep2.asp?Display=T"><img src="@Href("~/images/TextButtons/TitleFinders.gif")" width="159" height="56" border="0"></a></div></td>
     <td><div align="center"><a href="OrderEntryStep2.asp?Display=S"><img src="@Href("~/images/TextButtons/SeasonalCards.gif")" width="159" height="56" border="0"></a></div></td>
     </tr>
