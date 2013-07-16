@@ -1,0 +1,76 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Cards Plus</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+.style1 {font-size: x-large}
+-->
+</style>
+</head>
+@*<% If not memo.EOF Or not memo.BOF Then bodywrite = "onLoad=""MM_openBrWindow('Memo.asp','Memo','scrollbars=yes,width=450,height=450')"""%>*@
+<body leftmargin="0" topmargin="0" rightmargin="0" @*<%=bodywrite%>*@>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>Cards Plus - Back Office</title>
+</head>
+
+<body>
+@*<% If Session("Testing") = "Yes" Then%>*@<span class="style2">Test Mode Enabled</span><br>@*<%end if%> *@
+<table cellspacing="2" cellpadding="2" border="0">
+<tr>
+    <td align="center"><div align="center"><a href="main.html"><img src="@Href("~/images/cardsplus-logo.jpg")" alt="" width="300" height="135" border="0"></a></div><br>Back Office</td>
+</tr>
+<tr>
+    <td><p class="style1"><strong>Main Page
+
+</strong></p>
+<hr>
+        
+<p class="style1">Cards-Plus Territory <strong>@ViewBag.Terr</strong>
+</p>
+<table width="100%"  border="0" cellpadding="0">
+  <tr>
+@*    <td><div align="center"><a href="/Home/Memo" target="_blank"><img src="@Href("~/images/TextButtons/ViewMemos.gif")" width="159" height="56" border="0"></a></div></td>*@
+    <td><div align="center"><a href="@Url.Action("Memo", "Home", new {Territory = ViewBag.Terr })" target="_blank"><img src="@Href("~/images/TextButtons/ViewMemos.gif")" width="159" height="56" border="0"></a></div></td>
+
+    <td><div align="center"><a href="@Url.Action("TimeSheet", "Home", new {Territory = ViewBag.Terr })"><img src="@Href("~/images/TextButtons/TimesheetEntry.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="/Admin/Login"><img src="@Href("~/images/TextButtons/LogOut.gif")" width="159" height="56" border="0"></a></div></td>
+  </tr>
+  <tr>
+    <td><div align="center"><a href="@Url.Action("RecentOrders", "Home", new {Territory = ViewBag.Terr })"><img src="@Href("~/images/TextButtons/ViewRecentOrders.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="OrderEntryStep1.asp"><img src="@Href("~/images/TextButtons/PlaceAnOrder.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="OrderSupplies.asp"><img src="@Href("~/images/TextButtons/OrderSupplies.gif")" width="159" height="56" border="0"></a></div></td>
+  </tr>
+  <tr>
+    <td><div align="center"><a href="UpdatePersonalInfo.asp"><img src="@Href("~/images/TextButtons/UpdatePersonalInfo.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="SalesLeads.asp"><img src="@Href("~/images/TextButtons/SalesLeads.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="../Calendar/calendar.aspx"><img src="@Href("~/images/TextButtons/CalendarOfEvents.gif")" width="159" height="56" border = "0"></a></div></td>
+  </tr>
+  <tr>
+    <td colspan="3"><div align="center"><a href="ViewOrders.asp"><img src="@Href("~/images/TextButtons/ViewOrders.gif")" width="159" height="56" border="0"></a><a href="ViewTimesheets.asp"><img src="@Href("~/images/TextButtons/viewTimesheets.gif")" width="159" height="56" border="0"></a></div></td>
+    </tr>
+</table></td>
+</tr>
+</table>
+
+
+
+</body>
+</html>
+@*<%
+memo.Close()
+Set memo = Nothing
+%>*@

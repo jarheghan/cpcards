@@ -1,0 +1,67 @@
+@model System.Collections.Generic.IEnumerable<CP_Cards.Models.Memos>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Cards Plus</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+.style1 {
+	font-size: x-large;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body leftmargin="0" topmargin="0" rightmargin="0">
+@*<% If Session("Testing") = "Yes" Then%><span class="style2">Test Mode Enabled</span><br><%end if%> *@
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutTable-->
+  <tr>
+    <td height="56" colspan="2" valign="top"><img src="@Href("~/images/top_name.jpg")" width="318" height="56"></td>
+  </tr>
+  <tr>
+    <td width="149" height="507" valign="top" bgcolor="76A1E3">		<map name="right_bar_map">
+        <area alt="" coords="3,5,144,38" href="main.html">
+        <area alt="" coords="3,40,144,75" href="about.html">
+        <area alt="" coords="4,77,144,109" href="products.html">
+        <area alt="" coords="4,111,143,150" href="support.html">
+        <area alt="" coords="3,152,142,191" href="contact.html">
+        <area alt="" coords="4,192,141,236" href="staff.html">
+        <area alt="" coords="3,468,147,506" href="http://w3.cards-plus.com/">
+    </map>      <img src="@Href("~/images/right_bar.gif")" alt="" width="149" height="507" border="0" usemap="#right_bar_map">      </td>
+    <td width="100%" valign="top">
+	  <span class="style1">Memos      </span>
+<hr>
+<p>
+ 
+</p>
+@{
+   foreach(var mm in Model) 
+   {
+<p>Date: @mm.Begin_Date <br>
+    Territory: @mm.Territory <br>
+    Memo: @mm.Message <br>
+</p>
+}
+}
+@using(@Html.BeginForm())
+{
+    <p>
+        <input name="Read" type="checkbox" id="Read" value=""> 
+      Please check this box to indicate you have read the memo</p>
+    <p>
+        <input name="SubmitMemo" type="image" src="@Href("~/images/TextButtons/IHaveReadMemo.gif")" id="SubmitMemo" value="Don't Show This Memo Again">
+    </p>
+    <input type="hidden" name="MM_update" value="ReadMemo">
+    <input type="hidden" name="MM_recordId" value="">
+
+}
+
+<p align="center">&nbsp;</p>
+<a href="javascript:window.close()"><img src="@Href("~/images/TextButtons/CloseWindow.gif")" width="159" height="56" border="0"></a></td>
+  </tr>
+</table>
+</body>
+</html>
