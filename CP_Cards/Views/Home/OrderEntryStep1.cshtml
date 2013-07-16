@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Cards Plus</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+.style1 {
+	font-size: x-large;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+
+<body>
+<table cellspacing="2" cellpadding="2" border="0">
+<tr>
+    <td align="center"><div align="center"><a href="main.html"><img src="@Href("~/images/cardsplus-logo.jpg")" alt="" width="300" height="135" border="0"></a></div><br>Back Office</td>
+</tr>
+<tr>
+    <td>
+	<!--- Start --->
+	<table width="100%"  border="0" cellpadding="0">
+        <tr>
+          <td><div align="left"><span class="style1">Order Entry Step 1 </span></div></td>
+          <td><div align="left">            <a href="ViewOrders.asp" target="_blank"><img src="@Href("~/images/TextButtons/ViewOrders.gif")" width="159" height="56" border="0"></a><a href="MainPage.asp"><img src="@Href("~/images/TextButtons/BackToMainMenu.gif")" width="159" height="56" border="0"></a></div></td>
+        </tr>
+      </table>
+<hr>
+
+<form action="OrderEntryStep1.asp" method="post" name="Accounts" id="Accounts">
+  <table width="100%"  border="0" cellpadding="0">
+    <tr>
+      <td><div align="left">
+        <select name="Account" id="select">
+          
+            <option value=""></option>
+           
+        </select>
+      OR 
+      <input name="tempAccount" type="text" id="tempAccount" size="5">
+      </div></td>
+      <td><div align="right">
+        <input name="SelectAccount" type="image" src="@Href("~/images/TextButtons/SelectAccount.gif")" id="SelectAccount" value="Select Account">
+      </div></td>
+    </tr>
+  </table>
+</form>
+<p>
+  
+  <strong><%=(Account.Fields.Item("storenumber").Value)%></strong>
+  <br>
+  <br>
+  <br>
+</MM:DECORATION></MM_HIDDENREGION></p>
+<table width="100%"  border="0" cellpadding="0">
+  <tr>
+    <td><div align="center"><a href="OrderEntryStep2.asp?Display=E"><img src="@Href("~/images/TextButtons/EveryDayCards.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="OrderEntryStep2.asp?Display=T"><img src="@Href("~/images/TextButtons/TitleFinders.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="OrderEntryStep2.asp?Display=S"><img src="@Href("~/images/TextButtons/SeasonalCards.gif")" width="159" height="56" border="0"></a></div></td>
+    </tr>
+  <tr>
+    <td><div align="center"><a href="OrderEntryStep2.asp?Display=G"><img src="@Href("~/images/TextButtons/GeneralMerchandise.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="OrderPlush.asp"><img src="@Href("~/images/TextButtons/PlushItems.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="OrderPromo.asp"><img src="@Href("~/images/TextButtons/PromoItems.gif")" width="159" height="56" border="0"></a></div></td>
+    </tr>
+</table>
+<form action="SubmitFinalOrder.asp" method="post" name="OrderEntry" id="OrderEntry">
+  <div align="center">Order Notes  </div>
+  <div align="center">
+    <textarea name="Notes" cols="70" id="Notes"></textarea> 
+  <br>
+  <input name="SubmitOrder" type="image" src="@Href("~/images/TextButtons/SubmitOrder.gif")" id="SubmitOrder" value="SubmitOrder">
+  </div>
+</form>
+<p><MM_HIDDENREGION><MM:DECORATION OUTLINE="Show%20If..." OUTLINEID=1>
+</p>	</td>
+  </tr>
+</table>
+	<!--- Finish --->
+	</td>
+</tr>
+</table>
+
+
+
+</body>
+</html>

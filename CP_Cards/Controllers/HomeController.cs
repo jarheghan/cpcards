@@ -102,6 +102,16 @@ namespace CP_Cards.Controllers
 
         }
 
+        public ActionResult OrderEntryStep1()
+        {
+            return View();
+        }
+
+
+        public ActionResult OrderEntryStep2()
+        {
+            return View();
+        }
         
 
     }

@@ -84,7 +84,7 @@ namespace CP_Cards.infasctructure
             {
                 sqlConnection.Open();
                 IEnumerable<Orders> retalierInfo
-                    = sqlConnection.Query<Orders>("select * from Orders where territory = @Territory", new { Territory = Territory });
+                    = sqlConnection.Query<Orders>("select * from Orders where territory LIKE '%' + @Territory + '%'", new { Territory = Territory });
                 sqlConnection.Close();
                 return retalierInfo;
 
