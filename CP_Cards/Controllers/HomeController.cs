@@ -10,7 +10,7 @@ namespace CP_Cards.Controllers
 {
     public class HomeController : Controller
     {
-       
+       TSView vTS = new TSView();
         //
         // GET: /Home/
         DataService ds = new DataService();
@@ -105,7 +105,7 @@ namespace CP_Cards.Controllers
         public ActionResult OrderEntryStep1(string Territory, string Val)
         {
             TSView ret = new TSView();
-            ret.Account = ds.GetAllAccountInfo(Territory);
+            ret.AccountAll = ds.GetAllAccountInfo(Territory);
             ViewBag.Terr = Territory;
             if (Val == "All")
             {
@@ -116,17 +116,21 @@ namespace CP_Cards.Controllers
         }
 
         [HttpPost]
-        public ActionResult OrderEntryStep1(string tempAccount, string ss, string Territory)
+        public ActionResult OrderEntryStep1(string tempAccount, string ss, string Territory, Accounts ts)
         {
             TSView ret = new TSView();
-            ret.Account = ds.GetSingleAccountInfo(tempAccount);
+            //ret.Account = ds.GetSingleAccountInfo(tempAccount);
             if (tempAccount == "")
             {
                 ret.Order = ds.GetAllInvoiceInfo(Territory);
+                ret.Account = ds.GetSingleAccountInfo(ts.StoreNumber);
+                ret.AccountAll = ds.GetAllAccountInfo(Territory);
             }
             else
             {
                 ret.Order = ds.GetInvoiceInfo(tempAccount);
+                ret.Account = ds.GetSingleAccountInfo(tempAccount);
+                ret.AccountAll = ds.GetAllAccountInfo(Territory);
             }
             ViewBag.Terr = Territory;
             return View(ret);

@@ -57,7 +57,7 @@ namespace CP_Cards.infasctructure
             {
                 sqlConnection.Open();
                 IEnumerable<Accounts> retalierInfo
-                    = sqlConnection.Query<Accounts>("select * from Accounts where Territory = @Territory", new { Territory = Territory });
+                    = sqlConnection.Query<Accounts>("select *, storenumber + '-' + Custname + '-' + City as ConInfo from Accounts where Territory = @Territory", new { Territory = Territory });
                 sqlConnection.Close();
                 return retalierInfo;
 

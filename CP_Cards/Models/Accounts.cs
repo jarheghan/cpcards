@@ -19,5 +19,6 @@ namespace CP_Cards.Models
         public string Phone { get; set; }
         public string Phone2 { get; set; }
         public decimal AccountID { get; set; }
+        public string ConInfo { get; set; }
     }
 }

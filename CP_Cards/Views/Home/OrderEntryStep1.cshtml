@@ -37,15 +37,16 @@
   <table width="100%"  border="0" cellpadding="0">
     <tr>
       <td><div align="left">
-        <select name="Account" id="select">
+       @* <select name="Account" id="select">
           
         @{foreach (var mm in Model.Account)
                 {
                 <option value="@mm.StoreNumber" selected="@mm.StoreNumber" >@mm.StoreNumber -  @mm.CustName - @mm.City</option>
                 }
          }
-           
-        </select>
+        
+        </select>*@
+      @Html.DropDownListFor( m => m.StoreNumber, new SelectList(Model.AccountAll, "StoreNumber","ConInfo", Model.StoreNumber), "--Select--")
       OR 
       <input name="tempAccount" type="text" id="tempAccount" size="5">
       </div></td>
@@ -56,11 +57,14 @@
   </table>
 }
 <p>
-  
-  <strong><%=(Account.Fields.Item("storenumber").Value)%></strong>
+  @{foreach (var mm in Model.Account)
+    {
+  <strong>@mm.StoreNumber</strong>
   <br>
   <br>
   <br>
+  }
+  }
 </MM:DECORATION></MM_HIDDENREGION></p>
 <table width="100%"  border="0" cellpadding="0">
   <tr>
