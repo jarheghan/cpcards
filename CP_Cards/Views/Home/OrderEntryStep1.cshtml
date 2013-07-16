@@ -27,7 +27,7 @@
 	<table width="100%"  border="0" cellpadding="0">
         <tr>
           <td><div align="left"><span class="style1">Order Entry Step 1 </span></div></td>
-          <td><div align="left">            <a href="ViewOrders.asp" target="_blank"><img src="@Href("~/images/TextButtons/ViewOrders.gif")" width="159" height="56" border="0"></a><a href="MainPage.asp"><img src="@Href("~/images/TextButtons/BackToMainMenu.gif")" width="159" height="56" border="0"></a></div></td>
+          <td><div align="left">            <a href="ViewOrders.asp" target="_blank"><img src="@Href("~/images/TextButtons/ViewOrders.gif")" width="159" height="56" border="0"></a><a href="@Url.Action("MainPage", "Home", new {Territory = ViewBag.Terr })"><img src="@Href("~/images/TextButtons/BackToMainMenu.gif")" width="159" height="56" border="0"></a></div></td>
         </tr>
       </table>
 <hr>
@@ -60,9 +60,12 @@
   @{foreach (var mm in Model.Account)
     {
   <strong>@mm.StoreNumber</strong>
-  <br>
-  <br>
-  <br>
+  <div>@mm.Contact</div>
+  <div>@mm.CustName</div>
+  <div>@mm.Address</div>
+  <div>@mm.Address2</div>
+  <div>@mm.City</div>
+ 
   }
   }
 </MM:DECORATION></MM_HIDDENREGION></p>

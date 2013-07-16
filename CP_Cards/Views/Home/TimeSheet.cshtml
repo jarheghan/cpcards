@@ -44,7 +44,7 @@
   <table width="100%"  border="0" cellpadding="0">
     <tr>
       <td>        <div align="left">
-          <select name="Account">
+          @*<select name="Account">
               @{foreach (var mm in Model.Account)
                 {
                 <option value="@mm.StoreNumber" selected="@mm.StoreNumber" >@mm.StoreNumber -  @mm.CustName - @mm.City</option>
@@ -53,8 +53,9 @@
               
                 <option value="" selected=""></option>
                
-          </select>
-       
+          </select>*@
+             @Html.DropDownListFor( m => m.StoreNumber, new SelectList(Model.AccountAll, "StoreNumber","ConInfo", Model.StoreNumber), "--Select--")
+          OR
         <input name="tempAccount" type="text" id="tempAccount" size="5">
         <input name ="Territory" type="hidden" id="TerrID" value="@ViewBag.Terr" />
         </div></td>
@@ -67,9 +68,8 @@
 }
 
    
- @{if(Model.Account.Count() == 1)
-   {
-     foreach (var m1 in Model.Account)
+ 
+  @{foreach (var m1 in Model.Account)
    {
             
 <table width="50%"  border="0" cellpadding="0">
@@ -107,7 +107,7 @@
 <hr>
  }
  }
-   }
+
 
 
 @using(Html.BeginForm("TimeSheetAdd","Home"))
