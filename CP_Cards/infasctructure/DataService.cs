@@ -91,6 +91,28 @@ namespace CP_Cards.infasctructure
             }
         }
 
+
+        public IEnumerable<Cards> GetRackByCardType(string racks, string cardType)
+        {
+            using (var sqlConnection = new SqlConnection(Constant.connectionString))
+            {
+                sqlConnection.Open();
+                IEnumerable<Cards> cardInfo
+                    = sqlConnection.Query<Cards>("select * from cards where Number = @racks  and Display LIKE '%' + @cardtype + '%'"
+                    , new { racks = racks , cardtype = cardType});
+                sqlConnection.Close();
+                return cardInfo;
+
+            }
+        }
+
+
+
+
+
+
+
+
         public void AddTimeSheeInfo(TimeSheet timesheet)
         {
             using (var sqlConnection = new SqlConnection(Constant.connectionString))
@@ -115,6 +137,10 @@ namespace CP_Cards.infasctructure
 
         }
     }
+
+
+
+
 
 
     class Constant

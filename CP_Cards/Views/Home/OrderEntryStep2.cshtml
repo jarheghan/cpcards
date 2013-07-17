@@ -16,7 +16,7 @@
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <!--DWLayoutTable-->
   <tr>
-    <td height="56" colspan="2" valign="top"><img src="@Href("~/imagesimages/top_name.jpg")" width="318" height="56"></td>
+    <td height="56" colspan="2" valign="top"><img src="@Href("~/images/top_name.jpg")" width="318" height="56"></td>
   </tr>
   <tr>
     <td width="149" height="507" valign="top" bgcolor="76A1E3">		<map name="right_bar_map">
@@ -34,15 +34,17 @@
           <tr>
             <td><div align="left" class="style1"><strong>Order Entry Step 2</strong></div></td>
             <td><div align="right"><strong><a href="javascript:submitform('mainmenu')">
-<SCRIPT language="JavaScript">
+<script language="JavaScript">
 var position
 function submitform(position)
 {
 document.Rackpos.Location.value = position
 document.Rackpos.submit();
 }
-</SCRIPT>			
-			<img src="@Href("~/imagesTextButtons/BackToOrderEntry.gif")" width="159" height="56" border="0"></a></strong></div></td>
+</script>			
+<img src="@Href("~/images/TextButtons/BackToOrderEntry.gif")" width="159" height="56" border="0"></a></strong>
+
+                </div></td>
           </tr>
         </table>
 	    <strong></strong>
@@ -63,8 +65,8 @@ document.Rackpos.submit();
           </div></td>
       <td>
         <div align="right">
-          <img src="TextButtons/SelectRack.gif" onClick="SwitchRacks()">        
-           <a href=""javascript:selectAll()""><img src=""@Href("~/images/TextButtons/CheckUnCheckAll.gif")"" width=""159"" height=""56"" border = ""0""></a>"
+          <img src="@Href("~/images/TextButtons/SelectRack.gif")" onClick="SwitchRacks()">        
+           <a href=""javascript:selectAll()""><img src=""@Href("~/images/TextButtons/CheckUnCheckAll.gif")"" width=""159"" height=""56"" border = ""0""></a>
 
         </div></td>
     </tr>
@@ -78,7 +80,7 @@ document.Rackpos.submit();
 <form action="OrderEntryStep3.asp?NextRack=<%=NextRack%>&Display=<%=Session("RackType")%><%=CardType%>" method="post" name="Rackpos" id="Rackpos">
   <div align="right">
   <a href="javascript:RackFlip()"><img src="@Href("~/images/TextButtons/ViewRackDetails.gif")" width="159" height="56" border="0"></a>
-  <input type="image" src="TextButtons/SaveThisRack.gif" name="Submit" value="Save Order">
+  <input type="image" src="@Href("~/images/TextButtons/SaveThisRack.gif")" name="Submit" value="Save Order">
   <br>
   <a href="OrderEntryStep2Advanced.asp?Rack=<%=rack%>&NextRack=<%=NextRack%>&Display=<%=Session("RackType")%><%=CardType%>">Advanced Entry </a>
   </div>
