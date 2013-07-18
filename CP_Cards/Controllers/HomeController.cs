@@ -10,7 +10,7 @@ namespace CP_Cards.Controllers
 {
     public class HomeController : Controller
     {
-       
+       TSView vTS = new TSView();
         //
         // GET: /Home/
         DataService ds = new DataService();
@@ -45,19 +45,44 @@ namespace CP_Cards.Controllers
         public ActionResult TimeSheet(string Territory)
         {
             //storenumber = "0131";
+            //TSView ret = new TSView();
+            //ret.Account = ds.GetAllAccountInfo(Territory);
+            //ViewBag.Terr = Territory;
+            //return View(ret);
+
+
             TSView ret = new TSView();
-            ret.Account = ds.GetAllAccountInfo(Territory);
+            ret.AccountAll = ds.GetAllAccountInfo(Territory);
+            ret.Account = ds.GetSingleAccountInfo("0000");
             ViewBag.Terr = Territory;
             return View(ret);
         }
 
         [HttpPost]
-        public ActionResult TimeSheet(string tempAccount, string ss, string Territory)
+        public ActionResult TimeSheet(string tempAccount, string ss, string Territory, Accounts ts)
         {
             //storenumber = "0131";
+            //TSView ret = new TSView();
+            //ret.Account = ds.GetSingleAccountInfo(tempAccount);
+            //ret.Order = ds.GetInvoiceInfo(tempAccount);
+            //ViewBag.Terr = Territory;
+            //return View(ret);
+
+
             TSView ret = new TSView();
-            ret.Account = ds.GetSingleAccountInfo(tempAccount);
-            ret.Order = ds.GetInvoiceInfo(tempAccount);
+            //ret.Account = ds.GetSingleAccountInfo(tempAccount);
+            if (tempAccount == "")
+            {
+                ret.Order = ds.GetInvoiceInfo(ts.StoreNumber);
+                ret.Account = ds.GetSingleAccountInfo(ts.StoreNumber);
+                ret.AccountAll = ds.GetAllAccountInfo(Territory);
+            }
+            else if (tempAccount != "" && (ts.StoreNumber != "" || ts.StoreNumber == ""))
+            {
+                ret.Order = ds.GetInvoiceInfo(tempAccount);
+                ret.Account = ds.GetSingleAccountInfo(tempAccount);
+                ret.AccountAll = ds.GetAllAccountInfo(Territory);
+            }
             ViewBag.Terr = Territory;
             return View(ret);
         }
@@ -72,8 +97,71 @@ namespace CP_Cards.Controllers
 
         public ActionResult RecentOrders(string Territory, string Val)
         {
+            //TSView ret = new TSView();
+            //ret.Account = ds.GetAllAccountInfo(Territory);
+            //ViewBag.Terr = Territory;
+            //if (Val == "All")
+            //{
+            //    ret.Order = ds.GetAllInvoiceInfo(Territory);
+            //}
+            //ViewBag.val = Val;
+            //return View(ret);
+
             TSView ret = new TSView();
-            ret.Account = ds.GetAllAccountInfo(Territory);
+            ret.AccountAll = ds.GetAllAccountInfo(Territory);
+            ret.Account = ds.GetSingleAccountInfo("0000");
+            if (Val == "All")
+            {
+                ret.Order = ds.GetAllInvoiceInfo(Territory);
+            }
+            ViewBag.Terr = Territory;
+            ViewBag.val = Val;
+            return View(ret);
+          
+        }
+
+        [HttpPost]
+        public ActionResult RecentOrders(string tempAccount, string ss, string Territory, Accounts ts)
+        {
+            //TSView ret = new TSView();
+            //ret.Account = ds.GetSingleAccountInfo(tempAccount);
+            //if (tempAccount == "")
+            //{
+            //    ret.Order = ds.GetAllInvoiceInfo(Territory);
+            //}
+            //else
+            //{
+            //    ret.Order = ds.GetInvoiceInfo(tempAccount);
+            //}
+            //ViewBag.Terr = Territory;
+            //return View(ret);
+
+
+
+            TSView ret = new TSView();
+            //ret.Account = ds.GetSingleAccountInfo(tempAccount);
+            if (tempAccount == "")
+            {
+                ret.Order = ds.GetInvoiceInfo(ts.StoreNumber);
+                ret.Account = ds.GetSingleAccountInfo(ts.StoreNumber);
+                ret.AccountAll = ds.GetAllAccountInfo(Territory);
+            }
+            else if (tempAccount != "" && (ts.StoreNumber != "" || ts.StoreNumber == ""))
+            {
+                ret.Order = ds.GetInvoiceInfo(tempAccount);
+                ret.Account = ds.GetSingleAccountInfo(tempAccount);
+                ret.AccountAll = ds.GetAllAccountInfo(Territory);
+            }
+            ViewBag.Terr = Territory;
+            return View(ret);
+
+        }
+
+        public ActionResult OrderEntryStep1(string Territory, string Val)
+        {
+            TSView ret = new TSView();
+            ret.AccountAll = ds.GetAllAccountInfo(Territory);
+            ret.Account = ds.GetSingleAccountInfo("0000");
             ViewBag.Terr = Territory;
             if (Val == "All")
             {
@@ -81,27 +169,33 @@ namespace CP_Cards.Controllers
             }
             ViewBag.val = Val;
             return View(ret);
-          
         }
 
         [HttpPost]
-        public ActionResult RecentOrders(string tempAccount, string ss, string Territory)
+        public ActionResult OrderEntryStep1(string tempAccount, string ss, string Territory, Accounts ts)
         {
             TSView ret = new TSView();
-            ret.Account = ds.GetSingleAccountInfo(tempAccount);
+            //ret.Account = ds.GetSingleAccountInfo(tempAccount);
             if (tempAccount == "")
             {
                 ret.Order = ds.GetAllInvoiceInfo(Territory);
+                ret.Account = ds.GetSingleAccountInfo(ts.StoreNumber);
+                ret.AccountAll = ds.GetAllAccountInfo(Territory);
             }
-            else
+            else if(tempAccount != "" && (ts.StoreNumber != "" || ts.StoreNumber == ""))
             {
                 ret.Order = ds.GetInvoiceInfo(tempAccount);
+                ret.Account = ds.GetSingleAccountInfo(tempAccount);
+                ret.AccountAll = ds.GetAllAccountInfo(Territory);
             }
             ViewBag.Terr = Territory;
             return View(ret);
-
         }
 
+        public ActionResult OrderEntryStep2()
+        {
+            return View();
+        }
         
 
     }
