@@ -192,9 +192,14 @@ namespace CP_Cards.Controllers
             return View(ret);
         }
 
-        public ActionResult OrderEntryStep2()
+        public ActionResult OrderEntryStep2(string storenumber)
         {
-            return View();
+            storenumber = "0129";
+            RackView RV = new RackView();
+            RV.Cards = ds.GetRackByCardType("", "");
+            RV.EDCards = ds.GetEveryDayCard("", "");
+            RV.Accounts = ds.GetSingleAccountInfo(storenumber);
+            return View(RV);
         }
         
 

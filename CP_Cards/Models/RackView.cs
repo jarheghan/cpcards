@@ -8,6 +8,8 @@ namespace CP_Cards.Models
     public class RackView
     {
         public IEnumerable<Cards> Cards { get; set; }
+        public IEnumerable<Cards> EDCards { get; set; }
         public IEnumerable<Accounts> Accounts { get; set; }
+        public string  Rack { get; set; }
     }
 }

@@ -1,3 +1,5 @@
+@model CP_Cards.Models.RackView
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,14 +36,14 @@
           <tr>
             <td><div align="left" class="style1"><strong>Order Entry Step 2</strong></div></td>
             <td><div align="right"><strong><a href="javascript:submitform('mainmenu')">
-<script language="JavaScript">
-var position
-function submitform(position)
-{
-document.Rackpos.Location.value = position
-document.Rackpos.submit();
-}
-</script>			
+                
+                <script type="text/jscript">
+                    var position
+                    function submitform(position) {
+                        document.Rackpos.Location.value = position
+                        document.Rackpos.submit();
+                    }
+                </script>			
 <img src="@Href("~/images/TextButtons/BackToOrderEntry.gif")" width="159" height="56" border="0"></a></strong>
 
                 </div></td>
@@ -51,17 +53,20 @@ document.Rackpos.submit();
       </div>
 	  <hr>
 	  
-<form action="OrderEntryStep2.asp?Display=<%=Session("RackType")%>" method="post" name="racks" id="racks">
+@using(Html.BeginForm())
+{
 <table width="100%"  border="0" cellpadding="0">
     <tr>
       <td>
           <div align="right">
-            <select name="rack" id="select">
+            @*<select name="rack" id="select">
                 <option selected value="<%=Rack%>"><%=Rack%></option>
                
                 <option value="<%=(Racks.Fields.Item("Rack").Value)%>"><%=(Racks.Fields.Item("Rack").Value)%></option>
                
-            </select>
+            </select>*@
+              @Html.DropDownListFor( m => m.Rack, new SelectList(Model.Cards, "Rack","Rack", Model.Rack), "--Select--")
+
           </div></td>
       <td>
         <div align="right">
@@ -71,189 +76,110 @@ document.Rackpos.submit();
         </div></td>
     </tr>
   </table>
-</form>
+}
 <hr>
 <p align="center"> 
   
 
       </p>
-<form action="OrderEntryStep3.asp?NextRack=<%=NextRack%>&Display=<%=Session("RackType")%><%=CardType%>" method="post" name="Rackpos" id="Rackpos">
+@using (Html.BeginForm("OrderEntryStep3", "Home", FormMethod.Post, new { name = "Rackpos", id = "RackPos" }))
+{
   <div align="right">
   <a href="javascript:RackFlip()"><img src="@Href("~/images/TextButtons/ViewRackDetails.gif")" width="159" height="56" border="0"></a>
   <input type="image" src="@Href("~/images/TextButtons/SaveThisRack.gif")" name="Submit" value="Save Order">
   <br>
-  <a href="OrderEntryStep2Advanced.asp?Rack=<%=rack%>&NextRack=<%=NextRack%>&Display=<%=Session("RackType")%><%=CardType%>">Advanced Entry </a>
+      <a href="@Url.Action("OrderEntryStep2Advanced", "Home")"><abbr>Advance Entry</abbr>  </a>
+
   </div>
-  <div align="justify">
-<p align="center">      <span class="style1">
-	@*<%
-	Dim TheType
-	Dim TheTitle
-	TheType = Request.QueryString("Display")
-	If TheType = "E" Then TheTitle = "Everyday Cards"
-	If TheType = "T" Then TheTitle = "Title Finders"
-	If TheType = "G" Then TheTitle = "General Merchandise"
-	if TheType = "S" Then TheTitle = "Seasonal Cards"
-	Response.Write(TheTitle)
-	%>*@
-	<input type="checkbox" Style="visibility: hidden" name="RackFlip" value="True" id="RackFlip" >
-	<input type="hidden" name="Rack" value="<%=Rack%>">
-	<input name="Location" type="hidden" id="Location">
-	<input name="NextRack" type="hidden" id="NextRack">
-	<br>
-     @* Rack <%=Rack%>
-      <% If Not EverydayCards.EOF Or Not EverydayCards.BOF Then %>*@
-      <br>
-@* For #<%=(StoreInfo.Fields.Item("storenumber").Value)%> - <%=(StoreInfo.Fields.Item("custname").Value)%> - <%=(StoreInfo.Fields.Item("city").Value)%></span></p>*@
-    <table width="100%"  border="1" align="center" cellpadding="0">
-@*<%
-DataSet = EveryDayCards.GetRows
-%>
-<%
-Dim TheAmount
-MainCounter = 150
-RetardCounter = 0
-		Do While MainCounter > 0		
-			If RetardCounter = 10 Then MainCounter = MainCounter - 20
-			If RetardCounter = 10 Then RetardCounter = 0
-			If RetardCounter = 0 Then Response.Write("<tr>")
-			Response.Write("<td>")
-			CheckCounter = 160
-			FlagSet = "No"
-			Do While CheckCounter >= 0
-				If ubound(DataSet, 2) >= CheckCounter _
-				Then
-					If DataSet(2, CheckCounter ) = MainCounter _
-					Then 
-						m_design = DataSet(7, CheckCounter)
-						dis1 = DataSet(8, CheckCounter)
-						UpperCheck = ubound (TempArray)
-						Prego = "No"
-						TheAmount = 0
-						Do While UpperCheck >= 0
-							If GeneralOrNot = "G" _
-							Then
-								AmountCounter = 1
-								While AmountCounter <50
-									if TempArray(UpperCheck) = Session("Account")&" "&Session("Territory")&" "&Rack&" "&MainCounter&Tfinders&" "&AmountCounter _
-										Then
-										Prego = "Yes"
-										TempArray(UpperCheck) = ""
-										TheAmount = AmountCounter
-										End If
-									AmountCounter = AmountCounter + 1
-								Wend
-									UpperCheck = UpperCheck - 1
-							End If
-							If GeneralOrNot <> "G" _
-							Then
-								if TempArray(UpperCheck) = Session("Account")&" "&Session("Territory")&" "&Rack&" "&MainCounter&Tfinders&" " _
-									Then
-									Prego = "Yes"
-									TempArray(UpperCheck) = ""
-									End If
-									UpperCheck = UpperCheck - 1
-							End If							
-						Loop								
-						if Prego = "Yes" _
-						Then *@
-							
-							<input type=""CheckBox"" Style=""visibility: hidden"" name=""input_check["&MainCounter&"]"" id=""inputCheck"&MainCounter&""" value="""&Session("Account")&" "&Session("Territory")&" "&Rack&" "&MainCounter&Tfinders&""" Checked/>
-						    <a href=""javascript:checkBox("&MainCounter&")""><img src=""buttons/"&MainCounter&"c.gif"" id=""imgCheck"&MainCounter&""" style=""border: none;"" alt = """&m_design&" "&dis1&"""/></a>
-						    <div align=""center""><img src=""buttons/"&MainCounter&"c.gif"" id=""imgCheck"&MainCounter&""" style=""border: none;"" alt = """&m_design&" "&dis1&""" align=""top""/><br><a href=""javascript:addsubtract("&MainCounter&",'subtract')""><img src=""@Href("~/images/buttons/subtract.gif")"" width=""15"" height=""15"" border=""0""></a><input name=""amountbox"&MainCounter&""" class=""style2"" type=""text"" id=""amountbox"&MainCounter&""" value="""&TheAmount&""" size=""1""><a href=""javascript:addsubtract("&MainCounter&",'add')""><img src=""buttons/add.gif"" width=""15"" height=""15"" border=""0""></a></div>
-						@*End If
-						if Prego = "No" _
-						Then *@
-							<input type=""CheckBox"" Style=""visibility: hidden"" name=""input_check["&MainCounter&"]"" id=""inputCheck"&MainCounter&""" value="""&Session("Account")&" "&Session("Territory")&" "&Rack&" "&MainCounter&Tfinders&""" />
-							<a href=""javascript:checkBox("&MainCounter&")""><img src=""buttons/"&MainCounter&"u.gif"" id=""imgCheck"&MainCounter&""" style=""border: none;"" alt = """&m_design&" "&dis1&"""/></a>") 
-							<div align=""center""><img src=""buttons/"&MainCounter&"u.gif"" id=""imgCheck"&MainCounter&""" style=""border: none;"" alt = """&m_design&" "&dis1&""" align=""top""/><br><a href=""javascript:addsubtract("&MainCounter&",'subtract')""><img src=""@Href("~/images/buttons/subtract.gif")"" width=""15"" height=""15"" border=""0""></a><input name=""amountbox"&MainCounter&""" class=""style2"" type=""text"" id=""amountbox"&MainCounter&""" value=""0"" size=""1""><a href=""javascript:addsubtract("&MainCounter&",'add')""><img src=""buttons/add.gif"" width=""15"" height=""15"" border=""0""></a></div>
-					    
-                <img border=""0"" src=""@Href("~/images/buttons/blank.gif")"" >
-			</td>
-
-			</tr>
-			
-	
-</table>
-    <p>
-      
-  <script language="javascript">
-//check = []; //this is an array that stores all the true/false values for each checkbox 
-var i
-
-function SwitchRacks()
-{
-	Rackpos.NextRack.value = (racks.rack.selectedIndex -1)
-	document.Rackpos.submit()
-
-}
-
-function selectAll()
-{
-	for (i=160; i>=0; i--)
-	{
-		checkBox(i);
-	}
-}
-function checkBox(id) 
-    { 
-		if (document.getElementById('inputCheck' + id) !=null)
-		{
- //   if(check[id] != true) //if a value is not true, use this rather than == false, 'cos the first time no value will be set and it will be undefined, not true or false 
-       if (document.getElementById('inputCheck' + id).checked == true)
-	    { 
-        document.getElementById('imgCheck' + id).src = "buttons/"+id+"u.gif"; //change the image 
-	    document.getElementById('inputCheck' + id).checked = false; //change the field value 
- //       check[id] = true; //change the value for this checkbox in the array 
-        } 
-    else 
-        { 
-        document.getElementById('imgCheck' + id).src = "buttons/"+id+"c.gif"; 
-        document.getElementById('inputCheck' + id).checked = true; 
-//        check[id] = false; 
-        } 
-    }
-	}
-	
-function addsubtract(whichone, amount)
-{
-	var whichone;
-	var amount;
-	var tempnumber;
-	
-	tempnumber = document.getElementById('amountbox' + whichone).value;
-	if (amount == 'add')
-		{
-		tempnumber ++;
-		}
-	if (amount == "subtract")
-		{
-		tempnumber --;
-		}
-	if (tempnumber <= 0)
-		{
-		tempnumber = 0;
-		document.getElementById('imgCheck' + whichone).src = "buttons/"+whichone+"u.gif";
-		document.getElementById('inputCheck' + whichone).checked = false;
-		}
-	if (tempnumber > 0)
-		{
-		document.getElementById('imgCheck' + whichone).src = "buttons/"+whichone+"c.gif";
-		document.getElementById('inputCheck' + whichone).checked = true;
-		}	
-	document.getElementById('amountbox' + whichone).value = tempnumber;	
-}
-
-function RackFlip()
-{
-document.getElementById('RackFlip').checked = true;
-document.Rackpos.submit();
-}
-  </script>
-  </p>
+    <div align="justify">
+        <p align="center">
+            <span class="style1">
+                <input type="checkbox" Style="visibility: hidden"  name="RackFlip" value="True" id="RackFlip" >
+                <input type="hidden" name="Rack" value="<%=Rack%>">
+	            <input name="Location" type="hidden" id="Location">
+	            <input name="NextRack" type="hidden" id="NextRack">
+                <br />
+                 Rack
+                <br />
+                For @{ foreach (var mm in Model.Accounts)
+                       {<span>@mm.StoreNumber - @mm.CustName - @mm.City</span> }
+                    }
+            </span></p>
+        <table width="100%" border="1" align="center" cellpadding="0">
+            <tr>
+                <td>
+                    <input type="CheckBox" style="visibility: hidden" name="input_check[]" id="inputCheckMainCounter"
+                        value="" checked />
+                <a href="javascript:checkBox()"><img src="" id="imgCheck" style="border:none; " /></a>
+@*                @Response.Write("<div align=""center""><img src=""buttons/""c.gif"" id=""imgCheck"""" style=""border: none;"" alt = """" """" align=""top""/><br><a href=""javascript:addsubtract("",'subtract')""><img src=""buttons/subtract.gif"" width=""15"" height=""15"" border=""0""></a><input name=""amountbox"""" class=""style2"" type=""text"" id=""amountbox"""" value="""""" size=""1""><a href=""javascript:addsubtract("",'add')""><img src=""buttons/add.gif"" width=""15"" height=""15"" border=""0""></a></div>")*@
+                   
+                </td>
+            </tr>
+        </table>
     </div>
-	
-  </form>
+    
+    <script type="text/javascript">
+        //check = []; //this is an array that stores all the true/false values for each checkbox 
+        var i
+
+        function SwitchRacks() {
+            Rackpos.NextRack.value = (racks.rack.selectedIndex - 1)
+            document.Rackpos.submit()
+
+        }
+
+        function selectAll() {
+            for (i = 160; i >= 0; i--) {
+                checkBox(i);
+            }
+        }
+        function checkBox(id) {
+            if (document.getElementById('inputCheck' + id) != null) {
+                //   if(check[id] != true) //if a value is not true, use this rather than == false, 'cos the first time no value will be set and it will be undefined, not true or false 
+                if (document.getElementById('inputCheck' + id).checked == true) {
+                    document.getElementById('imgCheck' + id).src = "buttons/" + id + "u.gif"; //change the image 
+                    document.getElementById('inputCheck' + id).checked = false; //change the field value 
+                    //       check[id] = true; //change the value for this checkbox in the array 
+                }
+                else {
+                    document.getElementById('imgCheck' + id).src = "buttons/" + id + "c.gif";
+                    document.getElementById('inputCheck' + id).checked = true;
+                    //        check[id] = false; 
+                }
+            }
+        }
+
+        function addsubtract(whichone, amount) {
+            var whichone;
+            var amount;
+            var tempnumber;
+
+            tempnumber = document.getElementById('amountbox' + whichone).value;
+            if (amount == 'add') {
+                tempnumber++;
+            }
+            if (amount == "subtract") {
+                tempnumber--;
+            }
+            if (tempnumber <= 0) {
+                tempnumber = 0;
+                document.getElementById('imgCheck' + whichone).src = "buttons/" + whichone + "u.gif";
+                document.getElementById('inputCheck' + whichone).checked = false;
+            }
+            if (tempnumber > 0) {
+                document.getElementById('imgCheck' + whichone).src = "buttons/" + whichone + "c.gif";
+                document.getElementById('inputCheck' + whichone).checked = true;
+            }
+            document.getElementById('amountbox' + whichone).value = tempnumber;
+        }
+
+        function RackFlip() {
+            document.getElementById('RackFlip').checked = true;
+            document.Rackpos.submit();
+        }
+    </script>
+
+}
 	</td>
   </tr>
 </table>
