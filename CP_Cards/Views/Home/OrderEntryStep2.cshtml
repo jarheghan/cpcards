@@ -106,27 +106,35 @@
                     }
             </span></p>
         <table width="100%" border="1" align="center" cellpadding="0">
-            @{string MainCounter = "";
+            @{int MainCounter = 150;
               String Session = "";
               string TFinder = "";
               string Prego = "Yes";
+              string ids = "imgcheck";
+              string ids1 = "inputCheck";
+              string ids2 = "inputCheck";
+              string id4 = "amountbox";
                }
             <tr>
                 <td>
                     @{if(Prego == "Yes")
+                         
                      {
-                    <input type="CheckBox" style="visibility: hidden" name="input_check[@MainCounter]" id="inputCheck + @MainCounter"
+                         for (int i = 0; i <= MainCounter; i++)
+                         { 
+                    <input type="CheckBox" style="visibility: hidden" name="input_check[@i]" id="inputCheck@i"
                         value="" checked />
-                <a href="javascript:checkBox(@MainCounter)"><img src="buttons/@MainCounter @:c.gif" id="imgCheck" style="border:none; " /></a>
+                <a href="javascript:checkBox(@i)"><img src="@Href("~/images/buttons/" + @i+"c.gif")" id="@ids2@i" style="border:none; " /></a>
                    
-                <div align=""center"">
-                    <img src="buttons/c.gif" id="imgcheck" style="border: none;" alt = "" align="top"/>
-                    <br><a href="javascript:addsubtract("",'subtract')"><img src="buttons/subtract.gif" width="15" height="15" border="0">
+                <div align="center">
+                    <img src="@Href("~/images/buttons/c.gif")" id="@ids@i" style="border: none;" alt = "" align="top"/>
+                    <br><a href="javascript:addsubtract("@i",'subtract')"><img src="@Href("~/images/buttons/subtract.gif")" alt="" width="15" height="15" border="0">
 
-                        </a><input name="amountbox" class="style2" type="text" id="amountbox" value="" size="1">
-                    <a href=""javascript:addsubtract("",'add')""><img src="buttons/add.gif" width="15" height="15" border="0"></a>
+                        </a><input name="amountbox" class="style2" type="text" id="@id4@i" value="@i" size="1">
+                    <a href="javascript:addsubtract("@i",'add')"><img src="@Href("~/images/buttons/add.gif")" alt="" width="15" height="15" border="0"></a>
 
                 </div>
+                    }
                    }
                    }
                    
@@ -154,12 +162,12 @@
             if (document.getElementById('inputCheck' + id) != null) {
                 //   if(check[id] != true) //if a value is not true, use this rather than == false, 'cos the first time no value will be set and it will be undefined, not true or false 
                 if (document.getElementById('inputCheck' + id).checked == true) {
-                    document.getElementById('imgCheck' + id).src = "buttons/" + id + "u.gif"; //change the image 
+                    document.getElementById('imgCheck' + id).src = "images/buttons/" + id + "u.gif"; //change the image 
                     document.getElementById('inputCheck' + id).checked = false; //change the field value 
                     //       check[id] = true; //change the value for this checkbox in the array 
                 }
                 else {
-                    document.getElementById('imgCheck' + id).src = "buttons/" + id + "c.gif";
+                    document.getElementById('imgCheck' + id).src = "images/buttons/" + id + "c.gif";
                     document.getElementById('inputCheck' + id).checked = true;
                     //        check[id] = false; 
                 }
@@ -180,11 +188,11 @@
             }
             if (tempnumber <= 0) {
                 tempnumber = 0;
-                document.getElementById('imgCheck' + whichone).src = "buttons/" + whichone + "u.gif";
+                document.getElementById('imgCheck' + whichone).src = "images/buttons/" + whichone + "u.gif";
                 document.getElementById('inputCheck' + whichone).checked = false;
             }
             if (tempnumber > 0) {
-                document.getElementById('imgCheck' + whichone).src = "buttons/" + whichone + "c.gif";
+                document.getElementById('imgCheck' + whichone).src = "images/buttons/" + whichone + "c.gif";
                 document.getElementById('inputCheck' + whichone).checked = true;
             }
             document.getElementById('amountbox' + whichone).value = tempnumber;
