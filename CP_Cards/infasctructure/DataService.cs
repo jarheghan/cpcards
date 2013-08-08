@@ -98,7 +98,7 @@ namespace CP_Cards.infasctructure
             {
                 sqlConnection.Open();
                 IEnumerable<Cards> cardInfo
-                    = sqlConnection.Query<Cards>("select * from cards where Number = @racks  and Display LIKE '%' + @cardtype + '%'"
+                    = sqlConnection.Query<Cards>("select Distinct Rack from cards where Number = @racks  and Display LIKE '%' + @cardtype + '%'"
                     , new { racks = "0101" , cardtype = "E"});
                 sqlConnection.Close();
                 return cardInfo;
