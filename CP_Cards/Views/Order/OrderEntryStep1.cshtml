@@ -57,28 +57,30 @@
   </table>
 }
 <p>
-  @{foreach (var mm in Model.Account)
-    {
-  <strong>@mm.StoreNumber</strong>
-  <div>@mm.Contact</div>
-  <div>@mm.CustName</div>
-  <div>@mm.Address</div>
-  <div>@mm.Address2</div>
-  <div>@mm.City</div>
- 
-  }
-  }
+    @{ if(Model.SingleAccount !=null)
+       {
+    
+        <strong>@Model.SingleAccount.StoreNumber</strong>
+        <div>@Model.SingleAccount.Contact</div>
+        <div>@Model.SingleAccount.CustName</div>
+        <div>@Model.SingleAccount.Address</div>
+        <div>@Model.SingleAccount.Address2</div>
+        <div>@Model.SingleAccount.City</div>
+    }
+    }
+    
 </MM:DECORATION></MM_HIDDENREGION></p>
 <table width="100%"  border="0" cellpadding="0">
   <tr>
-    <td><div align="center"><a href="@Url.Action("OrderEntryStep2","Home")"><img src="@Href("~/images/TextButtons/EveryDayCards.gif")" width="159" height="56" border="0"></a></div></td>
-    <td><div align="center"><a href="OrderEntryStep2.asp?Display=T"><img src="@Href("~/images/TextButtons/TitleFinders.gif")" width="159" height="56" border="0"></a></div></td>
-    <td><div align="center"><a href="OrderEntryStep2.asp?Display=S"><img src="@Href("~/images/TextButtons/SeasonalCards.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="@Url.Action("OrderEntryStep2", "Order", new {Display = "E",storenumber = Model.SingleAccount.StoreNumber,val = string.Empty})">
+        <img src="@Href("~/images/TextButtons/EveryDayCards.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="@Url.Action("OrderEntryStep2", "Order", new {Display = "T"})"><img src="@Href("~/images/TextButtons/TitleFinders.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="@Url.Action("OrderEntryStep2", "Order", new {Display = "S"})"><img src="@Href("~/images/TextButtons/SeasonalCards.gif")" width="159" height="56" border="0"></a></div></td>
     </tr>
   <tr>
-    <td><div align="center"><a href="OrderEntryStep2.asp?Display=G"><img src="@Href("~/images/TextButtons/GeneralMerchandise.gif")" width="159" height="56" border="0"></a></div></td>
-    <td><div align="center"><a href="OrderPlush.asp"><img src="@Href("~/images/TextButtons/PlushItems.gif")" width="159" height="56" border="0"></a></div></td>
-    <td><div align="center"><a href="OrderPromo.asp"><img src="@Href("~/images/TextButtons/PromoItems.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="@Url.Action("OrderEntryStep2", "Order", new {Display = "G"})"><img src="@Href("~/images/TextButtons/GeneralMerchandise.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="@Url.Action("OrderPlush", "Order")"><img src="@Href("~/images/TextButtons/PlushItems.gif")" width="159" height="56" border="0"></a></div></td>
+    <td><div align="center"><a href="@Url.Action("OrderPromo", "Order")"><img src="@Href("~/images/TextButtons/PromoItems.gif")" width="159" height="56" border="0"></a></div></td>
     </tr>
 </table>
 <form action="SubmitFinalOrder.asp" method="post" name="OrderEntry" id="OrderEntry">

@@ -157,51 +157,6 @@ namespace CP_Cards.Controllers
 
         }
 
-        public ActionResult OrderEntryStep1(string Territory, string Val)
-        {
-            TSView ret = new TSView();
-            ret.AccountAll = ds.GetAllAccountInfo(Territory);
-            ret.Account = ds.GetSingleAccountInfo("0000");
-            ViewBag.Terr = Territory;
-            if (Val == "All")
-            {
-                ret.Order = ds.GetAllInvoiceInfo(Territory);
-            }
-            ViewBag.val = Val;
-            return View(ret);
-        }
-
-        [HttpPost]
-        public ActionResult OrderEntryStep1(string tempAccount, string ss, string Territory, Accounts ts)
-        {
-            TSView ret = new TSView();
-            //ret.Account = ds.GetSingleAccountInfo(tempAccount);
-            if (tempAccount == "")
-            {
-                ret.Order = ds.GetAllInvoiceInfo(Territory);
-                ret.Account = ds.GetSingleAccountInfo(ts.StoreNumber);
-                ret.AccountAll = ds.GetAllAccountInfo(Territory);
-            }
-            else if(tempAccount != "" && (ts.StoreNumber != "" || ts.StoreNumber == ""))
-            {
-                ret.Order = ds.GetInvoiceInfo(tempAccount);
-                ret.Account = ds.GetSingleAccountInfo(tempAccount);
-                ret.AccountAll = ds.GetAllAccountInfo(Territory);
-            }
-            ViewBag.Terr = Territory;
-            return View(ret);
-        }
-
-        public ActionResult OrderEntryStep2(string storenumber)
-        {
-            storenumber = "0129";
-            RackView RV = new RackView();
-            RV.Cards = ds.GetRackByCardType("", "");
-            RV.EDCards = ds.GetEveryDayCard("", "");
-            RV.Accounts = ds.GetSingleAccountInfo(storenumber);
-            return View(RV);
-        }
-        
-
+       
     }
 }

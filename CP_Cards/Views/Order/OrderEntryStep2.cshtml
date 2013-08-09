@@ -53,7 +53,7 @@
       </div>
 	  <hr>
 	  
-@using(Html.BeginForm())
+@using (Html.BeginForm())
 {
 <table width="100%"  border="0" cellpadding="0">
     <tr>
@@ -65,7 +65,7 @@
                 <option value="<%=(Racks.Fields.Item("Rack").Value)%>"><%=(Racks.Fields.Item("Rack").Value)%></option>
                
             </select>*@
-              @Html.DropDownListFor( m => m.Rack, new SelectList(Model.Cards, "Rack","Rack", Model.Rack), "--Select--")
+              @Html.DropDownListFor(m => m.Rack, new SelectList(Model.Cards, "Rack", "Rack", Model.Rack), "--Select--")
 
           </div></td>
       <td>
@@ -109,7 +109,7 @@
             @{int MainCounter = 150;
               String Session = "";
               string TFinder = "";
-              string Prego = "Yes";
+              string Prego = "No";
               string ids = "imgCheck";
               string ids1 = "inputCheck";
               string ids2 = "inputCheck";
@@ -119,30 +119,70 @@
             <tr>
                 <td>
                     @{
-                        if(Prego == "Yes")
-                             {
-                             for (int i = 0; i <= MainCounter; i++)
-                               { 
-                                <input type="CheckBox" style="visibility: hidden" name="input_check[@i]" id="@ids2@i"
+              if (Prego == "Yes")
+              {
+                  for (int i = 0; i <= MainCounter; i++)
+                  { 
+                        <input type="CheckBox" style="visibility: hidden" name="input_check[@i]" id="@ids2@i"
                                    value="" checked />
-                                 if(GeneralOrNot != "G"){
-                                     <a href="javascript:checkBox(@i)"><img src="@Href("~/images/buttons/" + @i+"c.gif")" id="@ids2@i" style="border:none; " /></a>
-                                 }
-                             if(GeneralOrNot != "G"){
-                             <div align="center">
-                             <img src="@Href("~/images/buttons/" + @i+"c.gif")" id="@ids@i" style="border: none;" alt = "" align="top"/>
+                      if (GeneralOrNot != "G")
+                      {
+                        <a href="javascript:checkBox(@i)">
+                            <img src="@Href("~/images/buttons/" + @i + "c.gif")" id="@ids2@i" style="border:none; " /></a>
+                      }
+                      if (GeneralOrNot != "G")
+                      {
+                        <div align="center">
+                            <img src="@Href("~/images/buttons/" + @i + "c.gif")" id="@ids@i" style="border: none;" alt = "" align="top"/>
                             <br>
-                    
-                    <a href="javascript:addsubtract('@i','subtract')"><img src="@Href("~/images/buttons/subtract.gif")" alt="" width="15" height="15" border="0"></a>
-                        <input name="amountbox" class="style2" type="text" id="@id4@i" value="@i" size="1">
-                    <a href="javascript:addsubtract('@i','add')"><img src="@Href("~/images/buttons/add.gif")" alt="" width="15" height="15" border="0"></a>
-                     
-                     
-                </div>
+
+                            <a href="javascript:addsubtract('@i','subtract')">
+                                <img src="@Href("~/images/buttons/subtract.gif")" alt="" width="15" height="15" border="0"></a>
+                            <input name="amountbox" class="style2" type="text" id="@id4@i" value="@i" size="1">
+                            <a href="javascript:addsubtract('@i','add')">
+                                <img src="@Href("~/images/buttons/add.gif")" alt="" width="15" height="15" border="0"></a>
+
+
+                        </div>
+                      }
+                  }
+
+
+              }
+
+
+              if (Prego == "No")
+              {
+                  for (int i = 0; i <= MainCounter; i++)
+                  { 
+                        <input type="CheckBox" style="visibility: hidden" name="input_check[@i]" id="@ids2@i"
+                                   value="" checked />
+                      if (GeneralOrNot != "G")
+                      {
+                        <a href="javascript:checkBox(@i)">
+                            <img src="@Href("~/images/buttons/" + @i + "u.gif")" id="@ids2@i" style="border:none; " /></a>
+                      }
+                      if (GeneralOrNot != "G")
+                      {
+                        <div align="center">
+                            <img src="@Href("~/images/buttons/" + @i + "u.gif")" id="@ids@i" style="border: none;" alt = "" align="top"/>
+                            <br>
+
+                            <a href="javascript:addsubtract('@i','subtract')">
+                                <img src="@Href("~/images/buttons/subtract.gif")" alt="" width="15" height="15" border="0"></a>
+                            <input name="amountbox" class="style2" type="text" id="@id4@i" value="@i" size="1">
+                            <a href="javascript:addsubtract('@i','add')">
+                                <img src="@Href("~/images/buttons/add.gif")" alt="" width="15" height="15" border="0"></a>
+
+
+                        </div>
+                      }
+                  }
+
+
+              }
+                        
                     }
-                    }
-                   }
-                   }
                    
                 </td>
             </tr>

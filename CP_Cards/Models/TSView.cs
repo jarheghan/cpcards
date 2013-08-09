@@ -8,6 +8,7 @@ namespace CP_Cards.Models
     public class TSView
     {
         public IEnumerable<Accounts> Account { get; set; }
+        public Accounts SingleAccount { get; set; }
         public IEnumerable<Accounts> AccountAll { get; set; }
         public IEnumerable<Orders> Order { get; set; }
         public TimeSheet TimeSheets { get; set; }

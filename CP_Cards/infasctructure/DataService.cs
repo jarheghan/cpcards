@@ -50,6 +50,19 @@ namespace CP_Cards.infasctructure
             }
         }
 
+        public Accounts GetSingleAccountInfo1(string storenumber)
+        {
+            using (var sqlConnection = new SqlConnection(Constant.connectionString))
+            {
+                sqlConnection.Open();
+                Accounts retalierInfo
+                    = sqlConnection.Query<Accounts>("select * from Accounts where storenumber = @storenumber", new { storenumber = storenumber }).FirstOrDefault();
+                sqlConnection.Close();
+                return retalierInfo;
+
+            }
+        }
+
 
         public IEnumerable<Accounts> GetAllAccountInfo(string Territory)
         {
@@ -99,7 +112,7 @@ namespace CP_Cards.infasctructure
                 sqlConnection.Open();
                 IEnumerable<Cards> cardInfo
                     = sqlConnection.Query<Cards>("select Distinct Rack from cards where Number = @racks  and Display LIKE '%' + @cardtype + '%'"
-                    , new { racks = "0101" , cardtype = "E"});
+                    , new { racks = racks , cardtype = cardType});
                 sqlConnection.Close();
                 return cardInfo;
 
