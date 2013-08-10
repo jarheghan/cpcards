@@ -127,6 +127,7 @@
     <Compile Include="Models\ConstValues.cs" />
     <Compile Include="Models\Memos.cs" />
     <Compile Include="Models\Orders.cs" />
+    <Compile Include="Models\Rack.cs" />
     <Compile Include="Models\RackView.cs" />
     <Compile Include="Models\Retailers.cs" />
     <Compile Include="Models\TimeSheet.cs" />
@@ -615,6 +616,9 @@
     <Content Include="images\buttons\addsubtract.psd" />
     <Content Include="images\buttons\button.psd" />
     <Content Include="images\buttons\noimage.psd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Order\OrderEntryStep3.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

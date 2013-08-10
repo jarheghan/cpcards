@@ -10,6 +10,7 @@ namespace CP_Cards.Models
         public IEnumerable<Cards> Cards { get; set; }
         public IEnumerable<Cards> EDCards { get; set; }
         public IEnumerable<Accounts> Accounts { get; set; }
-        public string  Rack { get; set; }
+        public string  rack { get; set; }
+        public Rack Racktemp { get; set; }
     }
 }

@@ -53,7 +53,7 @@
       </div>
 	  <hr>
 	  
-@using (Html.BeginForm())
+@using (Html.BeginForm("OrderEntryStep2","Order",FormMethod.Post, new {@id = "racks", @name="racks"}))
 {
 <table width="100%"  border="0" cellpadding="0">
     <tr>
@@ -65,7 +65,7 @@
                 <option value="<%=(Racks.Fields.Item("Rack").Value)%>"><%=(Racks.Fields.Item("Rack").Value)%></option>
                
             </select>*@
-              @Html.DropDownListFor(m => m.Rack, new SelectList(Model.Cards, "Rack", "Rack", Model.Rack), "--Select--")
+              @Html.DropDownListFor(m => m.rack, new SelectList(Model.Cards, "Rack", "Rack", Model.rack), "--Select--", new {@name="rack", @id="select" })
 
           </div></td>
       <td>
@@ -79,23 +79,23 @@
 }
 <hr>
 <p align="center"> 
-  
+  @{int NextRack = 1;}
 
       </p>
-@using (Html.BeginForm("OrderEntryStep3", "Home", FormMethod.Post, new { name = "Rackpos", id = "RackPos" }))
+@using (Html.BeginForm("OrderEntryStep3", "Order",new{NextRack = @NextRack, Display=ViewBag.display,}, FormMethod.Post, new { @name = "Rackpos", @id = "RackPos" }))
 {
   <div align="right">
   <a href="javascript:RackFlip()"><img src="@Href("~/images/TextButtons/ViewRackDetails.gif")" width="159" height="56" border="0"></a>
   <input type="image" src="@Href("~/images/TextButtons/SaveThisRack.gif")" name="Submit" value="Save Order">
   <br>
-      <a href="@Url.Action("OrderEntryStep2Advanced", "Home")"><abbr>Advance Entry</abbr>  </a>
+      <a href="@Url.Action("OrderEntryStep2Advanced", "Order")"><abbr>Advance Entry</abbr>  </a>
 
   </div>
     <div align="justify">
         <p align="center">
             <span class="style1">
                 <input type="checkbox" Style="visibility: hidden"  name="RackFlip" value="True" id="RackFlip" >
-                <input type="hidden" name="Rack" value="<%=Rack%>">
+                <input type="hidden" name="Rack" value="">
 	            <input name="Location" type="hidden" id="Location">
 	            <input name="NextRack" type="hidden" id="NextRack">
                 <br />
@@ -109,7 +109,7 @@
             @{int MainCounter = 150;
               String Session = "";
               string TFinder = "";
-              string Prego = "No";
+              string Prego = "Yes";
               string ids = "imgCheck";
               string ids1 = "inputCheck";
               string ids2 = "inputCheck";

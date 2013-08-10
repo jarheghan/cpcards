@@ -19,7 +19,7 @@ namespace CP_Cards.Controllers
         {
             TSView ret = new TSView();
             ret.AccountAll = ds.GetAllAccountInfo(Territory);
-            ret.SingleAccount = ds.GetSingleAccountInfo1("0000");
+            ret.SingleAccount = ds.GetSingleAccountInfo1("0101");
             ViewBag.Terr = Territory;
             if (Val == "All")
             {
@@ -52,11 +52,36 @@ namespace CP_Cards.Controllers
 
         public ActionResult OrderEntryStep2(string storenumber, string Display)
         {
-            storenumber = "0129";
+            //storenumber = "0129";
             RackView RV = new RackView();
             RV.Cards = ds.GetRackByCardType(storenumber, Display);
+            ViewBag.display = Display;
             RV.EDCards = ds.GetEveryDayCard("", "");
             RV.Accounts = ds.GetSingleAccountInfo(storenumber);
+            return View(RV);
+        }
+
+        [HttpPost]
+        public ActionResult OrderEntryStep2(string storenumber, string Display, string opp)
+        {
+            //storenumber = "0129";
+            RackView RV = new RackView();
+            RV.Cards = ds.GetRackByCardType(storenumber, Display);
+            ViewBag.display = Display;
+            RV.EDCards = ds.GetEveryDayCard("", "");
+            RV.Accounts = ds.GetSingleAccountInfo(storenumber);
+            return View(RV);
+        }
+
+
+        public ActionResult OrderEntryStep3(string Thelocation, string NextRack, string Display, string TheRack)
+        {
+            RackView RV = new RackView();
+            RV.Racktemp = new Rack();
+            //RV.Racktemp.TheLocation = Thelocation;
+            RV.Racktemp.NextRack = NextRack;
+            RV.Racktemp.Display = Display;
+            //RV.Racktemp.TheRack = TheRack;
             return View(RV);
         }
         
