@@ -53,7 +53,7 @@
       </div>
 	  <hr>
 	  
-@using (Html.BeginForm("OrderEntryStep2","Order",FormMethod.Post, new {@id = "racks", @name="racks"}))
+@using (Html.BeginForm("OrderEntryStep2","Order",new {storenumber = ViewBag.Storenumber},FormMethod.Post, new {@id = "racks", @name="racks"}))
 {
 <table width="100%"  border="0" cellpadding="0">
     <tr>
@@ -82,7 +82,7 @@
   @{int NextRack = 1;}
 
       </p>
-@using (Html.BeginForm("OrderEntryStep3", "Order",new{NextRack = @NextRack, Display=ViewBag.display,}, FormMethod.Post, new { @name = "Rackpos", @id = "RackPos" }))
+@using (Html.BeginForm("OrderEntryStep3", "Order",new{NextRack = @NextRack, Display=ViewBag.display,storenumber = ViewBag.StoreNumber}, FormMethod.Post, new { @name = "Rackpos", @id = "RackPos" }))
 {
   <div align="right">
   <a href="javascript:RackFlip()"><img src="@Href("~/images/TextButtons/ViewRackDetails.gif")" width="159" height="56" border="0"></a>

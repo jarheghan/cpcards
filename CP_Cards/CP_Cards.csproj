@@ -127,6 +127,7 @@
     <Compile Include="Models\ConstValues.cs" />
     <Compile Include="Models\Memos.cs" />
     <Compile Include="Models\Orders.cs" />
+    <Compile Include="Models\PersonInfo.cs" />
     <Compile Include="Models\Rack.cs" />
     <Compile Include="Models\RackView.cs" />
     <Compile Include="Models\Retailers.cs" />
@@ -619,6 +620,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Order\OrderEntryStep3.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Order\OrderSupplies.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\UpdatePersonalInfo.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

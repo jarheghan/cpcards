@@ -50,39 +50,63 @@ namespace CP_Cards.Controllers
             return View(ret);
         }
 
-        public ActionResult OrderEntryStep2(string storenumber, string Display)
+        public ActionResult OrderEntryStep2(string storenumber, string Display, string TheRack)
         {
             //storenumber = "0129";
             RackView RV = new RackView();
-            RV.Cards = ds.GetRackByCardType(storenumber, Display);
+            if (TheRack == null)
+            {
+                RV.Cards = ds.GetRackByCardType(storenumber, Display);
+            }
+            else
+            {
+                RV.Cards = ds.GetRackByCardType(TheRack, Display);
+            }
             ViewBag.display = Display;
             RV.EDCards = ds.GetEveryDayCard("", "");
-            RV.Accounts = ds.GetSingleAccountInfo(storenumber);
+            if (TheRack == null)
+            {
+                RV.Accounts = ds.GetSingleAccountInfo(storenumber);
+            }
+            else
+            {
+                RV.Accounts = ds.GetSingleAccountInfo(TheRack);
+            }
+  //          RV.Accounts = ds.GetSingleAccountInfo(storenumber);
+            ViewBag.Storenumber = storenumber;
             return View(RV);
         }
 
         [HttpPost]
-        public ActionResult OrderEntryStep2(string storenumber, string Display, string opp)
+        public ActionResult OrderEntryStep2(string storenumber, string Display, string opp, string pp)
         {
             //storenumber = "0129";
             RackView RV = new RackView();
             RV.Cards = ds.GetRackByCardType(storenumber, Display);
             ViewBag.display = Display;
+            ViewBag.Storenumber = storenumber;
             RV.EDCards = ds.GetEveryDayCard("", "");
             RV.Accounts = ds.GetSingleAccountInfo(storenumber);
             return View(RV);
         }
 
 
-        public ActionResult OrderEntryStep3(string Thelocation, string NextRack, string Display, string TheRack)
+        public ActionResult OrderEntryStep3(string Thelocation, string NextRack, string Display, string TheRack,string storenumber)
         {
             RackView RV = new RackView();
             RV.Racktemp = new Rack();
-            //RV.Racktemp.TheLocation = Thelocation;
+            RV.Racktemp.TheLocation = "OrderEntryStep2";
             RV.Racktemp.NextRack = NextRack;
             RV.Racktemp.Display = Display;
-            //RV.Racktemp.TheRack = TheRack;
+            RV.Racktemp.TheRack = storenumber;
             return View(RV);
+        }
+
+
+        public ActionResult OrderSupplies(string Territory)
+        {
+            ViewBag.Terr = Territory;
+            return View();
         }
         
 

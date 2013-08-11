@@ -157,6 +157,11 @@ namespace CP_Cards.Controllers
 
         }
 
+        public ActionResult UpdatePersonalInfo()
+        {
+            return View();
+        }
+
        
     }
 }

@@ -1,0 +1,189 @@
+@{
+    ViewBag.Title = "OrderSupplies";
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Cards Plus</title>
+@{
+string Supplies1 = "(S.A.S.E.)";
+string Supplies2 = "Box Cutter";
+string Supplies3 = "Time Sheets";
+string Supplies4 = "Feather Duster";
+string Supplies5 = "Tape";
+string Supplies6 = "";
+string Supplies7 = "";
+string Supplies8 = "";
+string Supplies9 = "";
+string Supplies10 = "";
+}
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <script type="text/javascript">
+
+        function addsubtract(whichone, amount) {
+            var whichone;
+            var amount;
+            var tempnumber;
+
+            tempnumber = document.getElementById('amountbox' + whichone).value;
+            if (amount == 'add') {
+                tempnumber++;
+            }
+            if (amount == "subtract") {
+                tempnumber--;
+            }
+            if (tempnumber <= 0) {
+                tempnumber = 0;
+                //document.getElementById('imgCheck' + whichone).src = "buttons/"+whichone+"u.gif";
+            }
+            if (tempnumber > 0) {
+                //document.getElementById('imgCheck' + whichone).src = "buttons/"+whichone+"c.gif";
+            }
+            document.getElementById('amountbox' + whichone).value = tempnumber;
+        }
+    </script>
+<style type="text/css">
+<!--
+.style1 {
+	font-size: x-large;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body leftmargin="0" topmargin="0" rightmargin="0">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <!--DWLayoutTable-->
+  <tr>
+    <td height="56" colspan="2" valign="top"><img src="@Href("~/images/top_name.jpg")" width="318" height="56"></td>
+  </tr>
+  <tr>
+    <td width="149" height="507" valign="top" bgcolor="76A1E3">		<map name="right_bar_map">
+        <area alt="" coords="3,5,144,38" href="main.html">
+        <area alt="" coords="3,40,144,75" href="about.html">
+        <area alt="" coords="4,77,144,109" href="products.html">
+        <area alt="" coords="4,111,143,150" href="support.html">
+        <area alt="" coords="3,152,142,191" href="contact.html">
+        <area alt="" coords="4,192,141,236" href="staff.html">
+        <area alt="" coords="3,468,147,506" href="http://w3.cards-plus.com/">
+    </map>      <img src="@Href("~/images/right_bar.gif")" alt="" width="149" height="507" border="0" usemap="#right_bar_map">     
+
+    </td>
+    <td width="100%" valign="top">
+        
+    <div class="style1">
+      <table width="100%"  border="0" cellpadding="0">
+        <tr>
+          <td><div align="left">Order Supplies </div></td>
+          <td><div align="right"><a href="@Url.Action("MainPage", "Home", new {Territory = ViewBag.Terr })"><img src="@Href("~/images/TextButtons/BackToMainMenu.gif")" width="159" height="56" border="0"></a></div></td>
+        </tr>
+      </table>
+    </div>      
+      <hr>  
+            @*<form action="OrderSuppliesSubmit.asp" method="post" name="Orders" id="Orders">*@
+    @using (Html.BeginForm("OrderSuppliesSubmit", "Order", FormMethod.Post, new { @name = "Orders", @id = "Orders" }))
+    {
+  <table width="50%"  border="0" cellpadding="0">
+    <tr>
+      <td>@Supplies1
+      <input name="Supplies1Name" type="hidden" id="Supplies1Name" value="@Supplies1"></td>
+      <td>
+<a href="javascript:addsubtract(1,'subtract')"><img src="@Href("~/images/buttons/subtract.gif")" width="20" height="20" border="0"></a>
+<input name="@Supplies1" type="text" id="amountbox1" value="0" size="2">
+<a href="javascript:addsubtract(1,'add')"><img src="@Href("~/images/buttons/add.gif")" width="20" height="20" border="0"></a>
+</td>
+    </tr>
+
+    <tr>
+      <td>@Supplies2
+      <input name="Supplies2Name" type="hidden" id="Supplies2Name" value="@Supplies2"></td>
+<td>
+<a href="javascript:addsubtract(2,'subtract')"><img src="@Href("~/images/buttons/subtract.gif")" width="20" height="20" border="0"></a>
+<input name="@Supplies2" type="text" id="amountbox2" value="0" size="2">
+<a href="javascript:addsubtract(2,'add')"><img src="@Href("~/images/buttons/add.gif")" width="20" height="20" border="0"></a> 
+    </td> 
+</tr>
+
+	<tr>
+      <td>@Supplies3
+      <input name="Supplies3Name" type="hidden" id="Supplies1Name3" value="@Supplies3"></td>
+      <td>
+<a href="javascript:addsubtract(3,'subtract')"><img src="@Href("~/images/buttons/subtract.gif")" width="20" height="20" border="0"></a>
+<input name="@Supplies3" type="text" id="amountbox3" value="0" size="2">
+<a href="javascript:addsubtract(3,'add')"><img src="@Href("~/images/buttons/add.gif")" width="20" height="20" border="0"></a>    
+</td>    
+	</tr>
+    <tr>
+      <td>@Supplies4
+      <input name="Supplies4Name" type="hidden" id="Supplies1Name4" value="@Supplies4"></td>
+      <td>
+<a href="javascript:addsubtract(4,'subtract')"><img src="@Href("~/images/buttons/subtract.gif")" width="20" height="20" border="0"></a>
+<input name="@Supplies4" type="text" id="amountbox4" value="0" size="2">
+<a href="javascript:addsubtract(4,'add')"><img src="@Href("~/images/buttons/add.gif")" width="20" height="20" border="0"></a>    
+</td>    </tr>
+    <tr>
+      <td>@Supplies5
+      <input name="Supplies5Name" type="hidden" id="Supplies1Name5" value="@Supplies5"></td>
+      <td>
+<a href="javascript:addsubtract(5,'subtract')"><img src="@Href("~/images/buttons/subtract.gif")" width="20" height="20" border="0"></a>
+<input name="@Supplies5" type="text" id="amountbox5" value="0" size="2">
+<a href="javascript:addsubtract(5,'add')"><img src="@Href("~/images/buttons/add.gif")" width="20" height="20" border="0"></a>    
+</td>    </tr>
+    <tr>
+      <td>@Supplies6
+      <input name="Supplies6Name" type="hidden" id="Supplies1Name6" value="@Supplies6"></td>
+      <td>
+<a href="javascript:addsubtract(6,'subtract')"><img src="@Href("~/images/buttons/subtract.gif")" width="20" height="20" border="0"></a>
+<input name="@Supplies6" type="text" id="amountbox6" value="0" size="2">
+<a href="javascript:addsubtract(6,'add')"><img src="@Href("~/images/buttons/add.gif")" width="20" height="20" border="0"></a>    
+</td>    </tr>
+    <tr>
+      <td>@Supplies7
+      <input name="Supplies7Name" type="hidden" id="Supplies1Name7" value="@Supplies7"></td>
+      <td>
+<a href="javascript:addsubtract(7,'subtract')"><img src="@Href("~/images/buttons/subtract.gif")" width="20" height="20" border="0"></a>
+<input name="@Supplies7" type="text" id="amountbox7" value="0" size="2">
+<a href="javascript:addsubtract(7,'add')"><img src="@Href("~/images/buttons/add.gif")" width="20" height="20" border="0"></a>    
+</td>    </tr>
+    <tr>
+      <td>@Supplies8
+      <input name="Supplies8Name" type="hidden" id="Supplies1Name8" value="@Supplies8"></td>
+      <td>
+<a href="javascript:addsubtract(8,'subtract')"><img src="@Href("~/images/buttons/subtract.gif")" width="20" height="20" border="0"></a>
+<input name="@Supplies8" type="text" id="amountbox8" value="0" size="2">
+<a href="javascript:addsubtract(8,'add')"><img src="@Href("~/images/buttons/add.gif")" width="20" height="20" border="0"></a>    
+</td>    </tr>
+    <tr>
+      <td>@Supplies9
+      <input name="Supplies9Name" type="hidden" id="Supplies1Name9" value="@Supplies9"></td>
+      <td>
+<a href="javascript:addsubtract(9,'subtract')"><img src="@Href("~/images/buttons/subtract.gif")" width="20" height="20" border="0"></a>
+<input name="@Supplies9" type="text" id="amountbox9" value="0" size="2">
+<a href="javascript:addsubtract(9,'add')"><img src="@Href("~/images/buttons/add.gif")" width="20" height="20" border="0"></a>    
+</td>    </tr>
+    <tr>
+      <td>@Supplies10
+      <input name="Supplies10Name" type="hidden" id="Supplies1Name10" value="@Supplies10"></td>
+      <td>
+<a href="javascript:addsubtract(10,'subtract')"><img src="@Href("~/images/buttons/subtract.gif")" width="20" height="20" border="0"></a>
+<input name="@Supplies10" type="text" id="amountbox10" value="0" size="2">
+<a href="javascript:addsubtract(10,'add')"><img src="@Href("~/images/buttons/add.gif")" width="20" height="20" border="0"></a>    
+</td>    </tr>
+        
+  </table>
+       
+  <p>Comments:
+    <br>
+    <textarea name="Comments" cols="50" rows="5" id="Comments"></textarea>
+</p>
+  <p>
+    <input name="PlaceOrder" type="image" src="@Href("~/images/TextButtons/SubmitOrder.gif")" id="PlaceOrder" value="Place Order">
+</p>
+    }      
+  <p>&nbsp;</p></td>
+  </tr>
+</table>
+</body>
+</html>
