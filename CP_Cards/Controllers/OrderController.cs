@@ -78,14 +78,14 @@ namespace CP_Cards.Controllers
         }
 
         [HttpPost]
-        public ActionResult OrderEntryStep2(string storenumber, string Display, string opp, string pp)
+        public ActionResult OrderEntryStep2(string storenumber, string Display, string rack, Cards cards)
         {
             //storenumber = "0129";
             RackView RV = new RackView();
             RV.Cards = ds.GetRackByCardType(storenumber, Display);
-            ViewBag.display = Display;
+            ViewBag.display = cards.Display;
             ViewBag.Storenumber = storenumber;
-            RV.EDCards = ds.GetEveryDayCard("", "");
+            RV.EDCards = ds.GetEveryDayCard( cards.Rack,storenumber);
             RV.Accounts = ds.GetSingleAccountInfo(storenumber);
             return View(RV);
         }

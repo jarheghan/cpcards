@@ -125,7 +125,7 @@ namespace CP_Cards.infasctructure
             {
                 sqlConnection.Open();
                 IEnumerable<Cards> cardInfo
-                    = sqlConnection.Query<Cards>("select * from cards where Rack = 'Binary' + @racks  and Number = @storenumber"
+                    = sqlConnection.Query<Cards>("select * from cards where Rack =  @racks  and Number = @storenumber"
                     , new { racks = racks, storenumber = storenumber });
                 sqlConnection.Close();
                 return cardInfo;

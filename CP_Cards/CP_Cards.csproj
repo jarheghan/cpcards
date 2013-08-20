@@ -139,6 +139,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Contents\bootstrap\css\bootstrap-responsive.css" />
+    <Content Include="Contents\bootstrap\css\bootstrap-responsive.min.css" />
+    <Content Include="Contents\bootstrap\css\bootstrap.css" />
+    <Content Include="Contents\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Contents\bootstrap\img\glyphicons-halflings-white.png" />
+    <Content Include="Contents\bootstrap\img\glyphicons-halflings.png" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Contents\index.swf" />
     <Content Include="Global.asax" />
     <Content Include="images\0220.jpg" />
@@ -563,6 +571,9 @@
     <Content Include="images\top_name.jpg" />
     <Content Include="images\upslabel.gif" />
     <Content Include="images\warehouse.gif" />
+    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -571,6 +582,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <Content Include="Views\Shared\_LayoutPage.cshtml" />
+    <Content Include="Views\Order\OrderEntryStep2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -611,7 +625,7 @@
     <Content Include="Views\Order\OrderEntryStep1.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Order\OrderEntryStep2.cshtml" />
+    <Content Include="Views\Order\OrderEntryStep2_old.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\buttons\addsubtract.psd" />

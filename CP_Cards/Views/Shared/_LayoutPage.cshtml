@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="@Href("~/Contents/bootstrap/css/bootstrap.css")" rel="stylesheet" media="screen">
+      <script src="http://code.jquery.com/jquery.js"></script>
+  </head>
+  <body>
+      <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Card Plus Project</a>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+              Logged in as <a href="#" class="navbar-link">Username</a>
+            </p>
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+     <div class="container">
+      <div class="row">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Sidebar</li>
+              <li class="active"><a href="#">Link</a></li>
+              <li><a href="#">Login</a></li>
+              <li><a href="#">Logout</a></li>
+              <li><a href="#">Home</a></li>
+              <li class="nav-header">Sidebar</li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li class="nav-header">Sidebar</li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+              <li><a href="#">Link</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+            @RenderBody()
+          
+      <hr>
+
+      <footer>
+        <p>&copy; Company 2013</p>
+      </footer>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function ToggleButton(ornumber) {
+            $("#btn-" + ornumber.toString()).toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large disable");
+            if ($("#btn-" + ornumber.toString()).hasClass('btn-primary btn1 btn-large')) {
+                $("#hid-" + ornumber).attr("value", ornumber);
+                //$("#hid-" + ornumber).html("<input type='hidden' value=" + "'" + ornumber + "'" + " id=" + "'" + "hid-" + ornumber + "' />")
+            }
+            else {
+                $("#hid-" + ornumber).removeAttr("value");
+                //$("#hid-" + ornumber).remove();
+            }
+        }
+</script>
+<script type="text/javascript">
+    $("#flipRack").bind("click", function (event) {
+        $("div#frontrack").toggle();
+    });
+</script>
+
+<script type="text/javascript">
+    //check and Uncheck all cards in the rack.
+    $("#checkUncheck22").bind("click", function (event) {
+        //$("button").removeClass("btn1 btn-large btn-primary").addClass("btn1 btn-large");
+        $("div:[a]").toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large");
+
+        if ($("button").hasClass('btn-primary btn1 btn-large')) {
+            //$("button").attr("value", "0");
+            // $("#hid-" + ornumber).html("<input type='hidden' value=" + "'" + ornumber + "'" + " id=" + "'" + "hid-" + ornumber + "' />")
+        }
+        else {
+            //$("input").removeAttr("value");
+            //$("#hid-" + ornumber).remove();
+        }
+    });
+
+    function uncheck22(amount) {
+        for (var i = 0; i <= amount; i++) {
+            $("#btn-"+ i).toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large");
+        }
+
+    }
+</script>
+
+      <script type="text/javascript">
+
+          $("#checkUncheck").click(function () {
+              GetRack();
+              return false;
+          });
+
+          function GetRack() {
+
+              var model = @Html.Raw(Json.Encode(Model));
+
+        $.ajax({
+
+            url: '@Url.Action("")',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({model: model}),
+            success:function(result)
+            {
+                alert('successful');
+            }
+
+        });
+    }
+
+</script>
+
+@*    <script src="http://code.jquery.com/jquery.js"></script>*@
+    <script src="@Href("~/Scripts/bootstrap.js")"></script>
+  </body>
+</html>
