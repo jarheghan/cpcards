@@ -16,7 +16,7 @@
               
             <div class="span12">
                 
-              <h3>Place you card order</h3>
+              <h3>Place you card order @Model.EDCards.Count()</h3>
               <div class="span4">@Html.DropDownListFor(m => m.rack, new SelectList(Model.Cards, "Rack", "Rack", Model.rack), "--Select--", new {@name="rack", @id="select" })</div>
               <div class="span4"><button class="btn btn-danger" >Select Rack &raquo;</button></div>
              
@@ -24,6 +24,7 @@
            <div class="span12">
                @{int ss = Model.EDCards.Count();}
                   <div class="span4"><a class="btn btn-danger" id="checkUncheck" )">Check/UnCheck &raquo;</a></div>
+                  <input type="hidden" id="findCheck" value="0" />
                   <div class="span4"><a class="btn btn-danger" id="flipRack" >View Rack &raquo;</a></div>
                   <div class="span4"><a class="btn btn-danger" >Save Rack &raquo;</a></div>
            </div>
@@ -45,19 +46,9 @@
           </div><!--/row-->
    
      <div class="row" id="frontrack">
-            
-         @{if(Model.EDCards.Count() > 0)
-               {
-               Html.Raw("<div class=" + "\"span9" + ">");
-               }
-           if (Model.EDCards.Count() < 96)
-           {
-               Html.Raw("<div class=" + "\"span6" + ">");
-
-           }
-           
-          }
-           
+         @*Rack of 96*@
+           @{if(Model.EDCards.Count() == 96)
+             {
             <div class="span9" >
                         
                 @{int MainCounter;
@@ -77,10 +68,43 @@
                 
            
             </div><!--/span-->
+           }
+           }
            
+
+           @*Rack of 84*@
+           @{if(Model.EDCards.Count() == 84)
+             {
+            <div class="span7" >
+                        
+                @{int MainCounter;
+                 MainCounter= Model.EDCards.Count();
+                 var seq = Model.EDCards;
+                 var result = seq.Select((s,i) => new {Value =s , Index = i}).GroupBy(item => item.Index/6, item => item.Value);
+                 
+                    foreach (var ss1 in result.OrderByDescending(x => x.Key))
+                    {
+                        foreach (var tt in ss1)
+                        {
+                          <div class="span1"> <a  class="btn1 btn-large btn-primary" id="btn-@tt.Space" onclick="ToggleButton(@tt.Space)">@tt.Rack@tt.Space</a></div>
+                        <input type="hidden" value="@tt.Space" id="hid-@tt.Space" />    
+                        }
+                    }
+                 }
+                
+           
+            </div><!--/span-->
+           }
+           }
+           
+
           </div><!--/row-->
                <div class="row" id="frontrack" style="display: none">
             
+
+             @*Rack of 96*@
+           @{if(Model.EDCards.Count() == 96)
+             {
                 <div class="span12">
                         
                 @{int MainCounter1;
@@ -106,7 +130,40 @@
                 
            
             </div><!--/span-->
+           }
+           }
+
+         @*Rack of 96*@
+           @{if(Model.EDCards.Count() == 84)
+             {
+                <div class="span9">
+                        
+                @{int MainCounter1;
+                  var seq1 = Model.EDCards;
+                  var result1 = seq1.Select((s, i) => new { Value = s, Index = i }).GroupBy(item => item.Index / 6, item => item.Value);
+                   
+                    foreach (var ss1 in result1.OrderByDescending(x => x.Key))
+                    {
+                        foreach (var tt in ss1)
+                        {
+                           
+                              <div id="designme" class="designme btn-primary2">
+                                  <b>@tt.Space,@tt.Rack,@tt.A_Retail</b>;<br />
+                                     @tt.A_Design @tt.M_Design;
+                                  </div>
+                           
+                        }
+                    } 
+                             
+                
+                   }
+                 
+                
            
+            </div><!--/span-->
+           }
+           }
+
           </div><!--/row-->
                 }
       

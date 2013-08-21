@@ -74,29 +74,6 @@
     });
 </script>
 
-<script type="text/javascript">
-    //check and Uncheck all cards in the rack.
-    $("#checkUncheck22").bind("click", function (event) {
-        //$("button").removeClass("btn1 btn-large btn-primary").addClass("btn1 btn-large");
-        $("div:[a]").toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large");
-
-        if ($("button").hasClass('btn-primary btn1 btn-large')) {
-            //$("button").attr("value", "0");
-            // $("#hid-" + ornumber).html("<input type='hidden' value=" + "'" + ornumber + "'" + " id=" + "'" + "hid-" + ornumber + "' />")
-        }
-        else {
-            //$("input").removeAttr("value");
-            //$("#hid-" + ornumber).remove();
-        }
-    });
-
-    function uncheck22(amount) {
-        for (var i = 0; i <= amount; i++) {
-            $("#btn-"+ i).toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large");
-        }
-
-    }
-</script>
 
       <script type="text/javascript">
 
@@ -109,14 +86,33 @@
 
               var model = @Html.Raw(Json.Encode(Model.EDCards));
               var item = [];
+              var par = $("#findCheck").val();
               $.each(model, function(key, val){
                   //item.push($("#btn-"+ val.Space).toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large"));
-                  $("#btn-"+ val.Space).toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large");
+                  //$("#btn-"+ val.Space).toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large");
+                  if(($("#btn-" + val.Space).hasClass('btn-primary btn1 btn-large') ||$("#btn-" + val.Space).hasClass('btn1 btn-large btn-primary')) && (par === "0"))
+                  {
+                      $("#btn-"+ val.Space).toggleClass("btn-primary btn1 btn-large").addClass("btn1 btn-large");
+                      ($("#btn-"+ val.Space).removeClass("btn-primary btn1 btn-large").addClass("btn1 btn-large")||
+                       $("#btn-"+ val.Space).removeClass("btn1 btn-large btn-primary").addClass("btn1 btn-large"));
+                     // $("#findCheck").attr("value", "1");
+
+                  }
+                  
+                  if($("#btn-" + val.Space).hasClass('btn1 btn-large') && (par === "1"))
+                  {
+                      $("#btn-"+ val.Space).toggleClass("btn1 btn-large").addClass("btn1 btn-large btn-primary");
+                      $("#btn-"+ val.Space).removeClass("btn1 btn-large").addClass("btn1 btn-large btn-primary");
+                      //$("#findCheck").attr("value", "0");
+                  }
+                  
                   if ($("#btn-" + val.Space).hasClass('btn-primary btn1 btn-large')) {
                       $("#hid-" + val.Space).attr("value", val.Space);
+                      $("#findCheck").attr("value", "0");
                   }
                   else {
                       $("#hid-" + val.Space).removeAttr("value");
+                      $("#findCheck").attr("value", "1");
                   }
               });
               
