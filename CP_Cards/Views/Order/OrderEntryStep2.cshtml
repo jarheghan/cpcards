@@ -23,7 +23,7 @@
             </div><!--/span-->
            <div class="span12">
                @{int ss = Model.EDCards.Count();}
-                  <div class="span4"><a class="btn btn-danger" id="checkUncheck" onclick="uncheck(@ss)">Check/UnCheck &raquo;</a></div>
+                  <div class="span4"><a class="btn btn-danger" id="checkUncheck" )">Check/UnCheck &raquo;</a></div>
                   <div class="span4"><a class="btn btn-danger" id="flipRack" >View Rack &raquo;</a></div>
                   <div class="span4"><a class="btn btn-danger" >Save Rack &raquo;</a></div>
            </div>
@@ -84,15 +84,23 @@
                 <div class="span12">
                         
                 @{int MainCounter1;
-                 MainCounter1= Model.EDCards.Count();
-                 foreach(var edcard in Model.EDCards)
-                   {
-                    
-                    <div id="designme" class="designme btn-primary2">
-                              <b>@edcard.Space,@edcard.Rack,@edcard.A_Retail</b>;<br />
-                                 @edcard.A_Design @edcard.M_Design;
-                    </div>
-               } 
+                  var seq1 = Model.EDCards;
+                  var result1 = seq1.Select((s, i) => new { Value = s, Index = i }).GroupBy(item => item.Index / 8, item => item.Value);
+                   
+                    foreach (var ss1 in result1.OrderByDescending(x => x.Key))
+                    {
+                        foreach (var tt in ss1)
+                        {
+                           
+                              <div id="designme" class="designme btn-primary2">
+                                  <b>@tt.Space,@tt.Rack,@tt.A_Retail</b>;<br />
+                                     @tt.A_Design @tt.M_Design;
+                                  </div>
+                           
+                        }
+                    } 
+                             
+                
                    }
                  
                 
@@ -100,9 +108,9 @@
             </div><!--/span-->
            
           </div><!--/row-->
-          
+                }
       
-                }       
+                       
 
 @*        @using(Html.BeginForm(()*@
 

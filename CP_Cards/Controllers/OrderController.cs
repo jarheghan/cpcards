@@ -90,6 +90,18 @@ namespace CP_Cards.Controllers
             return View(RV);
         }
 
+        public ActionResult OrderEntryJSon(string storenumber, string Display, string rack, Cards cards)
+        {
+            //storenumber = "0129";
+            RackView RV = new RackView();
+            RV.Cards = ds.GetRackByCardType(storenumber, Display);
+            ViewBag.display = cards.Display;
+            ViewBag.Storenumber = storenumber;
+            RV.EDCards = ds.GetEveryDayCard(cards.Rack, storenumber);
+            RV.Accounts = ds.GetSingleAccountInfo(storenumber);
+            return View(RV);
+        }
+
 
         public ActionResult OrderEntryStep3(string Thelocation, string NextRack, string Display, string TheRack,string storenumber)
         {

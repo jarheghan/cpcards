@@ -36,21 +36,11 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="#">Link</a></li>
+              <li class="active"><a href="#">Home</a></li>
               <li><a href="#">Login</a></li>
               <li><a href="#">Logout</a></li>
-              <li><a href="#">Home</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+              <li><a href="#">About Us</a></li>
+              
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
@@ -117,20 +107,20 @@
 
           function GetRack() {
 
-              var model = @Html.Raw(Json.Encode(Model));
+              var model = @Html.Raw(Json.Encode(Model.EDCards));
+              var item = [];
+              $.each(model, function(key, val){
+                  //item.push($("#btn-"+ val.Space).toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large"));
+                  $("#btn-"+ val.Space).toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large");
+                  if ($("#btn-" + val.Space).hasClass('btn-primary btn1 btn-large')) {
+                      $("#hid-" + val.Space).attr("value", val.Space);
+                  }
+                  else {
+                      $("#hid-" + val.Space).removeAttr("value");
+                  }
+              });
+              
 
-        $.ajax({
-
-            url: '@Url.Action("")',
-            type: 'POST',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({model: model}),
-            success:function(result)
-            {
-                alert('successful');
-            }
-
-        });
     }
 
 </script>
