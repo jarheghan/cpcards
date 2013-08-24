@@ -50,7 +50,7 @@ namespace CP_Cards.Controllers
             return View(ret);
         }
 
-        public ActionResult OrderEntryStep2(string storenumber, string Display, string TheRack)
+        public ActionResult OrderEntryStep2(string storenumber, string Display, string TheRack, string Territory)
         {
             //storenumber = "0129";
             RackView RV = new RackView();
@@ -74,11 +74,12 @@ namespace CP_Cards.Controllers
             }
   //          RV.Accounts = ds.GetSingleAccountInfo(storenumber);
             ViewBag.Storenumber = storenumber;
+            ViewBag.Terr = Territory;
             return View(RV);
         }
 
         [HttpPost]
-        public ActionResult OrderEntryStep2(string storenumber, string Display, string rack, Cards cards, string rackspace, IEnumerable<Cards> EDCards)
+        public ActionResult OrderEntryStep2(string storenumber, string Display, string rack, Cards cards, string rackspace,string Territory, IEnumerable<Cards> EDCards)
         {
             //storenumber = "0129";
             RackView RV = new RackView();
@@ -87,10 +88,11 @@ namespace CP_Cards.Controllers
             ViewBag.Storenumber = storenumber;
             RV.EDCards = ds.GetEveryDayCard( cards.Rack,storenumber);
             RV.Accounts = ds.GetSingleAccountInfo(storenumber);
+            ViewBag.Terr = Territory;
             return View(RV);
         }
 
-        public ActionResult OrderEntry2Save(IEnumerable<string> rackspace,  RackView SingleCard,string storenumber, string Display)
+        public ActionResult OrderEntry2Save(IEnumerable<string> rackspace, RackView SingleCard, string storenumber, string Display, string Territory)
         {
             RackView RV = new RackView();
             RV.OrderDetail = new Order_Details();
@@ -104,19 +106,13 @@ namespace CP_Cards.Controllers
                     RV.OrderDetail.Store_No = storenumber;
                     RV.OrderDetail.Rack_Display = Display;
                     ds.InsertOrderDetailsInfo(RV.OrderDetail);
+
                 }
             }
 
-            //foreach (var card in cards)
-            //{
-            //    RV.OrderDetail.Ord_Ort_ID = 021547;
-            //    RV.OrderDetail.Rack_ID = card.Rack;
-            //    RV.OrderDetail.Store_No = card.Number;
-            //    RV.OrderDetail.Delete_Flag = false;
-            //    ds.InsertOrderDetailsInfo(RV.OrderDetail);
-            //}
+            ViewBag.Terr = Territory;
             ViewBag.Completed = "Record has been inserted.";
-            return RedirectToAction("OrderEntryStep2", new { Display = Display, storenumber = storenumber });
+            return RedirectToAction("OrderEntryStep2", new { Display = Display, storenumber = storenumber,Territory = Territory });
         }
 
 
@@ -133,6 +129,14 @@ namespace CP_Cards.Controllers
 
 
         public ActionResult OrderSupplies(string Territory)
+        {
+            ViewBag.Terr = Territory;
+            return View();
+        }
+
+
+
+        public ActionResult OrderEntryStep1new(string Territory)
         {
             ViewBag.Terr = Territory;
             return View();

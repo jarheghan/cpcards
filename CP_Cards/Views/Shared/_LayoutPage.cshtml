@@ -32,22 +32,10 @@
     </div>
      <div class="container">
       <div class="row">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#">Login</a></li>
-              <li><a href="#">Logout</a></li>
-              <li><a href="#">About Us</a></li>
-              
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
+        @RenderSection("Menu",false)
         <div class="span9">
             @RenderBody()
-          
-      <hr>
+        <hr>
 
       <footer>
         <p>&copy; Company 2013</p>
@@ -55,71 +43,7 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        function ToggleButton(ornumber) {
-            $("#btn-" + ornumber.toString()).toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large disable");
-            if ($("#btn-" + ornumber.toString()).hasClass('btn-primary btn1 btn-large')) {
-                $("#hid-" + ornumber).attr("value", ornumber);
-                //$("#hid-" + ornumber).html("<input type='hidden' value=" + "'" + ornumber + "'" + " id=" + "'" + "hid-" + ornumber + "' />")
-            }
-            else {
-                $("#hid-" + ornumber).removeAttr("value");
-                //$("#hid-" + ornumber).remove();
-            }
-        }
-</script>
-<script type="text/javascript">
-    $("#flipRack").bind("click", function (event) {
-        $("div#frontrack").toggle();
-    });
-</script>
-
-
-      <script type="text/javascript">
-
-          $("#checkUncheck").click(function () {
-              GetRack();
-              return false;
-          });
-
-          function GetRack() {
-
-              var model = @Html.Raw(Json.Encode(Model.EDCards));
-              var item = [];
-              var par = $("#findCheck").val();
-              $.each(model, function(key, val){
-                  //item.push($("#btn-"+ val.Space).toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large"));
-                  //$("#btn-"+ val.Space).toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large");
-                  if(($("#btn-" + val.Space).hasClass('btn-primary btn1 btn-large') ||$("#btn-" + val.Space).hasClass('btn1 btn-large btn-primary')) && (par === "0"))
-                  {
-                      $("#btn-"+ val.Space).toggleClass("btn-primary btn1 btn-large").addClass("btn1 btn-large");
-                      ($("#btn-"+ val.Space).removeClass("btn-primary btn1 btn-large").addClass("btn1 btn-large")||
-                       $("#btn-"+ val.Space).removeClass("btn1 btn-large btn-primary").addClass("btn1 btn-large"));
-                     // $("#findCheck").attr("value", "1");
-
-                  }
-                  
-                  if($("#btn-" + val.Space).hasClass('btn1 btn-large') && (par === "1"))
-                  {
-                      $("#btn-"+ val.Space).toggleClass("btn1 btn-large").addClass("btn1 btn-large btn-primary");
-                      $("#btn-"+ val.Space).removeClass("btn1 btn-large").addClass("btn1 btn-large btn-primary");
-                      //$("#findCheck").attr("value", "0");
-                  }
-                  
-                  if ($("#btn-" + val.Space).hasClass('btn-primary btn1 btn-large')) {
-                      $("#hid-" + val.Space).attr("value", val.Space);
-                      $("#findCheck").attr("value", "0");
-                  }
-                  else {
-                      $("#hid-" + val.Space).removeAttr("value");
-                      $("#findCheck").attr("value", "1");
-                  }
-              });
-              
-
-    }
-
-</script>
+    @RenderSection("JS_Script", false);
 
 @*    <script src="http://code.jquery.com/jquery.js"></script>*@
     <script src="@Href("~/Scripts/bootstrap.js")"></script>

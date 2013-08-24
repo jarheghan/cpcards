@@ -587,6 +587,9 @@
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
     <Content Include="Views\Order\OrderEntryStep2.cshtml" />
     <Content Include="Views\Shared\sidemenu.cshtml" />
+    <Content Include="Views\Shared\sidemenuorder.cshtml" />
+    <Content Include="Views\Order\OrderEntryStep1.cshtml" />
+    <Content Include="Views\Shared\jspartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -624,7 +627,7 @@
     <Content Include="Views\Home\RecentOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Order\OrderEntryStep1.cshtml" />
+    <Content Include="Views\Order\OrderEntryStep1old.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\buttons\addsubtract.psd" />

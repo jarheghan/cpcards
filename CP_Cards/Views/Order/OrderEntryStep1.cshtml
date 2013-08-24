@@ -1,106 +1,67 @@
-@model CP_Cards.Models.TSView
+﻿@model CP_Cards.Models.TSView
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<title>Cards Plus</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<style type="text/css">
-<!--
-.style1 {
-	font-size: x-large;
-	font-weight: bold;
+@{
+    ViewBag.Title = "OrderEntryStep1new";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
--->
-</style>
-</head>
 
+ @section Menu{
+            @Html.Partial("sidemenu");
+        }
 
-<body>
-<table cellspacing="2" cellpadding="2" border="0">
-<tr>
-    <td align="center"><div align="center"><a href="main.html"><img src="@Href("~/images/cardsplus-logo.jpg")" alt="" width="300" height="135" border="0"></a></div><br>Back Office</td>
-</tr>
-<tr>
-    <td>
-	<!--- Start --->
-	<table width="100%"  border="0" cellpadding="0">
-        <tr>
-          <td><div align="left"><span class="style1">Order Entry Step 1 </span></div></td>
-          <td><div align="left">            <a href="ViewOrders.asp" target="_blank"><img src="@Href("~/images/TextButtons/ViewOrders.gif")" width="159" height="56" border="0"></a><a href="@Url.Action("MainPage", "Home", new {Territory = ViewBag.Terr })"><img src="@Href("~/images/TextButtons/BackToMainMenu.gif")" width="159" height="56" border="0"></a></div></td>
-        </tr>
-      </table>
-<hr>
+<div class="hero-unit">
+    <img src="@Href("~/images/cardsplus-logo.jpg")" alt="" width="300" height="135" border="0">
+   </div>
 
-@using(Html.BeginForm())
-{
-  <table width="100%"  border="0" cellpadding="0">
-    <tr>
-      <td><div align="left">
-       @* <select name="Account" id="select">
-          
-        @{foreach (var mm in Model.Account)
+            @using (Html.BeginForm())
                 {
-                <option value="@mm.StoreNumber" selected="@mm.StoreNumber" >@mm.StoreNumber -  @mm.CustName - @mm.City</option>
-                }
-         }
-        
-        </select>*@
-      @Html.DropDownListFor( m => m.StoreNumber, new SelectList(Model.AccountAll, "StoreNumber","ConInfo", Model.StoreNumber), "--Select--")
-      OR 
-      <input name="tempAccount" type="text" id="tempAccount" size="5">
-      </div></td>
-      <td><div align="right">
-        <input name="SelectAccount" type="image" src="@Href("~/images/TextButtons/SelectAccount.gif")" id="SelectAccount" value="Select Account">
-      </div></td>
-    </tr>
-  </table>
-}
-<p>
-    @{ if(Model.SingleAccount !=null)
-       {
+          <div class="row-fluid">
+              
+            <div class="span12">
+                
+                 <div class="span12">
+                  <div class="span4"><a class="btn btn-danger" id="checkUncheck" >View Orders &raquo;</a></div>
+                  <div class="span4"><a class="btn btn-danger" id="flipRack" href="@Url.Action("MainPage", "Home", new {Territory = ViewBag.Terr })" >Back to Main Menu &raquo;</a></div>
+            </div>
+            <div class="span12">
+            </div>
+            <div class="span12">
+              <div class="span4">@Html.DropDownListFor( m => m.StoreNumber, new SelectList(Model.AccountAll, "StoreNumber","ConInfo", Model.StoreNumber), "--Select--")</div>
+             <div class="span1"> OR</div>
+                <div class="span1"> <input name="tempAccount" type="text" id="tempAccount" class="customtext"></div>
+              <div class="span4"><button class="btn btn-danger" >Select Rack &raquo;</button></div>
+            </div> 
+            </div><!--/span-->
+        <div class="span12">
+           @{ if(Model.SingleAccount !=null)
+             {
     
-        <strong>@Model.SingleAccount.StoreNumber</strong>
-        <div>@Model.SingleAccount.Contact</div>
-        <div>@Model.SingleAccount.CustName</div>
-        <div>@Model.SingleAccount.Address</div>
-        <div>@Model.SingleAccount.Address2</div>
-        <div>@Model.SingleAccount.City</div>
-    }
-    }
+                <strong>Store Number: @Model.SingleAccount.StoreNumber</strong>
+                <div>@Model.SingleAccount.Contact</div>
+                <div>@Model.SingleAccount.CustName</div>
+                <div>@Model.SingleAccount.Address</div>
+                <div>@Model.SingleAccount.Address2</div>
+                <div>@Model.SingleAccount.City</div>
+             }
+           }
+            </div>
     
-</MM:DECORATION></MM_HIDDENREGION></p>
-<table width="100%"  border="0" cellpadding="0">
-  <tr>
-    <td><div align="center"><a href="@Url.Action("OrderEntryStep2", "Order", new {Display = "E",storenumber = Model.SingleAccount.StoreNumber,val = string.Empty})">
-        <img src="@Href("~/images/TextButtons/EveryDayCards.gif")" width="159" height="56" border="0"></a></div></td>
-    <td><div align="center"><a href="@Url.Action("OrderEntryStep2", "Order", new {Display = "T"})"><img src="@Href("~/images/TextButtons/TitleFinders.gif")" width="159" height="56" border="0"></a></div></td>
-    <td><div align="center"><a href="@Url.Action("OrderEntryStep2", "Order", new {Display = "S"})"><img src="@Href("~/images/TextButtons/SeasonalCards.gif")" width="159" height="56" border="0"></a></div></td>
-    </tr>
-  <tr>
-    <td><div align="center"><a href="@Url.Action("OrderEntryStep2", "Order", new {Display = "G"})"><img src="@Href("~/images/TextButtons/GeneralMerchandise.gif")" width="159" height="56" border="0"></a></div></td>
-    <td><div align="center"><a href="@Url.Action("OrderPlush", "Order")"><img src="@Href("~/images/TextButtons/PlushItems.gif")" width="159" height="56" border="0"></a></div></td>
-    <td><div align="center"><a href="@Url.Action("OrderPromo", "Order")"><img src="@Href("~/images/TextButtons/PromoItems.gif")" width="159" height="56" border="0"></a></div></td>
-    </tr>
-</table>
-<form action="SubmitFinalOrder.asp" method="post" name="OrderEntry" id="OrderEntry">
-  <div align="center">Order Notes  </div>
-  <div align="center">
-    <textarea name="Notes" cols="70" id="Notes"></textarea> 
-  <br>
-  <input name="SubmitOrder" type="image" src="@Href("~/images/TextButtons/SubmitOrder.gif")" id="SubmitOrder" value="SubmitOrder">
-  </div>
-</form>
-<p><MM_HIDDENREGION><MM:DECORATION OUTLINE="Show%20If..." OUTLINEID=1>
-</p>	</td>
-  </tr>
-</table>
-	<!--- Finish --->
-	</td>
-</tr>
-</table>
+           <div class="span12"></div>
+
+           <div class="span12">
+                  <div class="span4"><a class="btn btn-danger" id="ED" href="@Url.Action("OrderEntryStep2", "Order", new {Display = "E",storenumber = Model.SingleAccount.StoreNumber,Territory = ViewBag.Terr})" )">Every Day Card &raquo;</a></div>
+                  <div class="span4"><a class="btn btn-danger" id="SC" >Seasonal Card &raquo;</a></div>
+                  <div class="span4"><a class="btn btn-danger" id="GM" >General Merchant &raquo;</a></div>
+           </div>
+          </div><!--/row-->
+             
+          <div class="row-fluid">
+              <div class="span12"></div>
+              <div class="span12">
+                  <textarea id="orderinfo" class="customtextarea" name="orderinfo" placeholder="Enter Order information" ></textarea>
+              </div>
+              <div class="span12"><div class="span4"><button class="btn btn-danger" id="GM" >Submit &raquo;</button></div></div>
 
 
-
-</body>
-</html>
+          </div>
+            }
