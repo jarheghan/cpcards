@@ -133,6 +133,28 @@ namespace CP_Cards.infasctructure
             }
         }
 
+        public void InsertOrderDetailsInfo(Order_Details orderDetails)
+        {
+            using (var sqlConnection = new SqlConnection(Constant.connectionString))
+            {
+                sqlConnection.Open();
+                int cnt = sqlConnection.Execute("insert into Order_Details(ord_ort_id,ord_rack_space,ord_rack_id,ord_rack_display,ord_store_no" +
+                                             ",ord_delete_flag)" +
+                                                   "values(@Ord_Ort_ID,@Rack_Space,@Rack_ID,@Rack_Display,@Store_No,@Delete_Flag)"
+                                                   , new Order_Details
+                                                   {
+                                                       Ord_Ort_ID = orderDetails.Ord_Ort_ID,
+                                                       Rack_Space = orderDetails.Rack_Space,
+                                                       Rack_ID = orderDetails.Rack_ID,
+                                                       Rack_Display = orderDetails.Rack_Display,
+                                                       Store_No = orderDetails.Store_No,
+                                                       Delete_Flag = orderDetails.Delete_Flag
+                                                   });
+                sqlConnection.Close();
+
+            }
+        }
+
 
 
 

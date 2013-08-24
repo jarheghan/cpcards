@@ -26,7 +26,9 @@
                   <div class="span4"><a class="btn btn-danger" id="checkUncheck" )">Check/UnCheck &raquo;</a></div>
                   <input type="hidden" id="findCheck" value="0" />
                   <div class="span4"><a class="btn btn-danger" id="flipRack" >View Rack &raquo;</a></div>
-                  <div class="span4"><a class="btn btn-danger" >Save Rack &raquo;</a></div>
+                  <div class="span4"><a class="btn btn-danger" id="flipRack" >Advance Order Details &raquo;</a></div>
+                    
+                  
            </div>
           </div><!--/row-->
              
@@ -44,8 +46,13 @@
             </div><!--/span-->
            
           </div><!--/row-->
-   
-     <div class="row" id="frontrack">
+            }
+     
+                
+      
+@using(Html.BeginForm("OrderEntry2Save","Order",new { storenumber = ViewBag.Storenumber,Display = ViewBag.Display,val=string.Empty},FormMethod.Post))
+{
+    <div class="row" id="frontrack">
          @*Rack of 96*@
            @{if(Model.EDCards.Count() == 96)
              {
@@ -58,10 +65,13 @@
                  
                     foreach (var ss1 in result.OrderByDescending(x => x.Key))
                     {
-                        foreach (var tt in ss1)
+                        foreach (CP_Cards.Models.Cards tt1 in ss1)
                         {
-                          <div class="span1"> <a  class="btn1 btn-large btn-primary" id="btn-@tt.Space" onclick="ToggleButton(@tt.Space)">@tt.Rack@tt.Space</a></div>
-                        <input type="hidden" value="@tt.Space" id="hid-@tt.Space" />    
+                          <div class="span1"> <a  class="btn1 btn-large btn-primary" id="btn-@tt1.Space" onclick="ToggleButton(@tt1.Space)">@tt1.Rack@tt1.Space</a></div>
+                          <input type="hidden" value="@tt1.Space" id="hid-@tt1.Space" name="rackSpace" /> 
+                           Model.SingleCards = tt1;
+                            @Html.HiddenFor(x => x.SingleCards.Rack); 
+                   
                         }
                     }
                  }
@@ -84,10 +94,13 @@
                  
                     foreach (var ss1 in result.OrderByDescending(x => x.Key))
                     {
-                        foreach (var tt in ss1)
+                        foreach (CP_Cards.Models.Cards tt in ss1)
                         {
                           <div class="span1"> <a  class="btn1 btn-large btn-primary" id="btn-@tt.Space" onclick="ToggleButton(@tt.Space)">@tt.Rack@tt.Space</a></div>
-                        <input type="hidden" value="@tt.Space" id="hid-@tt.Space" />    
+                          <input type="hidden" value="@tt.Space" id="hid-@tt.Space" name="rackSpace" />  
+                            Model.SingleCards = tt;
+                            @Html.HiddenFor(x => x.SingleCards.Rack); 
+  
                         }
                     }
                  }
@@ -165,8 +178,18 @@
            }
 
           </div><!--/row-->
-                }
-      
+    <div class="row-fluid">
+              
+        <div class="span12">
+              <div class="span4"></div>  
+            </div>
+            <div class="span12">
+              <div class="span4"><button class="btn btn-danger" >Save Rack &raquo;</button></div>  
+              
+            </div><!--/span-->
+           
+   </div><!--/row-->
+}
                        
 
 @*        @using(Html.BeginForm(()*@

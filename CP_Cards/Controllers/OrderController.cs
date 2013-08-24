@@ -78,7 +78,7 @@ namespace CP_Cards.Controllers
         }
 
         [HttpPost]
-        public ActionResult OrderEntryStep2(string storenumber, string Display, string rack, Cards cards)
+        public ActionResult OrderEntryStep2(string storenumber, string Display, string rack, Cards cards, string rackspace, IEnumerable<Cards> EDCards)
         {
             //storenumber = "0129";
             RackView RV = new RackView();
@@ -90,9 +90,33 @@ namespace CP_Cards.Controllers
             return View(RV);
         }
 
-        public ActionResult OrderEntry2Save()
+        public ActionResult OrderEntry2Save(IEnumerable<string> rackspace,  RackView SingleCard,string storenumber, string Display)
         {
-            return View();
+            RackView RV = new RackView();
+            RV.OrderDetail = new Order_Details();
+            
+            foreach (var space in rackspace)
+            {
+                if (space != "")
+                {
+                    RV.OrderDetail.Rack_Space = Convert.ToInt16(space);
+                    RV.OrderDetail.Rack_ID = SingleCard.SingleCards.Rack;
+                    RV.OrderDetail.Store_No = storenumber;
+                    RV.OrderDetail.Rack_Display = Display;
+                    ds.InsertOrderDetailsInfo(RV.OrderDetail);
+                }
+            }
+
+            //foreach (var card in cards)
+            //{
+            //    RV.OrderDetail.Ord_Ort_ID = 021547;
+            //    RV.OrderDetail.Rack_ID = card.Rack;
+            //    RV.OrderDetail.Store_No = card.Number;
+            //    RV.OrderDetail.Delete_Flag = false;
+            //    ds.InsertOrderDetailsInfo(RV.OrderDetail);
+            //}
+            ViewBag.Completed = "Record has been inserted.";
+            return RedirectToAction("OrderEntryStep2", new { Display = Display, storenumber = storenumber });
         }
 
 

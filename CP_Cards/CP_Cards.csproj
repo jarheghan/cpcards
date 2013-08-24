@@ -127,6 +127,7 @@
     <Compile Include="Models\ConstValues.cs" />
     <Compile Include="Models\Memos.cs" />
     <Compile Include="Models\Orders.cs" />
+    <Compile Include="Models\Order_Details.cs" />
     <Compile Include="Models\PersonInfo.cs" />
     <Compile Include="Models\Rack.cs" />
     <Compile Include="Models\RackView.cs" />
@@ -585,6 +586,7 @@
     <Content Include="Scripts\jquery-2.0.3.min.map" />
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
     <Content Include="Views\Order\OrderEntryStep2.cshtml" />
+    <Content Include="Views\Shared\sidemenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -625,15 +627,9 @@
     <Content Include="Views\Order\OrderEntryStep1.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Order\OrderEntryStep2_old.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="images\buttons\addsubtract.psd" />
     <Content Include="images\buttons\button.psd" />
     <Content Include="images\buttons\noimage.psd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Order\OrderEntryStep3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Order\OrderSupplies.cshtml" />
