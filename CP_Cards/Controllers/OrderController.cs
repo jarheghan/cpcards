@@ -29,21 +29,35 @@ namespace CP_Cards.Controllers
             return View(ret);
         }
 
+        public ActionResult CreateTransactionOrder(string Territory, string val, string storenumber)
+        {
+            //create order transaction
+            ordertransaction ordertrans = new ordertransaction();
+            string trans_no = RamdomTransactionNo.GenerateTransationNumber();
+
+            ordertrans.ort_store_no = storenumber;
+            ordertrans.ort_transation_no = trans_no;
+            ordertrans.ort_delete_flag = false;
+            ds.InsertOrderTransactionInfo(ordertrans);
+
+            return RedirectToAction("OrderEntryStep1", new { Territory = Territory, Val = val });
+        }
+
         [HttpPost]
-        public ActionResult OrderEntryStep1(string tempAccount, string ss, string Territory, Accounts ts)
+        public ActionResult OrderEntryStep1(string tempAccount, string ss, string Territory, Accounts ts,string StoreNumber)
         {
             TSView ret = new TSView();
             //ret.Account = ds.GetSingleAccountInfo(tempAccount);
-            if (tempAccount == "")
+            if (tempAccount == "" && ts.StoreNumber == "")
             {
                 ret.Order = ds.GetAllInvoiceInfo(Territory);
                 ret.Account = ds.GetSingleAccountInfo(ts.StoreNumber);
                 ret.AccountAll = ds.GetAllAccountInfo(Territory);
             }
-            else if (tempAccount != "" && (ts.StoreNumber != "" || ts.StoreNumber == ""))
+            else if (tempAccount != "" || (ts.StoreNumber != "" || ts.StoreNumber == ""))
             {
                 ret.Order = ds.GetInvoiceInfo(tempAccount);
-                ret.SingleAccount = ds.GetSingleAccountInfo1(tempAccount);
+                ret.SingleAccount = tempAccount != ""? ds.GetSingleAccountInfo1(tempAccount):ds.GetSingleAccountInfo1(ts.StoreNumber) ;
                 ret.AccountAll = ds.GetAllAccountInfo(Territory);
             }
             ViewBag.Terr = Territory;
@@ -61,6 +75,7 @@ namespace CP_Cards.Controllers
             else
             {
                 RV.Cards = ds.GetRackByCardType(TheRack, Display);
+                
             }
             ViewBag.display = Display;
             RV.EDCards = ds.GetEveryDayCard("", "");
@@ -92,11 +107,13 @@ namespace CP_Cards.Controllers
             return View(RV);
         }
 
+        
+
         public ActionResult OrderEntry2Save(IEnumerable<string> rackspace, RackView SingleCard, string storenumber, string Display, string Territory)
         {
             RackView RV = new RackView();
             RV.OrderDetail = new Order_Details();
-            
+            int trans_no = ds.GetTransationNumber(storenumber);
             foreach (var space in rackspace)
             {
                 if (space != "")
@@ -105,6 +122,7 @@ namespace CP_Cards.Controllers
                     RV.OrderDetail.Rack_ID = SingleCard.SingleCards.Rack;
                     RV.OrderDetail.Store_No = storenumber;
                     RV.OrderDetail.Rack_Display = Display;
+                    RV.OrderDetail.Ord_Ort_ID = trans_no;
                     ds.InsertOrderDetailsInfo(RV.OrderDetail);
 
                 }

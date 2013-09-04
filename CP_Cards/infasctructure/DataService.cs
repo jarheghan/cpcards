@@ -23,6 +23,19 @@ namespace CP_Cards.infasctructure
             }
         }
 
+        public string Login(string Territory, string Password)
+        {
+            using (var sqlConnection = new SqlConnection(Constant.connectionString))
+            {
+                sqlConnection.Open();
+                string territory = sqlConnection.Query<string>("select Territory from retailers where Territory = @Territory and Password = @Password",
+                                                            new {Territory = Territory, Password = Password })
+                                                            .FirstOrDefault();
+                sqlConnection.Close();
+                return territory;
+            }
+        }
+
 
         public IEnumerable<Memos> GetMemoInfo(string Territory)
         {
@@ -155,6 +168,38 @@ namespace CP_Cards.infasctructure
             }
         }
 
+        public void InsertOrderTransactionInfo(ordertransaction ordertrans)
+        {
+            using (var sqlConnection = new SqlConnection(Constant.connectionString))
+            {
+                sqlConnection.Open();
+                int cnt = sqlConnection.Execute("insert into Order_Transations(ort_transation_no,ort_store_no,ort_delete_flag,ort_add_date)" +
+                                                   "values(@ort_transation_no,@ort_store_no,@ort_delete_flag,@ort_add_date)"
+                                                   , new ordertransaction
+                                                   {
+                                                       ort_transation_no = ordertrans.ort_transation_no,
+                                                       ort_store_no = ordertrans.ort_store_no,
+                                                       ort_delete_flag = ordertrans.ort_delete_flag,
+                                                       ort_add_date = DateTime.Now
+                                                   });
+                sqlConnection.Close();
+
+            }
+        }
+
+        public int GetTransationNumber(string storenumber)
+        {
+            using (var sqlConnection = new SqlConnection(Constant.connectionString))
+            {
+                sqlConnection.Open();
+                int st_number = sqlConnection.Query<int>("select ort_id from order_transations where ort_store_no = @storenumber"
+                                                  , new { storenumber = storenumber }).FirstOrDefault();
+                sqlConnection.Close();
+                return st_number;
+            }
+        }
+        
+
 
 
 
@@ -167,8 +212,8 @@ namespace CP_Cards.infasctructure
             using (var sqlConnection = new SqlConnection(Constant.connectionString))
             {
                 sqlConnection.Open();
-                int cnt = sqlConnection.Execute("insert into TimeSheet(StoreNumber,TSDate,StartTime,EndTime,InvoiceNo,ServiceProvided,Notes)" +
-                                                   "values(@StoreNumber,@TSDate,@StartTime,@EndTime,@InvoiceNo,@ServiceProvided,@Notes)"
+                int cnt = sqlConnection.Execute("insert into TimeSheet(StoreNumber,TSDate,StartTime,EndTime,InvoiceNo,ServiceProvided,Notes,Miles)" +
+                                                   "values(@StoreNumber,@TSDate,@StartTime,@FinishTime,@InvWorkOn,@ServiceProvided,@Notes,@Miles)"
                                                    , new TimeSheet
                                                    {
                                                        StoreNumber = timesheet.StoreNumber,

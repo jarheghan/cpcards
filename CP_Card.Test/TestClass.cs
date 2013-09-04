@@ -9,7 +9,7 @@ using CP_Cards.infasctructure;
 namespace CP_Card.Test
 {
     [TestFixture]
-    public class Class1
+    public class TestClass
     {
         DataService ds = new DataService();
         [Test]
@@ -36,6 +36,22 @@ namespace CP_Card.Test
                 //.Where(s => s.Equals(2)));
                 }
             }
+        }
+
+        [Test]
+        public void  create_ramdom_number_using_string()
+        {
+            Random random = new Random((int)DateTime.Now.Ticks);
+            StringBuilder builder = new StringBuilder();
+            char ch;
+            int size = 10;
+            for (int i = 0; i < size; i++)
+            {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
+               
+            }
+            Console.WriteLine(builder.ToString());
         }
     }
 }

@@ -1,328 +1,303 @@
-@model CP_Cards.Models.TSView
+﻿@model CP_Cards.Models.TSView
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<title>Cards Plus</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<style type="text/css">
-<!--
-.style1 {
-	font-size: x-large;
-	font-weight: bold;
+@{
+    ViewBag.Title = "TimeSheet_New";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
--->
-</style>
-</head>
 
-<body leftmargin="0" topmargin="0" rightmargin="0">
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-  <!--DWLayoutTable-->
-  <tr>
-    <td height="56" colspan="2" valign="top"><img src="@Href("~/images/top_name.jpg")" width="318" height="56"></td>
-  </tr>
-  <tr>
-    <td width="149" height="507" valign="top" bgcolor="76A1E3">		<map name="right_bar_map">
-        <area alt="" coords="3,5,144,38" href="main.html">
-        <area alt="" coords="3,40,144,75" href="about.html">
-        <area alt="" coords="4,77,144,109" href="products.html">
-        <area alt="" coords="4,111,143,150" href="support.html">
-        <area alt="" coords="3,152,142,191" href="contact.html">
-        <area alt="" coords="4,192,141,236" href="staff.html">
-        <area alt="" coords="3,468,147,506" href="http://w3.cards-plus.com/">
-    </map>      <img src="@Href("~/images/right_bar.gif")" alt="" width="149" height="507" border="0" usemap="#right_bar_map">      </td>
-    <td width="100%" valign="top">
-	<table width="100%"  border="0" cellpadding="0">
-      <tr>
-        <td><span class="style1">Timesheet Entry </span></td>
-        <td><div align="right"><a href="@Url.Action("MainPage", "Home", new {Territory = ViewBag.Terr })"><img src="@Href("~/images/TextButtons/BackToMainMenu.gif")" width="159" height="56" border="0"></a></div></td>
-      </tr>
-    </table>
-<hr>
-@using(Html.BeginForm("TimeSheet","Home"))
+<@section Menu{
+            @Html.Partial("sidemenu");
+        }
+
+        <div class="hero-unit">
+               <img src="@Href("~/images/cardsplus-logo.jpg")" alt="" width="300" height="135" border="0">
+          </div>
+
+     <div class="customhero-unit">
+              <h3>TimeSheet Entry</h3>
+
+          </div>
+<div class="row">
+                
+                 <div class="span12">
+                  <div class="span3"><a class="btn btn-danger" id="Mainpage" href="@Url.Action("MainPage", "Home", new {Territory = ViewBag.Terr })" >BackTo Main Page &raquo;</a></div>
+                </div>
+    </div>
+<hr />
+
+@using (Html.BeginForm("TimeSheet", "Home", new { Territory = ViewBag.Terr }))
 {
-  <table width="100%"  border="0" cellpadding="0">
-    <tr>
-      <td>        <div align="left">
-          @*<select name="Account">
-              @{foreach (var mm in Model.Account)
-                {
-                <option value="@mm.StoreNumber" selected="@mm.StoreNumber" >@mm.StoreNumber -  @mm.CustName - @mm.City</option>
-                }
-              }
-              
-                <option value="" selected=""></option>
-               
-          </select>*@
-             @Html.DropDownListFor( m => m.StoreNumber, new SelectList(Model.AccountAll, "StoreNumber","ConInfo", Model.StoreNumber), "--Select--")
-          OR
-        <input name="tempAccount" type="text" id="tempAccount" size="5">
-        <input name ="Territory" type="hidden" id="TerrID" value="@ViewBag.Terr" />
-        </div></td>
-      <td>        <div align="right">
-        <input name="SelectAccount" type="image" src="@Href("~/images/TextButtons/SelectAccount.gif")" id="SelectAccount" value="Select Account">   
-         <input name="Territory" type="hidden" id="terr1" value="@ViewBag.Terr"  
-      </div></td>
-    </tr>
-  </table>
-}
-
-   
- 
-  @{foreach (var m1 in Model.Account)
-   {
-            
-<table width="50%"  border="0" cellpadding="0">
-  <tr>
-    <td><div align="left"><strong>Account:</strong></div></td>
-    <td><div align="left"></div></td>
-    <td rowspan="7">&nbsp;</td>
-  </tr>
-  <tr>
-    <td><div align="left"><strong>Contact:</strong></div></td>
-    <td><div align="left">@m1.Contact</div></td>
+<div class="row">
+                
+        <div class="span12">
+            <div class="span3">@Html.DropDownListFor( m => m.StoreNumber, new SelectList(Model.AccountAll, "StoreNumber","ConInfo", Model.StoreNumber), "--Select--")</div>
+            <div class="span1"> OR</div>
+                <div class="span1"> <input name="tempAccount" type="text" id="tempAccount" class="customtext"></div>
+            <div class="span3"><button class="btn btn-danger">Find Store</button></div>
+        </div>
+  </div>
+<hr />
+  foreach (var m1 in Model.Account)
+           {
       
-    </tr>
-  <tr>
-    <td><div align="left"><strong>Customer:</strong></div></td>
-    <td><div align="left">@m1.CustName</div></td>
-    </tr>
-  <tr>
-    <td><div align="left"><strong>Address:</strong></div></td>
-    <td><div align="left">@m1.Address</div></td>
-    </tr>
-  <tr>
-    <td><div align="left"></div></td>
-    <td><div align="left"></div></td>
-    </tr>
-  <tr>
-    <td><div align="left"><strong>City, State, Zip: </strong></div></td>
-    <td><div align="left">@m1.City,@m1.State,@m1.Zip</div></td>
-    </tr>
-  <tr>
-    <td><div align="left"><strong>Phone:</strong></div></td>
-    <td><div align="left">@m1.Phone</div></td>
-    </tr>
-</table>
-<hr>
- }
- }
-
-
+        <div class="row">
+               <div class="span12">
+                    <div class="span3">Account:</div>
+                    <div class="span3">@m1.AccountID</div>
+               </div>
+            <div class="span12">
+                    <div class="span3">Contact:</div>
+                    <div class="span3">@m1.Contact</div>
+               </div>
+            <div class="span12">
+                    <div class="span3">Customer:</div>
+                    <div class="span3">@m1.CustName</div>
+               </div>
+            <div class="span12">
+                    <div class="span3">Address:</div>
+                    <div class="span3">@m1.Address</div>
+               </div>
+            <div class="span12">
+                    <div class="span3">City, State, Zip:</div>
+                    <div class="span3">@m1.City,@m1.State,@m1.Zip</div>
+               </div>
+            <div class="span12">
+                    <div class="span3">Phone:</div>
+                    <div class="span3">@m1.Phone</div>
+               </div>
+            </div>
+    <hr />
+          }
+  
+   }
 
 @using(Html.BeginForm("TimeSheetAdd","Home"))
-{DateTime mydate = DateTime.Now;
-    string  ss = mydate.ToString("d");
-    char[] tt = {'/'};
-    string [] dateArray = ss.Split(tt);
- @*<p>@dateArray[2]</p>*@
-  <input name="SubmitTimesheet" type="image" src="@Href("~/images/TextButtons/SubmitTimesheet.gif")" id="SubmitTimesheet2" value="Submit Timesheet">
-  <br>
-  <br>  
-  <table width="80%"  border="0" cellpadding="0">
-    <tr>
-      <td width="24%"><div align="left"><strong>Date
-	  </strong></div></td>
-      <td width="44%"><div align="left">
+{
+    #region
+    DateTime mydate = DateTime.Now;
+    string ss = mydate.ToString("d");
+    char[] tt = { '/' };
+    string[] dateArray = ss.Split(tt);
+    
+    List<SelectListItem> month = new List<SelectListItem>();
+    month.Add(new SelectListItem { Text = "1", Value = "1" });
+    month.Add(new SelectListItem { Text = "2", Value = "2" });
+    month.Add(new SelectListItem { Text = "3", Value = "3" });
+    month.Add(new SelectListItem { Text = "4", Value = "4" });
+    month.Add(new SelectListItem { Text = "5", Value = "5" });
+    month.Add(new SelectListItem { Text = "6", Value = "6" });
+    month.Add(new SelectListItem { Text = "7", Value = "7" });
+    month.Add(new SelectListItem { Text = "8", Value = "8" });
+    month.Add(new SelectListItem { Text = "9", Value = "9" });
+    month.Add(new SelectListItem { Text = "10", Value = "10" });
+    month.Add(new SelectListItem { Text = "11", Value = "11" });
+    month.Add(new SelectListItem { Text = "12", Value = "12" });
+
+    List<SelectListItem> Day = new List<SelectListItem>();
+
+    Day.Add(new SelectListItem { Text = "1", Value = "1" });
+    Day.Add(new SelectListItem { Text = "2", Value = "2" });
+    Day.Add(new SelectListItem { Text = "3", Value = "3" });
+    Day.Add(new SelectListItem { Text = "4", Value = "4" });
+    Day.Add(new SelectListItem { Text = "5", Value = "5" });
+    Day.Add(new SelectListItem { Text = "6", Value = "6" });
+    Day.Add(new SelectListItem { Text = "7", Value = "7" });
+    Day.Add(new SelectListItem { Text = "8", Value = "8" });
+    Day.Add(new SelectListItem { Text = "9", Value = "9" });
+    Day.Add(new SelectListItem { Text = "10", Value = "10" });
+    Day.Add(new SelectListItem { Text = "11", Value = "11" });
+    Day.Add(new SelectListItem { Text = "12", Value = "12" });
+    Day.Add(new SelectListItem { Text = "12", Value = "12" });
+    Day.Add(new SelectListItem { Text = "12", Value = "12" });
+    Day.Add(new SelectListItem { Text = "13", Value = "13" });
+    Day.Add(new SelectListItem { Text = "14", Value = "14" });
+    Day.Add(new SelectListItem { Text = "15", Value = "15" });
+    Day.Add(new SelectListItem { Text = "16", Value = "16" });
+    Day.Add(new SelectListItem { Text = "17", Value = "17" });
+    Day.Add(new SelectListItem { Text = "18", Value = "18" });
+    Day.Add(new SelectListItem { Text = "19", Value = "19" });
+    Day.Add(new SelectListItem { Text = "20", Value = "20" });
+    Day.Add(new SelectListItem { Text = "21", Value = "21" });
+    Day.Add(new SelectListItem { Text = "22", Value = "22" });
+    Day.Add(new SelectListItem { Text = "23", Value = "23" });
+    Day.Add(new SelectListItem { Text = "24", Value = "24" });
+    Day.Add(new SelectListItem { Text = "26", Value = "24" });
+    Day.Add(new SelectListItem { Text = "25", Value = "25" });
+    Day.Add(new SelectListItem { Text = "26", Value = "26" });
+    Day.Add(new SelectListItem { Text = "27", Value = "27" });
+    Day.Add(new SelectListItem { Text = "28", Value = "28" });
+    Day.Add(new SelectListItem { Text = "29", Value = "29" });
+    Day.Add(new SelectListItem { Text = "30", Value = "30" });
+    Day.Add(new SelectListItem { Text = "31", Value = "31" });
+
+    List<SelectListItem> Year = new List<SelectListItem>();
+    Year.Add(new SelectListItem { Text = "2012", Value = "2012" });
+    Year.Add(new SelectListItem { Text = "2013", Value = "2013" });
+    Year.Add(new SelectListItem { Text = "2014", Value = "2014" });
+    Year.Add(new SelectListItem { Text = "2015", Value = "2015" });
+
+    List<SelectListItem> Hour = new List<SelectListItem>();
+    Hour.Add(new SelectListItem { Text = "1", Value = "1" });
+    Hour.Add(new SelectListItem { Text = "2", Value = "2" });
+    Hour.Add(new SelectListItem { Text = "3", Value = "3" });
+    Hour.Add(new SelectListItem { Text = "4", Value = "4" });
+    Hour.Add(new SelectListItem { Text = "5", Value = "5" });
+    Hour.Add(new SelectListItem { Text = "6", Value = "6" });
+    Hour.Add(new SelectListItem { Text = "7", Value = "7" });
+    Hour.Add(new SelectListItem { Text = "8", Value = "8" });
+    Hour.Add(new SelectListItem { Text = "9", Value = "9" });
+    Hour.Add(new SelectListItem { Text = "10", Value = "10" });
+    Hour.Add(new SelectListItem { Text = "11", Value = "11" });
+    Hour.Add(new SelectListItem { Text = "12", Value = "12" });
+
+
+    List<SelectListItem> Minute = new List<SelectListItem>();
+    Minute.Add(new SelectListItem { Text = "00", Value = "00" });
+    Minute.Add(new SelectListItem { Text = "05", Value = "05" });
+    Minute.Add(new SelectListItem { Text = "10", Value = "10" });
+    Minute.Add(new SelectListItem { Text = "15", Value = "15" });
+    Minute.Add(new SelectListItem { Text = "20", Value = "20" });
+    Minute.Add(new SelectListItem { Text = "25", Value = "25" });
+    Minute.Add(new SelectListItem { Text = "30", Value = "30" });
+    Minute.Add(new SelectListItem { Text = "35", Value = "35" });
+    Minute.Add(new SelectListItem { Text = "40", Value = "40" });
+    Minute.Add(new SelectListItem { Text = "45", Value = "45" });
+    Minute.Add(new SelectListItem { Text = "50", Value = "50" });
+    Minute.Add(new SelectListItem { Text = "55", Value = "55" });
+    Minute.Add(new SelectListItem { Text = "60", Value = "60" });
+
+
+    List<SelectListItem> AMPM = new List<SelectListItem>();
+    AMPM.Add(new SelectListItem { Text = "AM", Value = "AM" });
+    AMPM.Add(new SelectListItem { Text = "PM", Value = "PM" });
+
+
+
+    string Service1 = "Straighten Display";
+    string Service2 = "Re-Stock Display";
+    string Service3 = "Take Down Seasonal & Write Credit";
+    string Service4 = "Set-up Seasonal";
+    string Service5 = "Service5";
+    #endregion 
+    
+
+
+    
+    <div class="row">
+               <div class="span12">
+                    <div class="span1">Date:</div>
+                    <div class="span4">@Html.DropDownList("Month", month, new {@class = "customselect" }):
+                                       @Html.DropDownList("Day", Day, new {@class = "customselect" }):
+                                       @Html.DropDownList("Year", Year, new {@class = "customselect" })
+                    </div>
+               </div>
+              
+                  @{if(Model.Account.Count() == 1)
+                    {
+                    foreach(var m2 in Model.Order)
+                        {
+                  <div class="span12">
+                    <div class="span1"> <input type="checkbox" name="inv'@m2.InvNumber'" id="invnum" value="@m2.InvNumber"></div>
+                    <div class="span1">@m2.InvNumber:</div>
+                  </div>
+                  }
+               }
+             }
+               
+
+        </div>
+    <hr />
+        <div class="row">
+               <div class="span12">
+                    <div class="span2">Miles:</div>
+                   <div class="span2">@Html.TextBox("TimesheetMiles")</div>
+                   </div>
+             <div class="span12">
+                    <div class="span2">Time Started:</div>
+                   <div class="span4">@Html.DropDownList("HourS", Hour, new {@class = "customselect" }):
+                                      @Html.DropDownList("MinuteS", Minute, new {@class = "customselect" }):
+                                      @Html.DropDownList("AMPMS", AMPM, new {@class = "customselect" })
+                   </div>
+                   </div>
+            <div class="span12">
+                    <div class="span2">Time Finished:</div>
+                   <div class="span4">@Html.DropDownList("HourF", Hour, new {@class = "customselect" }):
+                                      @Html.DropDownList("MinuteF", Minute, new {@class = "customselect" }):
+                                      @Html.DropDownList("AMPMF", AMPM, new {@class = "customselect" })</div>
+                   </div>
+            <div class="span12">
+                  <div class="span1">@Html.CheckBox("Service1", false)</div>
+                  <div class="span2">@Service1</div>
+                <input type="checkbox"  />
+            </div>
+                <div class="span12">
+                  <div class="span1">@Html.CheckBox("Service2", false)</div>
+                  <div class="span2">@Service2</div>
+            </div>
+                <div class="span12">
+                  <div class="span1">@Html.CheckBox("Service3", false)</div>
+                  <div class="span2">@Service3</div>
+            </div>
+             <div class="span12">
+                  <div class="span1">@Html.CheckBox("Service4", false)</div>
+                  <div class="span2">@Service4</div>
+            </div>
+            </div>
+    <hr />
+            <div class="row">
+            <div class="span12">
+                   <div class="span6">@Html.TextArea("TimeSheetNotes")</div>
+            </div>
+              <div class="span12">
+                   <div class="span6"><a class="btn btn-danger" onclick="postdata()">Submit</a></div>
+            </div>
+            </div>
+
+    <div id="insertcomplete"></div>
+     @section IndJS{
+             <script type="text/javascript">
+        function postdata()
+        {
+            var storenumber = $("#StoreNumber").val();
+            var invnumber = "";
+            $("#invnum").each(function () {
+                invnumber = invnumber + ($(this).val());
+            });
+            //var invnumber = $("#invnum").val();
+            var starttime = $("#HourS").val() + ":" + $("#MinuteS").val() + $("#AMPMS").val();
+            var endtime = $("#HourF").val() + ":" + $("#MinuteF").val() + $("#AMPMF").val();
+            var service = (($("#Service1").is(":checked")) == true ? "@Service1,": "") + 
+                          (($("#Service2").is(":checked")) == true ? "@Service2," : "") + 
+                          (($("#Service3").is(":checked")) == true ? "@Service3," : "") +
+                          (($("#Service4").is(":checked")) == true ? "@Service4," : "");
+         
+            var TSDate = $("#Month").val() + "/" + $("#Day").val() + "/" + $("#Year").val();
+            var notes = $("#TimeSheetNotes").val();
+            var miles = $("#TimesheetMiles").val();
+            var geturl = '@Url.Action("TimeSheetAdd","Home")';
+
+            var timeSheet = {
+                TSDate: TSDate,
+                Miles: miles,
+                StartTime: starttime,
+                FinishTime: endtime,
+                InvWorkOn: invnumber,
+                ServiceProvided: service,
+                Notes: notes,
+                StoreNumber: storenumber
+            }
+
+            $.ajax({
+                dataType: "json",
+                type: 'POST',
+                url: geturl,
+                data: timeSheet,
+                complete: function () { window.location = '@Url.Action("TSMessage", "Home", new {Territory = ViewBag.Terr  })'; }
+                });
+            }
+    </script>
+        }                
+    
+ 
        
-        <select name="Month" id="Month">
-          <option value="@dateArray[0]" selected="@dateArray[0]">@dateArray[0]</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-        </select>
-        <select name="Day" id="Day">
-          <option value="@dateArray[1]" selected="@dateArray[1]">@dateArray[1]</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-          <option value="13">13</option>
-          <option value="14">14</option>
-          <option value="15">15</option>
-          <option value="16">16</option>
-          <option value="17">17</option>
-          <option value="18">18</option>
-          <option value="19">19</option>
-          <option value="20">20</option>
-          <option value="21">21</option>
-          <option value="22">22</option>
-          <option value="23">23</option>
-          <option value="24">24</option>
-          <option value="25">25</option>
-          <option value="26">26</option>
-          <option value="27">27</option>
-          <option value="28">28</option>
-          <option value="29">29</option>
-          <option value="30">30</option>
-          <option value="31">31</option>
-        </select>
-        <select name="Year" id="Year">
-          <option value="@dateArray[2]" selected="@dateArray[2]">@dateArray[2]</option>
-          <option value="2004">2004</option>
-          <option value="2005">2005</option>
-          <option value="2006">2006</option>
-        </select>
-</div></td>
-      <td width="32%" rowspan="5" valign="top"><p><strong>What invoice(s) did you work?</strong></p>
-        <table width="100%"  border="0" cellpadding="0">
-        
-          @{if(Model.Account.Count() == 1)
-            {
-            foreach(var m2 in Model.Order)
-                {
-              <tr>
-                  
-                  <td><div align="left">@m2.InvNumber
-                        <input type="checkbox" name="inv'@m2.InvNumber'" value="@m2.InvNumber">
-                  </div></td>
-              </tr>
-                 }
-           }
-          }
-            
-
-            </table>        <p>&nbsp; </p></td>
-    </tr>
-    <tr>
-      <td><div align="left"><strong>Miles
-      </strong></div></td>
-      <td><div align="left">
-        <input name="TimesheetMiles" type="text" id="TimesheetMiles" size="10">
-      </div></td>
-      </tr>
-    <tr>
-      <td><div align="left"><strong>Time Started
-        </strong></div></td>
-      <td><div align="left">
-        <select name="TimeSheetHourStarted" id="select">
-          <option selected>.</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
-          <option>11</option>
-          <option>12</option>
-        </select>
-        <strong>:</strong>
-        <select name="TimeSheetMinuteStarted" id="select2">
-          <option selected>.</option>
-          <option>00</option>
-          <option>05</option>
-          <option>10</option>
-          <option>15</option>
-          <option>20</option>
-          <option>25</option>
-          <option>30</option>
-          <option>35</option>
-          <option>40</option>
-          <option>45</option>
-          <option>50</option>
-          <option>55</option>
-          <option>60</option>
-        </select>
-        <select name="TimeSheetTODStarted" id="select3">
-          <option value="AM" selected>AM</option>
-          <option value="PM">PM</option>
-        </select>
-</div></td>
-      </tr>
-    <tr>
-      <td><div align="left"><strong>Time Finished
-        </strong></div></td>
-      <td><div align="left">
-        <select name="TimeSheetHourFinished" id="select13">
-          <option selected>.</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
-          <option>11</option>
-          <option>12</option>
-        </select>
-        <strong>:</strong>
-        <select name="TimeSheetMinuteFinished" id="select14">
-          <option selected>.</option>
-          <option>00</option>
-          <option>05</option>
-          <option>10</option>
-          <option>15</option>
-          <option>20</option>
-          <option>25</option>
-          <option>30</option>
-          <option>35</option>
-          <option>40</option>
-          <option>45</option>
-          <option>50</option>
-          <option>55</option>
-          <option>60</option>
-        </select>
-        <select name="TimeSheetTODFinished" id="select15">
-          <option value="AM" selected="">AM</option>
-          <option value="PM">PM</option>
-        </select>
-</div></td>
-      </tr>
-    <tr>
-      <td colspan="2" valign="top"><div align="left">
-        <p><strong>Services Provided</strong></p>
-          @{
-                string Service1 = "Straighten Display";
-                string Service2 = "Re-Stock Display";
-                string Service3 = "Take Down Seasonal & Write Credit";
-                string Service4 = "Set-up Seasonal";
-                string Service5 = "Service5";
-           }
-        <p align="left">@Service1
-                  <input type="checkbox" name="Service1" value="@Service1">
-                  <br>
-                  @Service2
-                  <input type="checkbox" name="Service2" value="@Service2">
-                  <br>
-                  @Service3
-                  <input type="checkbox" name="Service3" value="@Service3">
-                  <br>
-                  @Service4
-                  <input type="checkbox" name="Service4" value="@Service4">
-
-        </p>
-      </div>        </td>
-      </tr>
-  </table>
-  <strong>Notes:</strong><br>
-<textarea name="TimeSheetNotes" cols="50" rows="5" id="TimeSheetNotes"></textarea>
-  <p>&nbsp;  </p>
 }
-  </tr>
-</table>
-</body>
-</html>

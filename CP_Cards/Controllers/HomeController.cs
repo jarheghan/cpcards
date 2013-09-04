@@ -61,13 +61,6 @@ namespace CP_Cards.Controllers
         [HttpPost]
         public ActionResult TimeSheet(string tempAccount, string ss, string Territory, Accounts ts)
         {
-            //storenumber = "0131";
-            //TSView ret = new TSView();
-            //ret.Account = ds.GetSingleAccountInfo(tempAccount);
-            //ret.Order = ds.GetInvoiceInfo(tempAccount);
-            //ViewBag.Terr = Territory;
-            //return View(ret);
-
 
             TSView ret = new TSView();
             //ret.Account = ds.GetSingleAccountInfo(tempAccount);
@@ -77,7 +70,7 @@ namespace CP_Cards.Controllers
                 ret.Account = ds.GetSingleAccountInfo(ts.StoreNumber);
                 ret.AccountAll = ds.GetAllAccountInfo(Territory);
             }
-            else if (tempAccount != "" && (ts.StoreNumber != "" || ts.StoreNumber == ""))
+            else if (tempAccount != "" || ts.StoreNumber != "" )
             {
                 ret.Order = ds.GetInvoiceInfo(tempAccount);
                 ret.Account = ds.GetSingleAccountInfo(tempAccount);
@@ -86,12 +79,16 @@ namespace CP_Cards.Controllers
             ViewBag.Terr = Territory;
             return View(ret);
         }
-
+        public ActionResult TSMessage(string Territory)
+        {
+            ViewBag.Terr = Territory;
+            return View();
+        }
         
         public ActionResult TimeSheetAdd(TimeSheet timeSheet)
         {
             ds.AddTimeSheeInfo(timeSheet);
-            return View();
+            return RedirectToAction("TSMessage");
         }
 
 

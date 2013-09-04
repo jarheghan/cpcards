@@ -54,14 +54,17 @@
                   <div class="span4"><a class="btn btn-danger" id="GM" >General Merchant &raquo;</a></div>
            </div>
           </div><!--/row-->
-             
+            }
+            @using (Html.BeginForm("CreateTransactionOrder", "Order", new { Territory = ViewBag.Terr, val = "All", storenumber = Model.SingleAccount.StoreNumber }, FormMethod.Post))
+            {
           <div class="row-fluid">
               <div class="span12"></div>
               <div class="span12">
                   <textarea id="orderinfo" class="customtextarea" name="orderinfo" placeholder="Enter Order information" ></textarea>
               </div>
-              <div class="span12"><div class="span4"><button class="btn btn-danger" id="GM" >Submit &raquo;</button></div></div>
+              <div class="span12"><div class="span4"><button class="btn btn-danger" id="Submit" >Submit &raquo;</button></div></div>
 
 
           </div>
             }
+            

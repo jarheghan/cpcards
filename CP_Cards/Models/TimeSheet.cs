@@ -7,7 +7,7 @@ namespace CP_Cards.Models
 {
     public class TimeSheet
     {
-        public DateTime TSDate { get; set; }
+        public string TSDate { get; set; }
         public string Miles { get; set; }
         public string StartTime { get; set; }
         public string FinishTime { get; set; }
