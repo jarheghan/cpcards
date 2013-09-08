@@ -168,6 +168,33 @@ namespace CP_Cards.infasctructure
             }
         }
 
+        public void InsertOrder(Orders orders)
+        {
+            using (var sqlConnection = new SqlConnection(Constant.connectionString))
+            {
+                sqlConnection.Open();
+                int cnt = sqlConnection.Execute("insert into Orders(S_Date,StoreNumber,InvNumber,SeasonName,Code,Amount,Territory,City,State,AccountID,CustName)" +
+                                                   "values(@S_Date,@StoreNumber,@InvNumber,@SeasonName,@Code,@Amount,@Territory,@City,@State,@AccountID,@CustName)"
+                                                   , new Orders
+                                                   {
+                                                       S_Date = orders.S_Date,
+                                                       StoreNumber = orders.StoreNumber,
+                                                       InvNumber = orders.InvNumber,
+                                                       SeasonName = orders.SeasonName,
+                                                       Code = orders.Code,
+                                                       Amount = orders.Amount,
+                                                       Territory = orders.Territory,
+                                                       City = orders.City,
+                                                       State = orders.State,
+                                                       AccountID = orders.AccountID,
+                                                       CustName = orders.CustName
+                                                   });
+                sqlConnection.Close();
+
+            }
+        }
+
+
         public void InsertOrderTransactionInfo(ordertransaction ordertrans)
         {
             using (var sqlConnection = new SqlConnection(Constant.connectionString))
@@ -187,13 +214,13 @@ namespace CP_Cards.infasctructure
             }
         }
 
-        public int GetTransationNumber(string storenumber)
+        public int GetTransationNumber(int InvNumber)
         {
             using (var sqlConnection = new SqlConnection(Constant.connectionString))
             {
                 sqlConnection.Open();
-                int st_number = sqlConnection.Query<int>("select ort_id from order_transations where ort_store_no = @storenumber"
-                                                  , new { storenumber = storenumber }).FirstOrDefault();
+                int st_number = sqlConnection.Query<int>("select InvNumber from orders where InvNumber = @InvNumber"
+                                                  , new { InvNumber = InvNumber }).FirstOrDefault();
                 sqlConnection.Close();
                 return st_number;
             }

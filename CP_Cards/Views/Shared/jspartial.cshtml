@@ -1,12 +1,14 @@
 ﻿<script type="text/javascript">
-        function ToggleButton(ornumber) {
+        function ToggleButton(ornumber,price) {
             $("#btn-" + ornumber.toString()).toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large disable");
             if ($("#btn-" + ornumber.toString()).hasClass('btn-primary btn1 btn-large')) {
                 $("#hid-" + ornumber).attr("value", ornumber);
+                $("#ret-" + ornumber).attr("value", price);
                 //$("#hid-" + ornumber).html("<input type='hidden' value=" + "'" + ornumber + "'" + " id=" + "'" + "hid-" + ornumber + "' />")
             }
             else {
                 $("#hid-" + ornumber).removeAttr("value");
+                $("#ret-" + ornumber).removeAttr("value");
                 //$("#hid-" + ornumber).remove();
             }
         }
@@ -51,10 +53,12 @@
                   
                   if ($("#btn-" + val.Space).hasClass('btn-primary btn1 btn-large')) {
                       $("#hid-" + val.Space).attr("value", val.Space);
+                      $("#ret-" + val.Space).attr("value", val.Space);
                       $("#findCheck").attr("value", "0");
                   }
                   else {
                       $("#hid-" + val.Space).removeAttr("value");
+                      $("#ret-" + val.Space).removeAttr("value");
                       $("#findCheck").attr("value", "1");
                   }
               });

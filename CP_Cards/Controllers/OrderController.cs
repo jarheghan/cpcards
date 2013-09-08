@@ -14,7 +14,7 @@ namespace CP_Cards.Controllers
         //
         // GET: /Home/
         DataService ds = new DataService();
-
+        public Decimal Price { get; set; }
         public ActionResult OrderEntryStep1(string Territory, string Val)
         {
             TSView ret = new TSView();
@@ -109,27 +109,59 @@ namespace CP_Cards.Controllers
 
         
 
-        public ActionResult OrderEntry2Save(IEnumerable<string> rackspace, RackView SingleCard, string storenumber, string Display, string Territory)
+        public ActionResult OrderEntry2Save(IEnumerable<string> rackspace, RackView SingleCard, string storenumber,
+            string Display, string Territory, IEnumerable<string> retailPrice)
         {
+            Price = 0;
             RackView RV = new RackView();
             RV.OrderDetail = new Order_Details();
             ///Create a an Order for every transaction of card type that is created.
             ///So create a method to for the created
-            int trans_no = ds.GetTransationNumber(storenumber);
-            foreach (var space in rackspace)
+            //int trans_no = ds.GetTransationNumber(storenumber);
+            int trans_noint = RamdomTransactionNo.GenerateTransationNumberInt();
+            ///Getting the Order information to create an order entry
+            ///
+            foreach (string price in retailPrice)
             {
-                if (space != "")
-                {
-                    RV.OrderDetail.Rack_Space = Convert.ToInt16(space);
-                    RV.OrderDetail.Rack_ID = SingleCard.SingleCards.Rack;
-                    RV.OrderDetail.Store_No = storenumber;
-                    RV.OrderDetail.Rack_Display = Display;
-                    RV.OrderDetail.Ord_Ort_ID = trans_no;
-                    ds.InsertOrderDetailsInfo(RV.OrderDetail);
+                Price = Price + (price == "" ? 0 :Convert.ToDecimal(price));
+            }
+            try
+            {
+                Orders ord = new Orders();
+                Accounts acct = ds.GetSingleAccountInfo1(storenumber);
+                ord.AccountID = acct.AccountID;
+                ord.City = acct.City;
+                ord.CustName = acct.CustName;
+                ord.S_Date = DateTime.Now;
+                ord.State = acct.State;
+                ord.Territory = acct.Territory;
+                ord.Amount = Price;
+                ord.SeasonName = "Everyday Card";
+                ord.Code = Display;
+                ord.InvNumber = trans_noint;
+                ord.StoreNumber = storenumber;
 
+                ds.InsertOrder(ord);
+            }
+            catch { }
+           
+            int InvNumber = ds.GetTransationNumber(trans_noint);
+            if (InvNumber == trans_noint)
+            {
+                foreach (var space in rackspace)
+                {
+                    if (space != "")
+                    {
+                        RV.OrderDetail.Rack_Space = Convert.ToInt16(space);
+                        RV.OrderDetail.Rack_ID = SingleCard.SingleCards.Rack;
+                        RV.OrderDetail.Store_No = storenumber;
+                        RV.OrderDetail.Rack_Display = Display;
+                        RV.OrderDetail.Ord_Ort_ID = trans_noint;
+                        ds.InsertOrderDetailsInfo(RV.OrderDetail);
+
+                    }
                 }
             }
-
             ViewBag.Terr = Territory;
             ViewBag.Completed = "Record has been inserted.";
             return RedirectToAction("OrderEntryStep2", new { Display = Display, storenumber = storenumber,Territory = Territory });

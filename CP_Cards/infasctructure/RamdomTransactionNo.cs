@@ -9,6 +9,8 @@ namespace CP_Cards.infasctructure
     public static class RamdomTransactionNo
     {
        private static Random random = new Random((int)DateTime.Now.Ticks);
+       private static readonly Random random_int = new Random();
+       private static readonly object syncLock = new object();
         public static string GenerateTransationNumber()
         {
             StringBuilder builder = new StringBuilder();
@@ -20,6 +22,15 @@ namespace CP_Cards.infasctructure
                 builder.Append(ch);
             }
             return builder.ToString();
+        }
+
+        public static int GenerateTransationNumberInt()
+        {
+            lock (syncLock)
+            { // synchronize
+                int ss = random_int.Next(1000000, 99999999);
+                return ss;
+            }
         }
     }
 }
