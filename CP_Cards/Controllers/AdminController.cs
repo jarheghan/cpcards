@@ -58,7 +58,7 @@ namespace CP_Cards.Controllers
                  ret1.Retailers = ds.GetLoginInfo();
                  return View(ret1);
              }
-            
+             return View();
         }
        
         public ActionResult Logout()

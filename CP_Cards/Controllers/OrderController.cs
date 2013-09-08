@@ -113,6 +113,8 @@ namespace CP_Cards.Controllers
         {
             RackView RV = new RackView();
             RV.OrderDetail = new Order_Details();
+            ///Create a an Order for every transaction of card type that is created.
+            ///So create a method to for the created
             int trans_no = ds.GetTransationNumber(storenumber);
             foreach (var space in rackspace)
             {

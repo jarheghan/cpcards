@@ -197,7 +197,7 @@
                     foreach(var m2 in Model.Order)
                         {
                   <div class="span12">
-                    <div class="span1"> <input type="checkbox" name="inv'@m2.InvNumber'" id="invnum" value="@m2.InvNumber"></div>
+                    <div class="span1"> <input type="checkbox" name="inv'@m2.InvNumber'" class ="invclass" value="@m2.InvNumber"></div>
                     <div class="span1">@m2.InvNumber:</div>
                   </div>
                   }
@@ -228,7 +228,6 @@
             <div class="span12">
                   <div class="span1">@Html.CheckBox("Service1", false)</div>
                   <div class="span2">@Service1</div>
-                <input type="checkbox"  />
             </div>
                 <div class="span12">
                   <div class="span1">@Html.CheckBox("Service2", false)</div>
@@ -258,12 +257,13 @@
              <script type="text/javascript">
         function postdata()
         {
+            var SList = "";
             var storenumber = $("#StoreNumber").val();
-            var invnumber = "";
-            $("#invnum").each(function () {
-                invnumber = invnumber + ($(this).val());
+            $("input[type=checkbox]").filter(".invclass").each(function () {
+                 var invnumber = (this.checked ? $(this).val() : "");
+                 SList += (invnumber != "" ? invnumber + "," : "," + "");
             });
-            //var invnumber = $("#invnum").val();
+            var invnumber = SList;
             var starttime = $("#HourS").val() + ":" + $("#MinuteS").val() + $("#AMPMS").val();
             var endtime = $("#HourF").val() + ":" + $("#MinuteF").val() + $("#AMPMF").val();
             var service = (($("#Service1").is(":checked")) == true ? "@Service1,": "") + 
@@ -292,7 +292,8 @@
                 type: 'POST',
                 url: geturl,
                 data: timeSheet,
-                complete: function () { window.location = '@Url.Action("TSMessage", "Home", new {Territory = ViewBag.Terr  })'; }
+                success: function (response) { alert("Success");}
+                //complete: function () { window.location = '@Url.Action("TSMessage", "Home", new {Territory = ViewBag.Terr  })'; }
                 });
             }
     </script>
