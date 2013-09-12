@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="@Href("~/Contents/bootstrap/css/bootstrap.css")" rel="stylesheet" media="screen">
+    <link href="@Href("~/Contents/bootstrap/css/toastr.css")" rel="stylesheet" media="screen">
       <script src="http://code.jquery.com/jquery.js"></script>
+      <script src="/Scripts/toastr.js"></script>
+      
   </head>
   <body>
       <div class="navbar navbar-inverse navbar-fixed-top">
@@ -36,7 +39,7 @@
         <hr>
 
       <footer>
-        <p>&copy; Company 2013</p>
+        <p>&copy; Card Plus @DateTime.Now.ToShortDateString().</p>
       </footer>
             </div>
         </div>
@@ -45,7 +48,7 @@
     @RenderSection("JS_Script", false);
 
 @*    <script src="http://code.jquery.com/jquery.js"></script>*@
-    <script src="@Href("~/Scripts/jquery-ui.js")"></script>
     <script src="@Href("~/Scripts/bootstrap.js")"></script>
+
   </body>
 </html>

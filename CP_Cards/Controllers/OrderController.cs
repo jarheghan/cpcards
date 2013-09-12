@@ -15,6 +15,7 @@ namespace CP_Cards.Controllers
         // GET: /Home/
         DataService ds = new DataService();
         public Decimal Price { get; set; }
+        public string Cnt_Flag { get; set; }
         public ActionResult OrderEntryStep1(string Territory, string Val)
         {
             TSView ret = new TSView();
@@ -64,7 +65,7 @@ namespace CP_Cards.Controllers
             return View(ret);
         }
 
-        public ActionResult OrderEntryStep2(string storenumber, string Display, string TheRack, string Territory)
+        public ActionResult OrderEntryStep2(string storenumber, string Display, string TheRack, string Territory, string complete)
         {
             //storenumber = "0129";
             RackView RV = new RackView();
@@ -90,6 +91,18 @@ namespace CP_Cards.Controllers
   //          RV.Accounts = ds.GetSingleAccountInfo(storenumber);
             ViewBag.Storenumber = storenumber;
             ViewBag.Terr = Territory;
+
+            ConstValues cv = new ConstValues();
+            if (complete == null || complete == "")
+            {
+                cv.Completed = "0";
+                RV.CosstValue = cv;
+            }
+            else
+            {
+               cv.Completed = complete;
+               RV.CosstValue = cv;
+            }
             return View(RV);
         }
 
@@ -104,6 +117,9 @@ namespace CP_Cards.Controllers
             RV.EDCards = ds.GetEveryDayCard( cards.Rack,storenumber);
             RV.Accounts = ds.GetSingleAccountInfo(storenumber);
             ViewBag.Terr = Territory;
+            ConstValues cv = new ConstValues();
+            cv.Completed = "0";
+            RV.CosstValue = cv;
             return View(RV);
         }
 
@@ -113,6 +129,7 @@ namespace CP_Cards.Controllers
             string Display, string Territory, IEnumerable<string> retailPrice)
         {
             Price = 0;
+            Cnt_Flag = "0";
             RackView RV = new RackView();
             RV.OrderDetail = new Order_Details();
             ///Create a an Order for every transaction of card type that is created.
@@ -148,23 +165,29 @@ namespace CP_Cards.Controllers
             int InvNumber = ds.GetTransationNumber(trans_noint);
             if (InvNumber == trans_noint)
             {
-                foreach (var space in rackspace)
+                try
                 {
-                    if (space != "")
+                    foreach (var space in rackspace)
                     {
-                        RV.OrderDetail.Rack_Space = Convert.ToInt16(space);
-                        RV.OrderDetail.Rack_ID = SingleCard.SingleCards.Rack;
-                        RV.OrderDetail.Store_No = storenumber;
-                        RV.OrderDetail.Rack_Display = Display;
-                        RV.OrderDetail.Ord_Ort_ID = trans_noint;
-                        ds.InsertOrderDetailsInfo(RV.OrderDetail);
+                        if (space != "")
+                        {
+                            RV.OrderDetail.Rack_Space = Convert.ToInt16(space);
+                            RV.OrderDetail.Rack_ID = SingleCard.SingleCards.Rack;
+                            RV.OrderDetail.Store_No = storenumber;
+                            RV.OrderDetail.Rack_Display = Display;
+                            RV.OrderDetail.Ord_Ort_ID = trans_noint;
+                            ds.InsertOrderDetailsInfo(RV.OrderDetail);
 
+                        }
                     }
+                    Cnt_Flag = "1";
                 }
+
+                catch { Cnt_Flag = "0"; }
             }
             ViewBag.Terr = Territory;
-            ViewBag.Completed = "Record has been inserted.";
-            return RedirectToAction("OrderEntryStep2", new { Display = Display, storenumber = storenumber,Territory = Territory });
+
+            return RedirectToAction("OrderEntryStep2", new { Display = Display, storenumber = storenumber, Territory = Territory, complete = Cnt_Flag });
         }
 
 

@@ -14,5 +14,6 @@ namespace CP_Cards.Models
         public string  rack { get; set; }
         public Rack Racktemp { get; set; }
         public Order_Details OrderDetail { get; set; }
+        public ConstValues CosstValue { get; set; }
     }
 }

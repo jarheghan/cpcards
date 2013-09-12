@@ -12,6 +12,8 @@ namespace CP_Card.Test
     public class TestClass
     {
         DataService ds = new DataService();
+        private static readonly Random random = new Random();
+        private static readonly object syncLock = new object();
         [Test]
         public void check_for_value()
         {
@@ -39,19 +41,24 @@ namespace CP_Card.Test
         }
 
         [Test]
-        public void  create_ramdom_number_using_string()
+        public void create_ramdom_number_using_string()
         {
-            Random random = new Random((int)DateTime.Now.Ticks);
-            StringBuilder builder = new StringBuilder();
-            char ch;
-            int size = 10;
-            for (int i = 0; i < size; i++)
-            {
-                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
-                builder.Append(ch);
-               
+            //Random random = new Random((int)DateTime.Now.Ticks);
+            //StringBuilder builder = new StringBuilder();
+            //char ch;
+            //int size = 10;
+            //for (int i = 0; i < size; i++)
+            //{
+            //    ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+            //    builder.Append(ch);
+
+            //}
+            //Console.WriteLine(builder.ToString());
+            lock (syncLock)
+            { // synchronize
+                int ss =  random.Next(1000000, 99999999);
+                Console.Write(ss);
             }
-            Console.WriteLine(builder.ToString());
         }
     }
 }
