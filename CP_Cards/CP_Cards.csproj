@@ -666,6 +666,7 @@
     <Content Include="Views\Home\Memo_new.cshtml" />
     <Content Include="Views\Home\TimeSheet.cshtml" />
     <Content Include="Views\Home\TSMessage.cshtml" />
+    <Content Include="Views\Order\OrderEntryStep2Advance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

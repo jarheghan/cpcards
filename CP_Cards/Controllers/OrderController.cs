@@ -216,8 +216,130 @@ namespace CP_Cards.Controllers
             ViewBag.Terr = Territory;
             return View();
         }
-        
 
+        public ActionResult OrderEntryStep2Advance(string storenumber, string Display, string TheRack, string Territory, string complete)
+        {
+            //storenumber = "0129";
+            RackView RV = new RackView();
+            if (TheRack == null)
+            {
+                RV.Cards = ds.GetRackByCardType(storenumber, Display);
+            }
+            else
+            {
+                RV.Cards = ds.GetRackByCardType(TheRack, Display);
+
+            }
+            ViewBag.display = Display;
+            RV.EDCards = ds.GetEveryDayCard("", "");
+            if (TheRack == null)
+            {
+                RV.Accounts = ds.GetSingleAccountInfo(storenumber);
+            }
+            else
+            {
+                RV.Accounts = ds.GetSingleAccountInfo(TheRack);
+            }
+            //          RV.Accounts = ds.GetSingleAccountInfo(storenumber);
+            ViewBag.Storenumber = storenumber;
+            ViewBag.Terr = Territory;
+
+            ConstValues cv = new ConstValues();
+            if (complete == null || complete == "")
+            {
+                cv.Completed = "0";
+                RV.CosstValue = cv;
+            }
+            else
+            {
+                cv.Completed = complete;
+                RV.CosstValue = cv;
+            }
+            return View(RV);
+        }
+
+        [HttpPost]
+        public ActionResult OrderEntryStep2Advance(string storenumber, string Display, string rack, Cards cards, string rackspace, string Territory, IEnumerable<Cards> EDCards)
+        {
+            //storenumber = "0129";
+            RackView RV = new RackView();
+            RV.Cards = ds.GetRackByCardType(storenumber, Display);
+            ViewBag.display = cards.Display;
+            ViewBag.Storenumber = storenumber;
+            RV.EDCards = ds.GetEveryDayCard(cards.Rack, storenumber);
+            RV.Accounts = ds.GetSingleAccountInfo(storenumber);
+            ViewBag.Terr = Territory;
+            ConstValues cv = new ConstValues();
+            cv.Completed = "0";
+            RV.CosstValue = cv;
+            return View(RV);
+        }
+
+
+        public ActionResult OrderEntry2AdvanceSave(IEnumerable<string> rackspace, RackView SingleCard, string storenumber,
+            string Display, string Territory, IEnumerable<string> retailPrice)
+        {
+            Price = 0;
+            Cnt_Flag = "0";
+            RackView RV = new RackView();
+            RV.OrderDetail = new Order_Details();
+            ///Create a an Order for every transaction of card type that is created.
+            ///So create a method to for the created
+            //int trans_no = ds.GetTransationNumber(storenumber);
+            int trans_noint = RamdomTransactionNo.GenerateTransationNumberInt();
+            ///Getting the Order information to create an order entry
+            ///
+            foreach (string price in retailPrice)
+            {
+                Price = Price + (price == "" ? 0 : Convert.ToDecimal(price));
+            }
+            try
+            {
+                Orders ord = new Orders();
+                Accounts acct = ds.GetSingleAccountInfo1(storenumber);
+                ord.AccountID = acct.AccountID;
+                ord.City = acct.City;
+                ord.CustName = acct.CustName;
+                ord.S_Date = DateTime.Now;
+                ord.State = acct.State;
+                ord.Territory = acct.Territory;
+                ord.Amount = Price;
+                ord.SeasonName = "Everyday Card";
+                ord.Code = Display;
+                ord.InvNumber = trans_noint;
+                ord.StoreNumber = storenumber;
+
+                ds.InsertOrder(ord);
+            }
+            catch { }
+
+            int InvNumber = ds.GetTransationNumber(trans_noint);
+            if (InvNumber == trans_noint)
+            {
+                try
+                {
+                    foreach (var space in rackspace)
+                    {
+                        if (space != "")
+                        {
+                            RV.OrderDetail.Rack_Space = Convert.ToInt16(space);
+                            RV.OrderDetail.Rack_ID = SingleCard.SingleCards.Rack;
+                            RV.OrderDetail.Store_No = storenumber;
+                            RV.OrderDetail.Rack_Display = Display;
+                            RV.OrderDetail.Ord_Ort_ID = trans_noint;
+                            ds.InsertOrderDetailsInfo(RV.OrderDetail);
+
+                        }
+                    }
+                    Cnt_Flag = "1";
+                }
+
+                catch { Cnt_Flag = "0"; }
+            }
+            ViewBag.Terr = Territory;
+
+            return RedirectToAction("OrderEntryStep2", new { Display = Display, storenumber = storenumber, Territory = Territory, complete = Cnt_Flag });
+        }
 
     }
 }

@@ -12,6 +12,20 @@
                 //$("#hid-" + ornumber).remove();
             }
         }
+
+        function TextBoxEnter(ornumber,price) {
+            $("#btn-" + ornumber.toString()).toggleClass("btn1 btn-large btn-primary").addClass("btn1 btn-large disable");
+            if ($("#btn-" + ornumber.toString()).hasClass('btn-primary btn1 btn-large')) {
+                $("#hid-" + ornumber).attr("value", ornumber);
+                $("#ret-" + ornumber).attr("value", price);
+                //$("#hid-" + ornumber).html("<input type='hidden' value=" + "'" + ornumber + "'" + " id=" + "'" + "hid-" + ornumber + "' />")
+            }
+            else {
+                $("#hid-" + ornumber).removeAttr("value");
+                $("#ret-" + ornumber).removeAttr("value");
+                //$("#hid-" + ornumber).remove();
+            }
+        }
 </script>
 <script type="text/javascript">
     $("#flipRack").bind("click", function (event) {

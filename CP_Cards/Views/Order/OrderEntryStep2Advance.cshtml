@@ -1,17 +1,19 @@
 ﻿@{
-    ViewBag.Title = "OrderEntryStep2";
+    ViewBag.Title = "OrderEntryStep2Advance";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
-@model CP_Cards.Models.RackView
 
-        @section Menu{
+  @section Menu{
             @Html.Partial("sidemenuorder");
         }
+
+@model CP_Cards.Models.RackView
 
         <div class="hero-unit">
                <img src="@Href("~/images/cardsplus-logo.jpg")" alt="" width="300" height="135" border="0">
           </div>
-            @using (Html.BeginForm("OrderEntryStep2", "Order", new { storenumber = ViewBag.Storenumber,Display = ViewBag.Display,Territory=ViewBag.Terr}, FormMethod.Post))
+
+            @using (Html.BeginForm("OrderEntryStep2Advance", "Order", new { storenumber = ViewBag.Storenumber,Display = ViewBag.Display,Territory=ViewBag.Terr}, FormMethod.Post))
                 {
           <div class="row-fluid">
               
@@ -24,10 +26,9 @@
             </div><!--/span-->
            <div class="span12">
                @{int ss = Model.EDCards.Count();}
-                  <div class="span4"><a class="btn btn-danger" id="checkUncheck" )">Check/UnCheck &raquo;</a></div>
                   <input type="hidden" id="findCheck" value="0" />
                   <div class="span4"><a class="btn btn-danger" id="flipRack" >View Rack &raquo;</a></div>
-                  <div class="span4"><a class="btn btn-danger" id="advance" href="@Url.Action("OrderEntryStep2Advance","Order",new {Display = ViewBag.Display,storenumber = ViewBag.Storenumber,Territory = ViewBag.Terr})")" >Advance Order Details &raquo;</a></div>
+                <div class="span4"><a class="btn btn-danger" id="flipRack" >Back To Order Entry &raquo;</a></div>
            </div>
           </div><!--/row-->
              
@@ -46,10 +47,8 @@
            
           </div><!--/row-->
             }
-     
-                
-      
-@using(Html.BeginForm("OrderEntry2Save","Order",new { storenumber = ViewBag.Storenumber,Display = ViewBag.Display,Territory=ViewBag.Terr},FormMethod.Post))
+
+@using(Html.BeginForm("OrderEntry2AdvanceSave","Order",new { storenumber = ViewBag.Storenumber,Display = ViewBag.Display,Territory=ViewBag.Terr},FormMethod.Post))
 {
     <div class="row" id="frontrack">
          @*Rack of 96*@
@@ -66,7 +65,8 @@
                     {
                         foreach (CP_Cards.Models.Cards tt1 in ss1)
                         {
-                          <div class="span1"> <a  class="btn1 btn-large btn-primary" id="btn-@tt1.Space" onclick="ToggleButton(@tt1.Space,@tt1.A_Retail)">@tt1.Rack@tt1.Space</a></div>
+                          <div class="span1">@tt1.Rack </div>
+                          <div class="span1">@Html.TextBox("MyRack", "", new {@class = "customtext",@onchange="TextBoxEnter(" + @tt1.Space + "," + @tt1.A_Retail + ")", @id="txt"+@tt1.Space  })</div>     
                           <input type="hidden" value="@tt1.Space" id="hid-@tt1.Space" name="rackSpace" /> 
                           <input type="hidden" value="@tt1.A_Retail" id="ret-@tt1.Space" name="retailPrice" />
                            Model.SingleCards = tt1;
@@ -79,30 +79,31 @@
            
             </div><!--/span-->
            }
-           }
+       
            
+       }
 
-           @*Rack of 84*@
-           @{if(Model.EDCards.Count() == 84)
+        @*Count of 84*@
+        @{if(Model.EDCards.Count() == 84)
              {
-            <div class="span7" >
+            <div class="span9" >
                         
                 @{int MainCounter;
                  MainCounter= Model.EDCards.Count();
                  var seq = Model.EDCards;
-                 var result = seq.Select((s,i) => new {Value =s , Index = i}).GroupBy(item => item.Index/6, item => item.Value);
+                 var result = seq.Select((s,i) => new {Value =s , Index = i}).GroupBy(item => item.Index/8, item => item.Value);
                  
                     foreach (var ss1 in result.OrderByDescending(x => x.Key))
                     {
-                        foreach (CP_Cards.Models.Cards tt in ss1)
+                        foreach (CP_Cards.Models.Cards tt2 in ss1)
                         {
-                          <div class="span1"> <a  class="btn1 btn-large btn-primary" id="btn-@tt.Space" onclick="ToggleButton(@tt.Space,@tt.A_Retail)">@tt.Rack@tt.Space</a></div>
-                          <input type="hidden" value="@tt.Space" id="hid-@tt.Space" name="rackSpace" />  
-                          <input type="hidden" value="@tt.A_Retail" id="ret-@tt.Space" name="retailPrice" />
-
-                            Model.SingleCards = tt;
+                          <div class="span1">@tt2.Rack </div>
+                          <div class="span1">@Html.TextBox("MyRack", "", new {@class = "customtext", @onclick="TextBoxEnter()", @id="txt"+@tt2.Space })</div>     
+                          <input type="hidden" value="@tt2.Space" id="hid-@tt2.Space" name="rackSpace" /> 
+                          <input type="hidden" value="@tt2.A_Retail" id="ret-@tt2.Space" name="retailPrice" />
+                           Model.SingleCards = tt2;
                             @Html.HiddenFor(x => x.SingleCards.Rack); 
-  
+                   
                         }
                     }
                  }
@@ -110,10 +111,13 @@
            
             </div><!--/span-->
            }
-           }
+       
            
+       }
 
-          </div><!--/row-->
+
+
+        </div><!--/row-->
                <div class="row" id="frontrack" style="display: none">
             
 
@@ -148,14 +152,14 @@
            }
            }
 
-         @*Rack of 96*@
+ @*Rack of 96*@
            @{if(Model.EDCards.Count() == 84)
              {
-                <div class="span9">
+                <div class="span12">
                         
                 @{int MainCounter1;
                   var seq1 = Model.EDCards;
-                  var result1 = seq1.Select((s, i) => new { Value = s, Index = i }).GroupBy(item => item.Index / 6, item => item.Value);
+                  var result1 = seq1.Select((s, i) => new { Value = s, Index = i }).GroupBy(item => item.Index / 8, item => item.Value);
                    
                     foreach (var ss1 in result1.OrderByDescending(x => x.Key))
                     {
@@ -179,8 +183,12 @@
            }
            }
 
-          </div><!--/row-->
-    <div class="row-fluid">
+
+    </div>
+    
+    
+    
+     <div class="row-fluid">
               
         <div class="span12">
               <div class="span4"></div>  
@@ -193,17 +201,14 @@
            
    </div><!--/row-->
     
-        if(Model.CosstValue.Completed == "1")
-        {
-    <div id="popup" class="hide">
-    </div>
-    }
-
 }
  
+
+
+
+
+
+
   @section JS_Script{
             @Html.Partial("jspartial");
-        }                      
-
-@*        @using(Html.BeginForm(()*@
-
+        }            
