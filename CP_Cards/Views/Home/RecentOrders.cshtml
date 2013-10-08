@@ -1,47 +1,39 @@
 @model CP_Cards.Models.TSView
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<title>Cards Plus</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<style type="text/css">
-<!--
-.style1 {
-	font-size: x-large;
-	font-weight: bold;
+@{
+    ViewBag.Title = "MainPageNew";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
--->
-</style>
-</head>
 
-<body leftmargin="0" topmargin="0" rightmargin="0">
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-  <!--DWLayoutTable-->
-  <tr>
-    <td height="56" colspan="2" valign="top"><img src="@Href("~/images/top_name.jpg")" width="318" height="56"></td>
-  </tr>
-  <tr>
-    <td width="149" height="507" valign="top" bgcolor="76A1E3">		<map name="right_bar_map">
-        <area alt="" coords="3,5,144,38" href="main.html">
-        <area alt="" coords="3,40,144,75" href="about.html">
-        <area alt="" coords="4,77,144,109" href="products.html">
-        <area alt="" coords="4,111,143,150" href="support.html">
-        <area alt="" coords="3,152,142,191" href="contact.html">
-        <area alt="" coords="4,192,141,236" href="staff.html">
-        <area alt="" coords="3,468,147,506" href="http://w3.cards-plus.com/">
-    </map>      <img src="@Href("~/images/right_bar.gif")" alt="" width="149" height="507" border="0" usemap="#right_bar_map">      </td>
-    <td width="100%" valign="top">
-	<table width="100%"  border="0" cellpadding="0">
-      <tr>
-        <td><div align="left"><span class="style1">Recent Orders </span></div></td>
-        <td><div align="right"><a href="@Url.Action("MainPage", "Home", new {Territory = ViewBag.Terr })"><img src="@Href("~/images/TextButtons/BackToMainMenu.gif")" width="159" height="56" border="0"></a></div></td>
-      </tr>
-    </table>
+ @section Menu{
+            @Html.Partial("sidemenu");
+        }
+
+        <div class="hero-unit">
+               <img src="@Href("~/images/cardsplus-logo.jpg")" alt="" width="300" height="135" border="0">
+          </div>
+
+     <div class="customhero-unit">
+              <h3>Recent Orders</h3>
+
+          </div>
+
+<div class="row">
+                
+                 <div class="span12">
+                  <div class="span3"><a class="btn btn-danger" id="checkUncheck" <a href="@Url.Action("MainPage", "Home", new {Territory = ViewBag.Terr })">" >Bacc To Main Menu &raquo;</a></div>
+                  <div class="span3"><a class="btn btn-danger" id="flipRack" href="@Url.Action("TimeSheet", "Home", new {Territory = ViewBag.Terr })" >TimeSheet Entry &raquo;</a></div>
+                  <div class="span3"><a class="btn btn-danger" id="flipRack" href="@Url.Action("RecentOrders", "Home", new {Territory = ViewBag.Terr })" >View Recent Orders &raquo;</a></div>
+                </div>
+                  <div class="span12"></div>
+
+              <div class="span12">
+                  <div class="span3"><a class="btn btn-danger" id="checkUncheck" href="@Url.Action("OrderEntryStep1", "Order", new {Territory = ViewBag.Terr })" >Place An Order &raquo;</a></div>
+                 @* <div class="span3"><a class="btn btn-danger" id="flipRack" href="@Url.Action("OrderSupplies", "Order", new {Territory = ViewBag.Terr })" >Order Supplies &raquo;</a></div>
+                  <div class="span3"><a class="btn btn-danger" id="flipRack" href="@Url.Action("MainPage", "Home", new {Territory = ViewBag.Terr })" >Update Personal Info &raquo;</a></div>*@
+               </div>
     
-<hr>
-
-
+    </div>
+	
     @using(Html.BeginForm())
     {
   <table width="100%"  border="0" cellpadding="0">
