@@ -66,7 +66,7 @@
                         foreach (CP_Cards.Models.Cards tt1 in ss1)
                         {
                           <div class="span1">@tt1.Rack </div>
-                          <div class="span1">@Html.TextBox("MyRack", "", new {@class = "customtext",@onchange="TextBoxEnter(" + @tt1.Space + "," + @tt1.A_Retail + ")", @id="txt"+@tt1.Space  })</div>     
+                          <div class="span1">@Html.TextBox("MyRack", "", new {@class = "customtext",@onchange="TextBoxEnter(" + @tt1.Space + "," + @tt1.A_Retail + ")", @id="txttest"  })</div>     
                           <input type="hidden" value="@tt1.Space" id="hid-@tt1.Space" name="rackSpace" /> 
                           <input type="hidden" value="@tt1.A_Retail" id="ret-@tt1.Space" name="retailPrice" />
                            Model.SingleCards = tt1;
@@ -98,7 +98,7 @@
                         foreach (CP_Cards.Models.Cards tt2 in ss1)
                         {
                           <div class="span1">@tt2.Rack </div>
-                          <div class="span1">@Html.TextBox("MyRack", "", new {@class = "customtext", @onclick="TextBoxEnter()", @id="txt"+@tt2.Space })</div>     
+                          <div class="span1">@Html.TextBox("MyRack", "", new {@class = "customtext", @onchange="TextBoxEnter(" + @tt2.Space + "," + @tt2.A_Retail + ")", @id="txttest" })</div>     
                           <input type="hidden" value="@tt2.Space" id="hid-@tt2.Space" name="rackSpace" /> 
                           <input type="hidden" value="@tt2.A_Retail" id="ret-@tt2.Space" name="retailPrice" />
                            Model.SingleCards = tt2;

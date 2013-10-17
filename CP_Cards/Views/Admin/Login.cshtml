@@ -42,6 +42,12 @@
    <!---  Start --->
      <td width="500" valign="top" align="left">
 	<p><strong>Merchandiser Login Page </strong></p>
+    <br />
+     @{if(ViewBag.PasswordError == true)
+       {
+    <p style="color:red; font-weight:bold">Password is incorrect. Please use correct Password or contact the Administrator for password reset</p>
+     }
+     }
 <hr>
 <p>
  
@@ -52,13 +58,12 @@
     <tr>
       <td>Territory:</td>
       <td><select name="Territory" id="select2">
-     @{foreach (var mm in Model.Retailers)
-       {
-           
-        <option value="@mm.Territory">@mm.Territory</option>
-        
-        }
-     }
+     @{
+        foreach (var mm in Model.Retailers)
+           {
+            <option value="@mm.Territory">@mm.Territory</option>
+           }
+      }
       
       </select>       </td>
     </tr>
@@ -89,7 +94,3 @@
 
 </body>
 </html>
-@*<%
-Territories.Close()
-Set Territories = Nothing
-%>*@

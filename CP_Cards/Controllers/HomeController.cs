@@ -44,13 +44,6 @@ namespace CP_Cards.Controllers
 
         public ActionResult TimeSheet(string Territory)
         {
-            //storenumber = "0131";
-            //TSView ret = new TSView();
-            //ret.Account = ds.GetAllAccountInfo(Territory);
-            //ViewBag.Terr = Territory;
-            //return View(ret);
-
-
             TSView ret = new TSView();
             ret.AccountAll = ds.GetAllAccountInfo(Territory);
             ret.Account = ds.GetSingleAccountInfo("0000");
@@ -94,15 +87,6 @@ namespace CP_Cards.Controllers
 
         public ActionResult RecentOrders(string Territory, string Val)
         {
-            //TSView ret = new TSView();
-            //ret.Account = ds.GetAllAccountInfo(Territory);
-            //ViewBag.Terr = Territory;
-            //if (Val == "All")
-            //{
-            //    ret.Order = ds.GetAllInvoiceInfo(Territory);
-            //}
-            //ViewBag.val = Val;
-            //return View(ret);
 
             TSView ret = new TSView();
             ret.AccountAll = ds.GetAllAccountInfo(Territory);
@@ -120,20 +104,7 @@ namespace CP_Cards.Controllers
         [HttpPost]
         public ActionResult RecentOrders(string tempAccount, string ss, string Territory, Accounts ts)
         {
-            //TSView ret = new TSView();
-            //ret.Account = ds.GetSingleAccountInfo(tempAccount);
-            //if (tempAccount == "")
-            //{
-            //    ret.Order = ds.GetAllInvoiceInfo(Territory);
-            //}
-            //else
-            //{
-            //    ret.Order = ds.GetInvoiceInfo(tempAccount);
-            //}
-            //ViewBag.Terr = Territory;
-            //return View(ret);
-
-
+           
 
             TSView ret = new TSView();
             //ret.Account = ds.GetSingleAccountInfo(tempAccount);

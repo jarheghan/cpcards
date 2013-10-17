@@ -32,32 +32,25 @@ namespace CP_Cards.Controllers
             Retailers ret = new Retailers();
             TSView ret1 = new TSView();
             ret.RememberMe = true;
-            //var model = new TSView
-            //{
-            //    Retailers = ds.GetLoginInfo(),
-            //};
-           
-            //foreach (var myret in model.Retailers)
-            //{
-            //    if (myret.Territory == Territory && myret.Password.TrimEnd() == Password)
-            //    {
-            //        return RedirectToAction("MainPage", "Home", new { Territory = Territory});
-            //    }
-            //}
-             ViewBag.Terr = Territory;
+            ViewBag.Terr = Territory;
+            ViewBag.PasswordError = true;
              if (ModelState.IsValid)
              {
                  if (ret.IsValid(Territory, Password))
                  {
+                     string[] qsInfo = {Territory,ReturnUrl};
                      FormsAuthentication.SetAuthCookie(Territory, ret.RememberMe);
-                     return RedirectToLocal(ReturnUrl);
+                     return RedirectToLocal(qsInfo);
                  }
+                 else
+                 {
+                     ret1.Retailers = ds.GetLoginInfo();
+                     return View(ret1);
+                     
+                 }
+                
              }
-             else
-             {
-                 ret1.Retailers = ds.GetLoginInfo();
-                 return View(ret1);
-             }
+            
              return View();
         }
        
@@ -67,15 +60,17 @@ namespace CP_Cards.Controllers
             return RedirectToAction("Login", "Home");
         }
 
-        private ActionResult RedirectToLocal(string returnUrl)
+        private ActionResult RedirectToLocal(string[] qsInfo)
         {
+            var territory = qsInfo[0];
+            var returnUrl = qsInfo[1];
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
             else
             {
-                return RedirectToAction("MainPage", "Home", new { Territory = "A0" });
+                return RedirectToAction("MainPage", "Home", new { Territory = territory });
             }
         }
     }

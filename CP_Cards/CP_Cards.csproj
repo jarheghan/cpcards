@@ -37,10 +37,14 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IncludeIisSettings>false</IncludeIisSettings>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper">
       <HintPath>..\packages\Dapper.1.13\lib\net40\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -143,6 +147,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Contents\bootstrap\css\bootstrap-responsive.css" />
     <Content Include="Contents\bootstrap\css\bootstrap-responsive.min.css" />
     <Content Include="Contents\bootstrap\css\bootstrap.css" />
@@ -640,6 +645,7 @@
     <Content Include="images\upslabel.gif" />
     <Content Include="images\warehouse.gif" />
     <Content Include="Content\toastr.less" />
+    <None Include="Properties\PublishProfiles\John.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
@@ -667,6 +673,7 @@
     <Content Include="Views\Home\TimeSheet.cshtml" />
     <Content Include="Views\Home\TSMessage.cshtml" />
     <Content Include="Views\Order\OrderEntryStep2Advance.cshtml" />
+    <Content Include="Views\Home\__RecentOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -730,7 +737,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>6553</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:48189/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
