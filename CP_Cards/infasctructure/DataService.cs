@@ -132,13 +132,29 @@ namespace CP_Cards.infasctructure
             }
         }
 
+
+        public int GetRackMaxRow(string racks, string storenumber)
+        {
+            using (var sqlConnection = new SqlConnection(Constant.connectionString))
+            {
+                sqlConnection.Open();
+               int cardInfo
+                    = sqlConnection.Query<int>("select MAX(row) from cards where Rack = @racks and Number = @storenumber"
+                    , new { racks = racks, storenumber = storenumber }).First();
+                sqlConnection.Close();
+
+                return cardInfo;
+
+            }
+        }
+
         public IEnumerable<Cards> GetEveryDayCard(string racks, string storenumber)
         {
             using (var sqlConnection = new SqlConnection(Constant.connectionString))
             {
                 sqlConnection.Open();
                 IEnumerable<Cards> cardInfo
-                    = sqlConnection.Query<Cards>("select * from cards where Rack =  @racks  and Number = @storenumber"
+                    = sqlConnection.Query<Cards>("select * from cards where Rack =  @racks  and Number = @storenumber order by row desc,space"
                     , new { racks = racks, storenumber = storenumber });
                 sqlConnection.Close();
                 return cardInfo;

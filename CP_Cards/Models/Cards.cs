@@ -10,7 +10,7 @@ namespace CP_Cards.Models
         public string  Number { get; set; }
         public string  Rack { get; set; }
         public decimal Space { get; set; }
-        public int Bin { get; set; }
+        public string Bin { get; set; }
         public string Display { get; set; }
         public decimal A_Retail { get; set; }
         public string A_Design { get; set; }

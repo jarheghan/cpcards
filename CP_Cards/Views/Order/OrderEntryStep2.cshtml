@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "OrderEntryStep2";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
+   
 }
 @model CP_Cards.Models.RackView
 
@@ -52,17 +53,37 @@
 @using(Html.BeginForm("OrderEntry2Save","Order",new { storenumber = ViewBag.Storenumber,Display = ViewBag.Display,Territory=ViewBag.Terr},FormMethod.Post))
 {
     <div class="row" id="frontrack">
-         @*Rack of 96*@
-           @{if(Model.EDCards.Count() == 96)
-             {
-            <div class="span9" >
-                        
-                @{int MainCounter;
-                 MainCounter= Model.EDCards.Count();
-                 var seq = Model.EDCards;
-                 var result = seq.Select((s,i) => new {Value =s , Index = i}).GroupBy(item => item.Index/8, item => item.Value);
+
+        @{
+         string span ="";   
+         int MainCounter;
+         MainCounter = Model.EDCards.Count();
+         
+         if (MainCounter == 104)
+         {
+             span = "span9";
+         }
+                   
+         if (MainCounter == 78)
+         {
+             span = "span7";
+         }
+         if (MainCounter == 52)
+         {
+             span = "span5";
+         }
+         
+         }
+         
+        <div class="@span" >
+                       
+                @{
                  
-                    foreach (var ss1 in result.OrderByDescending(x => x.Key))
+                 var seq = Model.EDCards;
+                 var result = seq.Select((s,i) => new {Value =s , Index = i}).GroupBy(item => item.Index/ViewBag.RackRow, item => item.Value);
+                 
+                    //foreach (var ss1 in result.OrderByDescending(x => x.Key))
+                    foreach (var ss1 in result)
                     {
                         foreach (CP_Cards.Models.Cards tt1 in ss1)
                         {
@@ -78,64 +99,50 @@
                 
            
             </div><!--/span-->
-           }
-           }
-           
+         
 
-           @*Rack of 84*@
-           @{if(Model.EDCards.Count() == 84)
-             {
-            <div class="span7" >
-                        
-                @{int MainCounter;
-                 MainCounter= Model.EDCards.Count();
-                 var seq = Model.EDCards;
-                 var result = seq.Select((s,i) => new {Value =s , Index = i}).GroupBy(item => item.Index/6, item => item.Value);
-                 
-                    foreach (var ss1 in result.OrderByDescending(x => x.Key))
-                    {
-                        foreach (CP_Cards.Models.Cards tt in ss1)
-                        {
-                          <div class="span1"> <a  class="btn1 btn-large btn-primary" id="btn-@tt.Space" onclick="ToggleButton(@tt.Space,@tt.A_Retail)">@tt.Rack@tt.Space</a></div>
-                          <input type="hidden" value="@tt.Space" id="hid-@tt.Space" name="rackSpace" />  
-                          <input type="hidden" value="@tt.A_Retail" id="ret-@tt.Space" name="retailPrice" />
-
-                            Model.SingleCards = tt;
-                            @Html.HiddenFor(x => x.SingleCards.Rack); 
-  
-                        }
-                    }
-                 }
-                
-           
-            </div><!--/span-->
-           }
-           }
            
 
           </div><!--/row-->
+    
+    
+    
+    
                <div class="row" id="frontrack" style="display: none">
-            
+             @{
+             string span1 ="";   
+             int MainCounter1 = 0;
+             MainCounter1 = Model.EDCards.Count();
 
-             @*Rack of 96*@
-           @{if(Model.EDCards.Count() == 96)
+             if (MainCounter1 == 104)
              {
-                <div class="span12">
-                        
-                @{int MainCounter1;
-                  var seq1 = Model.EDCards;
-                  var result1 = seq1.Select((s, i) => new { Value = s, Index = i }).GroupBy(item => item.Index / 8, item => item.Value);
+                 span1 = "span12";
+             }
                    
-                    foreach (var ss1 in result1.OrderByDescending(x => x.Key))
+             if (MainCounter1 == 78)
+             {
+                 span1 = "span9";
+             }
+             if (MainCounter1 == 52)
+             {
+                 span1 = "span7";
+             }
+         
+         }
+      <div class="@span1">
+                        
+                @{
+                  var seq1 = Model.EDCards;
+                  var result1 = seq1.Select((s, i) => new { Value = s, Index = i }).GroupBy(item => item.Index / ViewBag.RackRow, item => item.Value);
+                   
+                    foreach (var ss1 in result1)
                     {
                         foreach (var tt in ss1)
                         {
-                           
                               <div id="designme" class="designme btn-primary2">
                                   <b>@tt.Space,@tt.Rack,@tt.A_Retail</b>;<br />
                                      @tt.A_Design @tt.M_Design;
                                   </div>
-                           
                         }
                     } 
                              
@@ -145,39 +152,6 @@
                 
            
             </div><!--/span-->
-           }
-           }
-
-         @*Rack of 96*@
-           @{if(Model.EDCards.Count() == 84)
-             {
-                <div class="span9">
-                        
-                @{int MainCounter1;
-                  var seq1 = Model.EDCards;
-                  var result1 = seq1.Select((s, i) => new { Value = s, Index = i }).GroupBy(item => item.Index / 6, item => item.Value);
-                   
-                    foreach (var ss1 in result1.OrderByDescending(x => x.Key))
-                    {
-                        foreach (var tt in ss1)
-                        {
-                           
-                              <div id="designme" class="designme btn-primary2">
-                                  <b>@tt.Space,@tt.Rack,@tt.A_Retail</b>;<br />
-                                     @tt.A_Design @tt.M_Design;
-                                  </div>
-                           
-                        }
-                    } 
-                             
-                
-                   }
-                 
-                
-           
-            </div><!--/span-->
-           }
-           }
 
           </div><!--/row-->
     <div class="row-fluid">

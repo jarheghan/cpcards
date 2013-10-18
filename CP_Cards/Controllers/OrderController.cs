@@ -117,6 +117,7 @@ namespace CP_Cards.Controllers
             RV.EDCards = ds.GetEveryDayCard( cards.Rack,storenumber);
             RV.Accounts = ds.GetSingleAccountInfo(storenumber);
             ViewBag.Terr = Territory;
+            ViewBag.RackRow = ds.GetRackMaxRow(cards.Rack, storenumber);
             ConstValues cv = new ConstValues();
             cv.Completed = "0";
             RV.CosstValue = cv;
