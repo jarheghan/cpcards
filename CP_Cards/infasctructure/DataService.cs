@@ -168,8 +168,8 @@ namespace CP_Cards.infasctructure
             {
                 sqlConnection.Open();
                 int cnt = sqlConnection.Execute("insert into Order_Details(ord_order_id,ord_rack_space,ord_rack_id,ord_rack_display,ord_store_no" +
-                                             ",ord_delete_flag)" +
-                                                   "values(@Ord_Ort_ID,@Rack_Space,@Rack_ID,@Rack_Display,@Store_No,@Delete_Flag)"
+                                             ",ord_delete_flag,ord_add_user,ord_add_date)" +
+                                                   "values(@Ord_Ort_ID,@Rack_Space,@Rack_ID,@Rack_Display,@Store_No,@Delete_Flag,@Add_User,@Add_Date)"
                                                    , new Order_Details
                                                    {
                                                        Ord_Ort_ID = orderDetails.Ord_Ort_ID,
@@ -177,7 +177,9 @@ namespace CP_Cards.infasctructure
                                                        Rack_ID = orderDetails.Rack_ID,
                                                        Rack_Display = orderDetails.Rack_Display,
                                                        Store_No = orderDetails.Store_No,
-                                                       Delete_Flag = orderDetails.Delete_Flag
+                                                       Delete_Flag = orderDetails.Delete_Flag,
+                                                       Add_User = Environment.UserName,
+                                                       Add_Date = DateTime.Now
                                                    });
                 sqlConnection.Close();
 
@@ -189,8 +191,8 @@ namespace CP_Cards.infasctructure
             using (var sqlConnection = new SqlConnection(Constant.connectionString))
             {
                 sqlConnection.Open();
-                int cnt = sqlConnection.Execute("insert into Orders(S_Date,StoreNumber,InvNumber,SeasonName,Code,Amount,Territory,City,State,CustName)" +
-                                                   "values(@S_Date,@StoreNumber,@InvNumber,@SeasonName,@Code,@Amount,@Territory,@City,@State,@CustName)"
+                int cnt = sqlConnection.Execute("insert into Orders(S_Date,StoreNumber,InvNumber,SeasonName,Code,Amount,Territory,City,State,CustName,Order_Complete)" +
+                                                   "values(@S_Date,@StoreNumber,@InvNumber,@SeasonName,@Code,@Amount,@Territory,@City,@State,@CustName,@OrderComplete)"
                                                    , new Orders
                                                    {
                                                        S_Date = orders.S_Date,
@@ -203,7 +205,8 @@ namespace CP_Cards.infasctructure
                                                        City = orders.City,
                                                        State = orders.State,
                                                        AccountID = orders.AccountID,
-                                                       CustName = orders.CustName
+                                                       CustName = orders.CustName,
+                                                       OrderComplete = orders.OrderComplete
                                                    });
                 sqlConnection.Close();
 
@@ -237,6 +240,20 @@ namespace CP_Cards.infasctructure
                 sqlConnection.Open();
                 int st_number = sqlConnection.Query<int>("select InvNumber from orders where InvNumber = @InvNumber"
                                                   , new { InvNumber = InvNumber }).FirstOrDefault();
+                sqlConnection.Close();
+                return st_number;
+            }
+        }
+
+        public int GetTransationNumber2(string storenumber, string adddate, bool ordercomplete)
+        {
+            using (var sqlConnection = new SqlConnection(Constant.connectionString))
+            {
+                sqlConnection.Open();
+                int st_number = sqlConnection.Query<int>("select InvNumber from orders where StoreNumber = @StoreNumber" +
+                                                    " and S_Date = @add_date and Order_Complete = @ordercomplete"
+                                                  , new { StoreNumber = storenumber, add_date = adddate,
+                                                            ordercomplete = ordercomplete}).FirstOrDefault();
                 sqlConnection.Close();
                 return st_number;
             }

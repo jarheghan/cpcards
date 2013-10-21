@@ -7,6 +7,6 @@ namespace CP_Cards.Utility
 {
     public enum CardTypes
     {
-        EverdayCard = "E"
+        EverdayCard 
     }
 }

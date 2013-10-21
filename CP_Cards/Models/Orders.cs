@@ -18,5 +18,6 @@ namespace CP_Cards.Models
         public string City { get; set; }
         public string State { get; set; }
         public decimal AccountID { get; set; }
+        public bool OrderComplete { get; set; }
     }
 }

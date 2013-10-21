@@ -146,6 +146,7 @@ namespace CP_Cards.Controllers
             }
             try
             {
+                
                 Orders ord = new Orders();
                 Accounts acct = ds.GetSingleAccountInfo1(storenumber);
                 ord.AccountID = acct.AccountID;
@@ -159,6 +160,7 @@ namespace CP_Cards.Controllers
                 ord.Code = Display;
                 ord.InvNumber = trans_noint;
                 ord.StoreNumber = storenumber;
+                ord.OrderComplete = false;
 
                 ds.InsertOrder(ord);
             }
