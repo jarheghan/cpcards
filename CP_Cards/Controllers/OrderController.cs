@@ -1,5 +1,6 @@
 ﻿using CP_Cards.infasctructure;
 using CP_Cards.Models;
+using CP_Cards.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -154,7 +155,7 @@ namespace CP_Cards.Controllers
                 ord.State = acct.State;
                 ord.Territory = acct.Territory;
                 ord.Amount = Price;
-                ord.SeasonName = "Everyday Card";
+                ord.SeasonName = Display == "E"?"Everyday Card":"";
                 ord.Code = Display;
                 ord.InvNumber = trans_noint;
                 ord.StoreNumber = storenumber;
