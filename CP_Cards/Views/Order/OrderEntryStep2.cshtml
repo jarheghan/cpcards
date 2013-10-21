@@ -88,8 +88,8 @@
                         foreach (CP_Cards.Models.Cards tt1 in ss1)
                         {
                           <div class="span1"> <a  class="btn1 btn-large disable" id="btn-@tt1.Space" onclick="ToggleButton(@tt1.Space,@tt1.A_Retail)">@tt1.Rack@tt1.Space</a></div>
-                          <input type="hidden" value="@tt1.Space" id="hid-@tt1.Space" name="rackSpace" /> 
-                          <input type="hidden" value="@tt1.A_Retail" id="ret-@tt1.Space" name="retailPrice" />
+                          <input type="hidden" value="" id="hid-@tt1.Space" name="rackSpace" /> 
+                          <input type="hidden" value="" id="ret-@tt1.Space" name="retailPrice" />
                            Model.SingleCards = tt1;
                             @Html.HiddenFor(x => x.SingleCards.Rack); 
                    
