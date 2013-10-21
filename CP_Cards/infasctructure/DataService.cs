@@ -167,7 +167,7 @@ namespace CP_Cards.infasctructure
             using (var sqlConnection = new SqlConnection(Constant.connectionString))
             {
                 sqlConnection.Open();
-                int cnt = sqlConnection.Execute("insert into Order_Details(ord_ort_id,ord_rack_space,ord_rack_id,ord_rack_display,ord_store_no" +
+                int cnt = sqlConnection.Execute("insert into Order_Details(ord_order_id,ord_rack_space,ord_rack_id,ord_rack_display,ord_store_no" +
                                              ",ord_delete_flag)" +
                                                    "values(@Ord_Ort_ID,@Rack_Space,@Rack_ID,@Rack_Display,@Store_No,@Delete_Flag)"
                                                    , new Order_Details
@@ -189,8 +189,8 @@ namespace CP_Cards.infasctructure
             using (var sqlConnection = new SqlConnection(Constant.connectionString))
             {
                 sqlConnection.Open();
-                int cnt = sqlConnection.Execute("insert into Orders(S_Date,StoreNumber,InvNumber,SeasonName,Code,Amount,Territory,City,State,AccountID,CustName)" +
-                                                   "values(@S_Date,@StoreNumber,@InvNumber,@SeasonName,@Code,@Amount,@Territory,@City,@State,@AccountID,@CustName)"
+                int cnt = sqlConnection.Execute("insert into Orders(S_Date,StoreNumber,InvNumber,SeasonName,Code,Amount,Territory,City,State,CustName)" +
+                                                   "values(@S_Date,@StoreNumber,@InvNumber,@SeasonName,@Code,@Amount,@Territory,@City,@State,@CustName)"
                                                    , new Orders
                                                    {
                                                        S_Date = orders.S_Date,

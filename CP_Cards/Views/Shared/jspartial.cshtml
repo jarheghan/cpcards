@@ -1,32 +1,20 @@
 ﻿<script type="text/javascript">
-        function ToggleButton(ornumber,price) {
-            $("#btn-" + ornumber.toString()).toggleClass("btn1 btn-large disable").addClass("btn1 btn-large btn-primary");
-            if ($("#btn-" + ornumber.toString()).hasClass('btn-primary btn1 btn-large')) {
+    function ToggleButton(ornumber,price) {
+        var css = "btn1 btn-large btn-primary";
+        var discss = "btn1 btn-large disable";
+        
+        $("#btn-" + ornumber).toggleClass("btn1 btn-large disable " + css);
+        if ($("#btn-" + ornumber).hasClass('btn1 btn-large btn-primary')) {
                 $("#hid-" + ornumber).attr("value", ornumber);
                 $("#ret-" + ornumber).attr("value", price);
-                //$("#hid-" + ornumber).html("<input type='hidden' value=" + "'" + ornumber + "'" + " id=" + "'" + "hid-" + ornumber + "' />")
-                //btn1 btn-large disable btn1 btn-large btn-primary
             }
             else {
                 $("#hid-" + ornumber).removeAttr("value");
                 $("#ret-" + ornumber).removeAttr("value");
-                //$("#hid-" + ornumber).remove();
             }
         }
 
-        function TextBoxEnter(ornumber,price) {
-           // var ss = $("#txt-" + ornumber.toString()).val();
-            var ss = $("#txttest").val();
-            if ($("#btn-" + ornumber.toString()).hasClass('btn-primary btn1 btn-large')) {
-                $("#hid-" + ornumber).attr("value", ornumber);
-                $("#ret-" + ornumber).attr("value", price);
-            }
-            else {
-                $("#hid-" + ornumber).removeAttr("value");
-                $("#ret-" + ornumber).removeAttr("value");
-                //$("#hid-" + ornumber).remove();
-            }
-        }
+       
 </script>
 <script type="text/javascript">
     $("#flipRack").bind("click", function (event) {
