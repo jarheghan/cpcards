@@ -11,6 +11,7 @@ using System.Web.Security;
 
 namespace CP_Cards.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         //
@@ -57,7 +58,7 @@ namespace CP_Cards.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Home");
+            return RedirectToAction("Login");
         }
 
         private ActionResult RedirectToLocal(string[] qsInfo)

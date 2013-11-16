@@ -168,8 +168,8 @@ namespace CP_Cards.infasctructure
             {
                 sqlConnection.Open();
                 int cnt = sqlConnection.Execute("insert into Order_Details(ord_order_id,ord_rack_space,ord_rack_id,ord_rack_display,ord_store_no" +
-                                             ",ord_delete_flag,ord_add_user,ord_add_date)" +
-                                                   "values(@Ord_Ort_ID,@Rack_Space,@Rack_ID,@Rack_Display,@Store_No,@Delete_Flag,@Add_User,@Add_Date)"
+                                             ",ord_delete_flag,ord_add_user,ord_add_date,ord_export_flag)" +
+                                                   "values(@Ord_Ort_ID,@Rack_Space,@Rack_ID,@Rack_Display,@Store_No,@Delete_Flag,@Add_User,@Add_Date,@Export_Flag)"
                                                    , new Order_Details
                                                    {
                                                        Ord_Ort_ID = orderDetails.Ord_Ort_ID,
@@ -179,11 +179,23 @@ namespace CP_Cards.infasctructure
                                                        Store_No = orderDetails.Store_No,
                                                        Delete_Flag = orderDetails.Delete_Flag,
                                                        Add_User = Environment.UserName,
-                                                       Add_Date = DateTime.Now
+                                                       Add_Date = DateTime.Now,
+                                                       Export_Flag = true
                                                    });
                 sqlConnection.Close();
 
             }
+        }
+
+        public void UpdateExportFlag(string order_id)
+        {
+            using (var sqlConnection = new SqlConnection(Constant.connectionString))
+            {
+                sqlConnection.Open();
+                int complete = sqlConnection.Execute("update order_details set ord_export_flag = 0 where ord_order_id = @order_id", new {order_id = order_id });
+                sqlConnection.Close();
+            }
+
         }
 
         public void InsertOrder(Orders orders)
@@ -238,7 +250,7 @@ namespace CP_Cards.infasctructure
             using (var sqlConnection = new SqlConnection(Constant.connectionString))
             {
                 sqlConnection.Open();
-                int st_number = sqlConnection.Query<int>("select InvNumber from orders where InvNumber = @InvNumber"
+                int st_number = sqlConnection.Query<int>("select count(InvNumber) from orders where InvNumber = @InvNumber"
                                                   , new { InvNumber = InvNumber }).FirstOrDefault();
                 sqlConnection.Close();
                 return st_number;
@@ -258,34 +270,76 @@ namespace CP_Cards.infasctructure
                 return st_number;
             }
         }
+
+
+        public IEnumerable<Invoice> GetInvoiceData(string storenumber)
+        {
+            IEnumerable<Invoice> invoice;
+            using (var sqlConnection = new SqlConnection(Constant.connectionString))
+            {
+                sqlConnection.Open();
+                invoice = sqlConnection.Query<Invoice>("select * from invoice where inv_store_number = @storenumber"
+                                                  , new
+                                                  {
+                                                      storenumber = storenumber,
+                                                  });
+                sqlConnection.Close();
+                return invoice;
+            }
+        }
+
+
+        public IEnumerable<TaskList> GetTaskList()
+        {
+            IEnumerable<TaskList> tasklist;
+            using (var sqlConnection = new SqlConnection(Constant.connectionString))
+            {
+                sqlConnection.Open();
+                tasklist = sqlConnection.Query<TaskList>("select tal_id, tal_name from tasklist where tal_delete_flag = 0");
+                                                  
+                sqlConnection.Close();
+                return tasklist;
+            }
+        }
+        
         
 
 
+        //select tal_id, tal_name from tasklist where tal_delete_flag = 0
 
 
 
 
 
-
-        public void AddTimeSheeInfo(TimeSheet timesheet)
+        public int AddTimeSheeInfo(TimeSheet timesheet)
         {
             using (var sqlConnection = new SqlConnection(Constant.connectionString))
             {
                 sqlConnection.Open();
-                int cnt = sqlConnection.Execute("insert into TimeSheet(StoreNumber,TSDate,StartTime,EndTime,InvoiceNo,ServiceProvided,Notes,Miles)" +
-                                                   "values(@StoreNumber,@TSDate,@StartTime,@FinishTime,@InvWorkOn,@ServiceProvided,@Notes,@Miles)"
-                                                   , new TimeSheet
-                                                   {
-                                                       StoreNumber = timesheet.StoreNumber,
-                                                       TSDate = timesheet.TSDate,
-                                                       StartTime = timesheet.StartTime,
-                                                       FinishTime = timesheet.FinishTime,
-                                                       InvWorkOn = timesheet.InvWorkOn,
-                                                       ServiceProvided = timesheet.ServiceProvided,
-                                                       Miles = timesheet.Miles,
-                                                       Notes = timesheet.Notes
-                                                   });
-                sqlConnection.Close();
+                try
+                {
+                    int cnt = sqlConnection.Execute("insert into TimeSheet(StoreNumber,TSDate,Cartons,InvoiceNo,ServiceProvided,Notes,TrackingNumber,InvoiceDate,Add_User,Add_Date,Export_flag)" +
+                                                       "values(@StoreNumber,@TSDate,@Cartons,@InvoiceNo,@ServiceProvided,@Notes,@TrackingNumber,@InvoiceDate,@Add_User,@Add_Date,@ExportFlag)"
+                                                       , new TimeSheet
+                                                       {
+                                                           StoreNumber = timesheet.StoreNumber,
+                                                           TSDate = timesheet.TSDate,
+                                                           Cartons = timesheet.Cartons,
+                                                           InvoiceNo = timesheet.InvoiceNo,
+                                                           TrackingNumber = timesheet.TrackingNumber,
+                                                           ServiceProvided = timesheet.ServiceProvided,
+                                                           InvoiceDate = timesheet.InvoiceDate,
+                                                           Notes = timesheet.Notes,
+                                                           Add_User = Environment.UserName,
+                                                           Add_Date = DateTime.Now,
+                                                           ExportFlag = false
+                                                       });
+                    sqlConnection.Close();
+                    return cnt;
+                }
+                catch (Exception ex)
+                { return 0; }
+               
 
             }
 

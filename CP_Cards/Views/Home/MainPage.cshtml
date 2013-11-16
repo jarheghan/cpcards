@@ -6,27 +6,10 @@
             @Html.Partial("sidemenu");
         }
 
-        <div class="hero-unit">
-               <img src="@Href("~/images/cardsplus-logo.jpg")" alt="" width="300" height="135" border="0">
-          </div>
+        
 
      <div class="customhero-unit">
-              <h3>Cards-Plus Territory @ViewBag.Terr</h3>
+              <h3>Cards N Such Territory @ViewBag.Terr</h3>
 
           </div>
-<div class="row">
-                
-                 <div class="span12">
-                  <div class="span3"><a class="btn btn-danger" id="checkUncheck" href="@Url.Action("Memo", "Home", new {Territory = ViewBag.Terr })" >View Memos &raquo;</a></div>
-                  <div class="span3"><a class="btn btn-danger" id="flipRack" href="@Url.Action("TimeSheet", "Home", new {Territory = ViewBag.Terr })" >TimeSheet Entry &raquo;</a></div>
-                  <div class="span3"><a class="btn btn-danger" id="flipRack" href="@Url.Action("RecentOrders", "Home", new {Territory = ViewBag.Terr })" >View Recent Orders &raquo;</a></div>
-                </div>
-                  <div class="span12"></div>
 
-              <div class="span12">
-                  <div class="span3"><a class="btn btn-danger" id="checkUncheck" href="@Url.Action("OrderEntryStep1", "Order", new {Territory = ViewBag.Terr })" >Place An Order &raquo;</a></div>
-                 @* <div class="span3"><a class="btn btn-danger" id="flipRack" href="@Url.Action("OrderSupplies", "Order", new {Territory = ViewBag.Terr })" >Order Supplies &raquo;</a></div>
-                  <div class="span3"><a class="btn btn-danger" id="flipRack" href="@Url.Action("MainPage", "Home", new {Territory = ViewBag.Terr })" >Update Personal Info &raquo;</a></div>*@
-               </div>
-    
-    </div>

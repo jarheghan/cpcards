@@ -9,51 +9,67 @@
             @Html.Partial("sidemenuorder");
         }
 
-        <div class="hero-unit">
-               <img src="@Href("~/images/cardsplus-logo.jpg")" alt="" width="300" height="135" border="0">
+       <div class="customhero-unit">
+              <h3>Order Entry Form for Territory @ViewBag.Terr</h3>
+
           </div>
+
             @using (Html.BeginForm("OrderEntryStep2", "Order", new { storenumber = ViewBag.Storenumber,Display = ViewBag.Display,Territory=ViewBag.Terr}, FormMethod.Post))
                 {
           <div class="row-fluid">
               
-            <div class="span12">
-                
-              <h3>Place you card order @Model.EDCards.Count() </h3>
-              <div class="span4">@Html.DropDownListFor(m => m.rack, new SelectList(Model.Cards, "Rack", "Rack", Model.rack), "--Select--", new {@name="rack", @id="select" })</div>
-              <div class="span4"><button class="btn btn-danger" >Select Rack &raquo;</button></div>
-             
-            </div><!--/span-->
+          
            <div class="span12">
                @{int ss = Model.EDCards.Count();}
                   <div class="span4"><a class="btn btn-danger" id="checkUncheck" )">Check/UnCheck &raquo;</a></div>
                   <input type="hidden" id="findCheck" value="0" />
-                  <div class="span4"><a class="btn btn-danger" id="flipRack" >View Rack &raquo;</a></div>
-                  <div class="span4"><a class="btn btn-danger" id="advance" href="@Url.Action("OrderEntryStep2Advance","Order",new {Display = ViewBag.Display,storenumber = ViewBag.Storenumber,Territory = ViewBag.Terr})")" >Advance Order Details &raquo;</a></div>
+                  <div class="span4"><a class="btn btn-danger" id="flipRack" >Change Rack View &raquo;</a></div>
+@*                  <div class="span4"><a class="btn btn-danger" id="advance" href="@Url.Action("OrderEntryStep2Advance","Order",new {Display = ViewBag.Display,storenumber = ViewBag.Storenumber,Territory = ViewBag.Terr})")" >Advance Order Details &raquo;</a></div>*@
            </div>
+          <div class="span12">
+                
+              <h4>Select Rack to order </h4>
+              <div class="span4">@Html.DropDownListFor(m => m.rack, new SelectList(Model.Cards, "Rack", "Rack", Model.rack), "--Select--", new {@name="rack", @id="select" })</div>
+              <div class="span4"><button class="btn btn-danger" >Select Rack &raquo;</button></div>
+             
+           </div><!--/span-->
           </div><!--/row-->
              
-
+       <hr />
           <div class="row-fluid">
               
             <div class="span12">
                 
-              <h4>Racks</h4>
+              <h4>Store Information </h4>
               <div class="span8">For Store @{ foreach (var mm in Model.Accounts)
                                         {
                        <div>@mm.StoreNumber - @mm.CustName - @mm.City</div>
               }
                     }</div>
             </div><!--/span-->
-           
+   
           </div><!--/row-->
             }
-     
+             <hr />
                 
-      
+      <div class="row-fluid">
+              
+        <div class="span12">
+              <div class="span4"></div>  
+            </div>
+            <div class="span12">
+
+
+			
+            </div><!--/span-->
+           
+   </div><!--/row-->
+   
+   
 @using(Html.BeginForm("OrderEntry2Save","Order",new { storenumber = ViewBag.Storenumber,Display = ViewBag.Display,Territory=ViewBag.Terr},FormMethod.Post))
 {
     <div class="row" id="frontrack">
-
+       
         @{
          string span ="";   
          int MainCounter;
@@ -74,9 +90,12 @@
          }
          
          }
-         
+          <div class="span12">
+              <div class="span4"><button class="btn btn-danger" >Save Rack &raquo;</button></div>  
+              
+            </div>
         <div class="@span" >
-                       
+                <h4>Rack @ViewBag.rackid </h4>         
                 @{
                  
                  var seq = Model.EDCards;
@@ -87,6 +106,7 @@
                     {
                         foreach (CP_Cards.Models.Cards tt1 in ss1)
                         {
+                         
                           <div class="span1"> <a  class="btn1 btn-large disable" id="btn-@tt1.Space" onclick="ToggleButton(@tt1.Space,@tt1.A_Retail)">@tt1.Rack@tt1.Space</a></div>
                           <input type="hidden" value="" id="hid-@tt1.Space" name="rackSpace" /> 
                           <input type="hidden" value="" id="ret-@tt1.Space" name="retailPrice" />
@@ -141,7 +161,8 @@
                         {
                               <div id="designme" class="designme btn-primary2">
                                   <b>@tt.Space,@tt.Rack,@tt.A_Retail</b>;<br />
-                                     @tt.A_Design @tt.M_Design;
+                                     @tt.A_Design @tt.M_Design;<br />
+                                     @tt.Dis1
                                   </div>
                         }
                     } 
@@ -160,8 +181,7 @@
               <div class="span4"></div>  
             </div>
             <div class="span12">
-              <div class="span4"><button class="btn btn-danger" >Save Rack &raquo;</button></div>  
-              <div class="span4"><a class="btn btn-primary" href="@Url.Action("MainPage", "Home", new {Territory = ViewBag.Terr})" >Finish Order Process &raquo;</a></div>  
+            @*  <div class="span4"><button class="btn btn-danger" >Save Rack &raquo;</button></div>  *@
               
             </div><!--/span-->
            

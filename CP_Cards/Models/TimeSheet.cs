@@ -8,12 +8,15 @@ namespace CP_Cards.Models
     public class TimeSheet
     {
         public string TSDate { get; set; }
-        public string Miles { get; set; }
-        public string StartTime { get; set; }
-        public string FinishTime { get; set; }
-        public string InvWorkOn { get; set; }
+        public string InvoiceNo { get; set; }
+        public string Cartons { get; set; }
+        public string TrackingNumber { get; set; }
+        public string InvoiceDate { get; set; }
         public string ServiceProvided { get; set; }
         public string Notes { get; set; }
         public string StoreNumber { get; set; }
+        public String Add_User { get; set; }
+        public DateTime Add_Date { get; set; }
+        public bool ExportFlag { get; set; }
     }
 }

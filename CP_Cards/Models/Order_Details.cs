@@ -17,5 +17,6 @@ namespace CP_Cards.Models
         public string Add_User { get; set; }
         public string Change_User { get; set; }
         public bool Delete_Flag { get; set; }
+        public bool Export_Flag { get; set; }
     }
 }

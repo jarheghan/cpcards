@@ -9,9 +9,10 @@
             @Html.Partial("sidemenu");
         }
 
-<div class="hero-unit">
-    <img src="@Href("~/images/cardsplus-logo.jpg")" alt="" width="300" height="135" border="0">
-   </div>
+<div class="customhero-unit">
+              <h3>Order Entry Form for Territory @ViewBag.Terr</h3>
+
+          </div>
 
             @using (Html.BeginForm())
                 {
@@ -20,8 +21,6 @@
             <div class="span12">
                 
                  <div class="span12">
-                  <div class="span4"><a class="btn btn-danger" id="checkUncheck" href="@Url.Action("RecentOrders", "Home", new {Territory = ViewBag.Terr })">View Orders &raquo;</a></div>
-                  <div class="span4"><a class="btn btn-danger" id="flipRack" href="@Url.Action("MainPage", "Home", new {Territory = ViewBag.Terr })" >Back to Main Menu &raquo;</a></div>
             </div>
             <div class="span12">
             </div>
@@ -29,11 +28,12 @@
               <div class="span4">@Html.DropDownListFor( m => m.StoreNumber, new SelectList(Model.AccountAll, "StoreNumber","ConInfo", Model.StoreNumber), "--Select--")</div>
              <div class="span1"> OR</div>
                 <div class="span1"> <input name="tempAccount" type="text" id="tempAccount" class="customtext"></div>
-              <div class="span4"><button class="btn btn-danger" >Select Rack &raquo;</button></div>
+              <div class="span4"><button class="btn btn-danger" >Select Store &raquo;</button></div>
             </div> 
             </div><!--/span-->
         <div class="span12">
-           @{ if(Model.SingleAccount !=null)
+           @{ //if(Model.e)
+              if(Model.SingleAccount.StoreNumber != string.Empty)
              {
     
                 <strong>Store Number: @Model.SingleAccount.StoreNumber</strong>
@@ -49,9 +49,7 @@
            <div class="span12"></div>
 
            <div class="span12">
-                  <div class="span4"><a class="btn btn-danger" id="ED" href="@Url.Action("OrderEntryStep2", "Order", new {Display = "E",storenumber = Model.SingleAccount.StoreNumber,Territory = ViewBag.Terr})" )">Every Day Card &raquo;</a></div>
-                  <div class="span4"><a class="btn btn-danger" id="SC" >Seasonal Card &raquo;</a></div>
-                  <div class="span4"><a class="btn btn-danger" id="GM" >General Merchant &raquo;</a></div>
+                  <div class="span4"><a class="btn btn-danger" id="ED" href="@Url.Action("OrderEntryStep2", "Order", new {Display = "E",storenumber = Model.SingleAccount.StoreNumber,Territory = ViewBag.Terr})" )">Select Racks &raquo;</a></div>
            </div>
           </div><!--/row-->
             }
@@ -59,10 +57,10 @@
             {
           <div class="row-fluid">
               <div class="span12"></div>
-              <div class="span12">
+              <div class="span10">
                   <textarea id="orderinfo" class="customtextarea" name="orderinfo" placeholder="Enter Order information" ></textarea>
               </div>
-              <div class="span12"><div class="span4"><button class="btn btn-danger" id="Submit" >Submit &raquo;</button></div></div>
+              <div class="span12"><div class="span4"><button class="btn btn-danger" id="Submit" >Submit Order &raquo;</button></div></div>
 
 
           </div>

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace CP_Cards.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         TSView vTS = new TSView();
@@ -21,7 +22,15 @@ namespace CP_Cards.Controllers
         {
             TSView ret = new TSView();
             ret.AccountAll = ds.GetAllAccountInfo(Territory);
-            ret.SingleAccount = ds.GetSingleAccountInfo1("0101");
+            if (ret.AccountAll.Count() > 0)
+            {
+                Accounts ss = new Accounts();
+                ss.StoreNumber = string.Empty;
+                ss.Phone = string.Empty;
+                ss.CustName = string.Empty;
+                ret.SingleAccount = ss;
+            }
+            //ret.SingleAccount = ds.GetSingleAccountInfo1("00000");
             ViewBag.Terr = Territory;
             if (Val == "All")
             {
@@ -101,10 +110,12 @@ namespace CP_Cards.Controllers
             }
             else
             {
-               cv.Completed = complete;
-               RV.CosstValue = cv;
+
+                cv.Completed = complete;
+                RV.CosstValue = cv;
             }
-            return View(RV);
+                return View(RV);
+            
         }
 
         [HttpPost]
@@ -117,6 +128,7 @@ namespace CP_Cards.Controllers
             ViewBag.Storenumber = storenumber;
             RV.EDCards = ds.GetEveryDayCard( cards.Rack,storenumber);
             RV.Accounts = ds.GetSingleAccountInfo(storenumber);
+            ViewBag.rackid = rack;
             ViewBag.Terr = Territory;
             ViewBag.RackRow = ds.GetRackMaxRow(cards.Rack, storenumber);
             ConstValues cv = new ConstValues();
@@ -137,38 +149,49 @@ namespace CP_Cards.Controllers
             ///Create a an Order for every transaction of card type that is created.
             ///So create a method to for the created
             //int trans_no = ds.GetTransationNumber(storenumber);
-            int trans_noint = RamdomTransactionNo.GenerateTransationNumberInt();
-            ///Getting the Order information to create an order entry
-            ///
-            foreach (string price in retailPrice)
-            {
-                Price = Price + (price == "" ? 0 :Convert.ToDecimal(price));
-            }
-            try
-            {
-                
-                Orders ord = new Orders();
-                Accounts acct = ds.GetSingleAccountInfo1(storenumber);
-                ord.AccountID = acct.AccountID;
-                ord.City = acct.City;
-                ord.CustName = acct.CustName;
-                ord.S_Date = DateTime.Now;
-                ord.State = acct.State;
-                ord.Territory = acct.Territory;
-                ord.Amount = Price;
-                ord.SeasonName = Display == "E"?"Everyday Card":"";
-                ord.Code = Display;
-                ord.InvNumber = trans_noint;
-                ord.StoreNumber = storenumber;
-                ord.OrderComplete = false;
 
-                ds.InsertOrder(ord);
-            }
-            catch { }
-           
-            int InvNumber = ds.GetTransationNumber(trans_noint);
-            if (InvNumber == trans_noint)
+            if (SessionHandler.OrderID == String.Empty)
             {
+                int trans_noint = RamdomTransactionNo.GenerateTransationNumberInt();
+                SessionHandler.OrderID = trans_noint.ToString();
+            }
+            
+            
+            ///Getting the Order information to create an order entry
+            if (retailPrice != null)
+            {
+                foreach (string price in retailPrice)
+                {
+                    Price = Price + (price == "" ? 0 : Convert.ToDecimal(price));
+                }
+
+                int InvNumber = ds.GetTransationNumber(int.Parse(SessionHandler.OrderID));
+                try
+                {
+                    if (InvNumber == 0)
+                    {
+                        Orders ord = new Orders();
+                        Accounts acct = ds.GetSingleAccountInfo1(storenumber);
+                        ord.AccountID = acct.AccountID;
+                        ord.City = acct.City;
+                        ord.CustName = acct.CustName;
+                        ord.S_Date = DateTime.Now;
+                        ord.State = acct.State;
+                        ord.Territory = acct.Territory;
+                        ord.Amount = Price;
+                        ord.SeasonName = Display == "E" ? "Everyday Card" : "";
+                        ord.Code = Display;
+                        ord.InvNumber = int.Parse(SessionHandler.OrderID);
+                        ord.StoreNumber = storenumber;
+                        ord.OrderComplete = false;
+
+                        ds.InsertOrder(ord);
+                    }
+                }
+                catch { }
+
+
+
                 try
                 {
                     foreach (var space in rackspace)
@@ -179,7 +202,7 @@ namespace CP_Cards.Controllers
                             RV.OrderDetail.Rack_ID = SingleCard.SingleCards.Rack;
                             RV.OrderDetail.Store_No = storenumber;
                             RV.OrderDetail.Rack_Display = Display;
-                            RV.OrderDetail.Ord_Ort_ID = trans_noint;
+                            RV.OrderDetail.Ord_Ort_ID = int.Parse(SessionHandler.OrderID);
                             ds.InsertOrderDetailsInfo(RV.OrderDetail);
 
                         }
@@ -189,11 +212,15 @@ namespace CP_Cards.Controllers
 
                 catch { Cnt_Flag = "0"; }
             }
+            else { Cnt_Flag = "2"; }
+           
             ViewBag.Terr = Territory;
 
             return RedirectToAction("OrderEntryStep2", new { Display = Display, storenumber = storenumber, Territory = Territory, complete = Cnt_Flag });
         }
 
+
+       
 
         public ActionResult OrderEntryStep3(string Thelocation, string NextRack, string Display, string TheRack,string storenumber)
         {

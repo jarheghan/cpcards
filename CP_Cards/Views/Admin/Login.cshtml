@@ -1,47 +1,30 @@
 ﻿@model CP_Cards.Models.TSView
+@{
+    ViewBag.Title = "TimeSheet";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+<BR>
+<div class="customhero-unit">
+              <h3>Cards N Such User Login Page</h3>
 
+          </div>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <html>
 <head>
-	<title>Official Site for Cards Plus</title>
+	<title>Cards N Such BackOffice</title>
 </head>
 
 <body>
 <table cellspacing="0" cellpadding="0" border="0">
 <tr>
-    <td colspan="2"><map name="top">
-<area alt="Back to start page" coords="3,9,250,79" href="main.html">
-</map>
-<img src="@Href("~/images/top_bar.jpg")" width="756" height="90" border="0" usemap="#top"></td>
+    
 </tr>
 <tr>
-    <td valign="top"><map name="side">
-<area alt="Greeting cards for all occasions" coords="6,35,112,50" href="greeting.html">
-<area alt="Plush toys of all shaps and sizes" coords="5,51,50,66" href="plush.html">
-<area alt="Set the mood for any occasion with our selection of candles" coords="5,66,77,81" href="candles.html">
-<area alt="Plates, napkins, cups, everything you need for any party" coords="4,80,86,98" href="partyware.html">
-<area alt="For the "on the go" person" coords="4,98,74,112" href="tissue.html">
-<area alt="wrap the gift" coords="4,110,60,127" href="paper.html">
-<area alt="everything from sunglasses to toys." coords="4,126,51,141" href="misc.html">
-<area alt="CD's, DVD's and everthing in between" coords="4,141,97,159" href="music.html">
-<area alt="Merchandiser manual, emplyee manual, etc.." coords="4,180,78,199" href="manuals.html">
-<area alt="Employment forms" coords="4,197,63,213" href="forms.html">
-<area alt="docs" coords="4,212,82,229" href="main.html">
-<area alt="Ad's, video and paper" coords="3,228,59,243" href="media.html">
-<area alt="questions" coords="3,242,51,257" href="faq.html">
-<area alt="Web based data system" coords="4,255,91,277" href="loginpage.asp">
-<area alt="Who we are" coords="6,306,147,321" href="about.html">
-<area alt="about our Corporation" coords="6,320,113,336" href="corp.html">
-<area alt="Join our team" coords="6,336,54,352" href="sales.html">
-<area alt="" coords="5,162,101,179" href="support.html">
-</map>
-<img src="@Href("~/images/side_bar.jpg")" width="150" height="482" border="0" usemap="#side">
-<br><div align="center"><a href="http://www.adobe.com/products/acrobat/readstep.html"><img src="@Href("~/images/getacro.gif")" alt="" width="88" height="31" border="0"></div></a>
-</td>
+    
    <!---  Start --->
      <td width="500" valign="top" align="left">
-	<p><strong>Merchandiser Login Page </strong></p>
+	
     <br />
      @{if(ViewBag.PasswordError == true)
        {
@@ -75,8 +58,7 @@
   <p>
     <input name="LogIn" type="submit" id="LogIn" value="Log In" >
     <br>
-    <input name="testing" type="checkbox" id="testing" value="Yes"> 
-    Check This Box To Indicate A Test Run
+   
 </p>
 }
 	</td>

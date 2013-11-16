@@ -1,5 +1,6 @@
 ﻿using CP_Cards.infasctructure;
 using CP_Cards.Models;
+using CP_Cards.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ using System.Web.Mvc;
 
 namespace CP_Cards.Controllers
 {
+  
+    [Authorize]
     public class HomeController : Controller
     {
        TSView vTS = new TSView();
@@ -23,11 +26,22 @@ namespace CP_Cards.Controllers
             return View();
         }
 
-        public ActionResult MainPage(string Territory,string Password)
+        public ActionResult MainPage(string Territory,string Password, string SessionEnd)
         {
             IEnumerable<Retailers> ret =  ds.GetLoginInfo();
             ViewBag.Terr = Territory;
+            if (SessionEnd == "True")
+                OrderProcessEnd();
             return View(ret);
+        }
+
+        public void OrderProcessEnd()
+        {
+            if (SessionHandler.OrderID != String.Empty)
+            {
+                ds.UpdateExportFlag(SessionHandler.OrderID);
+            }
+            Session.Clear();
         }
 
         public ActionResult Memo(string Territory)
@@ -59,16 +73,17 @@ namespace CP_Cards.Controllers
             //ret.Account = ds.GetSingleAccountInfo(tempAccount);
             if (tempAccount == "")
             {
-                ret.Order = ds.GetInvoiceInfo(ts.StoreNumber);
+                ret.Invoice = ds.GetInvoiceData(ts.StoreNumber);
                 ret.Account = ds.GetSingleAccountInfo(ts.StoreNumber);
                 ret.AccountAll = ds.GetAllAccountInfo(Territory);
             }
             else if (tempAccount != "" || ts.StoreNumber != "" )
             {
-                ret.Order = ds.GetInvoiceInfo(tempAccount);
+                ret.Invoice = ds.GetInvoiceData(tempAccount);
                 ret.Account = ds.GetSingleAccountInfo(tempAccount);
                 ret.AccountAll = ds.GetAllAccountInfo(Territory);
             }
+            ret.TaskList = ds.GetTaskList();
             ViewBag.Terr = Territory;
             return View(ret);
         }
@@ -80,8 +95,11 @@ namespace CP_Cards.Controllers
         
         public ActionResult TimeSheetAdd(TimeSheet timeSheet)
         {
-            ds.AddTimeSheeInfo(timeSheet);
-            return RedirectToAction("TSMessage");
+           int cnt =  ds.AddTimeSheeInfo(timeSheet);
+           if (cnt > 0)
+               return Json(new { success = true });
+            else
+               return Json(new { success = false });
         }
 
 

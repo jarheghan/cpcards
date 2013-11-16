@@ -6,9 +6,11 @@
     <!-- Bootstrap -->
     <link href="@Href("~/Contents/bootstrap/css/bootstrap.css")" rel="stylesheet" media="screen">
     <link href="@Href("~/Contents/bootstrap/css/toastr.css")" rel="stylesheet" media="screen">
+     <link href="@Href("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" media="screen">
       <script src="http://code.jquery.com/jquery.js"></script>
+      <script src="~/Scripts/jquery-ui.js"></script>
       <script src="/Scripts/toastr.js"></script>
-      
+      <script src="~/Scripts/datepicker.js"></script>
   </head>
   <body>
       <div class="navbar navbar-inverse navbar-fixed-top">
@@ -19,7 +21,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Card Plus Project</a>
+          <a class="brand" href="#">Cards N Such</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
               Logged in as Territory <a href="#" class="navbar-link">@ViewBag.Terr</a>
@@ -39,7 +41,7 @@
         <hr>
 
       <footer>
-        <p>&copy; Card Plus @DateTime.Now.ToShortDateString().</p>
+        <p>&copy; Cards N Such @DateTime.Now.ToShortDateString().</p>
       </footer>
             </div>
         </div>
