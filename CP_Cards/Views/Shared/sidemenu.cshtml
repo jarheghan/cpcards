@@ -4,10 +4,10 @@
               <li class="nav-header">Sidebar</li>
               <li class="active"><a href="@Url.Action("MainPage", "Home", new {Territory = ViewBag.Terr })">Home</a></li>
 			  <li class="active"><a href="@Url.Action("OrderEntryStep1", "Order", new {Territory = ViewBag.Terr })">Place Order</a></li>
-			  <li class="active"><a href="@Url.Action("Timesheet", "Home", new {Territory = ViewBag.Terr })">TimeSheet Entry</a></li>
+			  <li class="active"><a href="@Url.Action("Timesheet", "Home", new {Territory = ViewBag.Terr })">Orders in Transit</a></li>
 			  <li class="active"><a href="@Url.Action("RecentOrders", "Home", new {Territory = ViewBag.Terr })">View Recent Orders</a></li>
 
-              <li><a href="@Url.Action("Login","Admin")">Logout</a></li>
+              <li><a href="@Url.Action("Logout","Admin")">Logout</a></li>
               
             </ul>
     </div><!--/.well -->

@@ -278,7 +278,7 @@ namespace CP_Cards.infasctructure
             using (var sqlConnection = new SqlConnection(Constant.connectionString))
             {
                 sqlConnection.Open();
-                invoice = sqlConnection.Query<Invoice>("select * from invoice where inv_store_number = @storenumber"
+                invoice = sqlConnection.Query<Invoice>("select * from invoice where inv_store_number = @storenumber order by inv_date ASC"
                                                   , new
                                                   {
                                                       storenumber = storenumber,

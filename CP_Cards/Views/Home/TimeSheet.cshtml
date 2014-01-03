@@ -1,7 +1,7 @@
 ﻿@model CP_Cards.Models.TSView
 
 @{
-    ViewBag.Title = "TimeSheet";
+    ViewBag.Title = "Orders in Transit";
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
 
@@ -12,7 +12,7 @@
         
 
      <div class="customhero-unit">
-              <h3>TimeSheet Entry Form for Territory @ViewBag.Terr</h3>
+              <h3>Orders in Transit  Form for Territory @ViewBag.Terr</h3>
 
           </div>
 @*<div class="row">
@@ -26,7 +26,7 @@
 @using (Html.BeginForm("TimeSheet", "Home", new { Territory = ViewBag.Terr }))
 {
 <div class="row">
-         <div class="span12"><h4>Please Select Store To fill TimeSheet</h4></div>           
+         <div class="span12"><h4>Please Select Store To View Orders in Transit</h4></div>           
         <div class="span12">
             <div class="span3">@Html.DropDownListFor( m => m.StoreNumber, new SelectList(Model.AccountAll, "StoreNumber","ConInfo", Model.StoreNumber), "--Select--")</div>
             <div class="span1"> OR</div>
@@ -72,7 +72,7 @@
 
 @using(Html.BeginForm("TimeSheetAdd","Home"))
 {
-    string value = String.Format("{0:d}", DateTime.Now.ToString("dd/MM/yyyy"));
+    string value = String.Format("{0:d}", DateTime.Now.ToString("MM/dd/yyyy"));
     <div class="row">
                <div class="span12" style="visibility:hidden">
                     <div class="span1">Date:</div>
@@ -83,7 +83,7 @@
           <div class="span10"><h4>Customer Invoice Information</h4></div>
         <div class="span8">
                <table class=" table table-striped">
-                      <tr><th style="width:10px">Invoice #</th><th style="width:10px">Date</th><th style="width:10px">Cartons</th><th style="width:10px">Tracking Number</th><th style="width:10px">Description</th></tr>
+                      <tr><th style="width:10px">Invoice #</th><th style="width:10px">Date</th><th style="width:10px">Cartons</th><th style="width:10px">Tracking Number</th><th style="width:10px">Description</th><th style="width:10px">Time</th></tr>
                       
                </table>
             </div>
@@ -99,11 +99,12 @@
                                  }
                                <td style="width:10px;"><input type="checkbox" id="inv-@m2.inv_number" name="" class ="invclass" value="@m2.inv_number"></td>
                                <td  class="invnumber" style="width:50px; text-align:left">@m2.inv_number</td>
-                               <td id ="date-@m2.inv_number" class="invdate" style="width:60px;text-align:center">@string.Format("{0:d}",m2.inv_date.ToString("dd/MM/yyyy"))</td>
+                               <td id ="date-@m2.inv_number" class="invdate" style="width:60px;text-align:center">@string.Format("{0:d}",m2.inv_date.ToString("MM/dd/yyyy"))</td>
                                
                                <td id="carton-@m2.inv_number" class="invcarton" style="width:60px; text-align:center">@m2.inv_cartons</td>
                                <td><a href="@link" target="_blank" style="width:100px; text-align:right">@m2.inv_ship_track</a></td>
                                <td style="width:150px; text-align:left">@m2.inv_season</td>
+                               <td style="width:150px; text-align:left">@m2.inv_time_wk</td>
 
                            </tr>
                        </table>

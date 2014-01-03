@@ -87,6 +87,10 @@ namespace CP_Cards.Controllers
             ViewBag.Terr = Territory;
             return View(ret);
         }
+        public ActionResult PrintTimeSheet()
+        {
+            return View();
+        }
         public ActionResult TSMessage(string Territory)
         {
             ViewBag.Terr = Territory;

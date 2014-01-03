@@ -67,7 +67,15 @@ namespace CP_Cards.Controllers
             var returnUrl = qsInfo[1];
             if (Url.IsLocalUrl(returnUrl))
             {
-                return Redirect(returnUrl);
+                if (returnUrl.Contains("?" + territory))
+                {
+                    return Redirect(returnUrl);
+                }
+                else
+                {
+                    var url = returnUrl + "?Territory=" + territory;
+                    return Redirect(url);
+                }
             }
             else
             {

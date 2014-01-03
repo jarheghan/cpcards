@@ -19,5 +19,7 @@ namespace CP_Cards.Models
         public string inv_change_user { get; set; }
         public DateTime inv_change_date { get; set; }
         public string inv_season { get; set; }
+        public int inv_time_wk { get; set; }
+        public int inv_time_wk2 { get; set; }
     }
 }
